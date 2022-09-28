@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Connect";
+}
+
+<h2>Connect</h2>
+
+<div class="panel-group" role="tablist">
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="collapseListGroupHeading">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup" aria-expanded="false" aria-controls="collapseListGroup">
+                    Let's Connect
+                </a>
+            </h4>
+        </div>
+        <div id="collapseListGroup" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading" aria-expanded="false" style="height: 0px;">
+            <div class="well">
+
+                    <form method="post" action="/Database/CheckConnect" novalidate="novalidate">
+                        <div class="form-group" id="ConnectionStrings" name="ConnectionStrings">
+                            @using (Html.BeginForm())
+                            {
+                                @:uid： @Html.TextBox("uid", "", new { @class = "font-weight-bold", style = "font-size:15px;border-radius:10px;" });
+                                @:pwd： @Html.TextBox("pwd", "", new { @class = "font-weight-bold", style = "font-size:15px;border-radius:10px;" });
+                                @:database： @Html.TextBox("database", "", new { @class = "font-weight-bold", style = "font-size:15px;border-radius:10px;" });
+                                @:server： @Html.TextBox("server", "", new { @class = "font-weight-bold", style = "font-size:15px;border-radius:10px;" });
+                            <button type="submit" class="btn btn-default">確認</button>
+                            }
+                        </div>
+                        
+                        <button style="color: darkgray; background-color: lightgray;" type="button" class="btn" onclick="$('#ConnectionString').val('Server=.;Database=AdventureWorks;Trusted_Connection=True')">自動填寫ConnectionString</button>
+                        <button style="color: transparent; background-color: transparent;" type="button" class="btn" onclick="$('#ConnectionString').val('Server=linkliu.hopto.org;Initial Catalog=AdventureWorks;User ID=sa;Password=1234')">自動填寫ConnectionString</button>
+                        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8Fa3A4DBxnNJj1MDsCOcDsj4MQoW4bZXH7R5l6V9cra8s-V7neQpyeIkh75Gnqhu5ejyONM3JpxL7XSORIAC3OnP0bwYHxcpUhgIQdX7tM70S67nrYBpvLByHAAkkYB_0hRjmdEf1Su-30IoSJp5QQQ">
+                    </form>
+
+                </div>
+        </div>
+    </div>
+</div>
+
+@*============================================下半部===========================================*@
+<div class="container body-content">
+    <h2>Index</h2>
+
+    <hr>
+    <br>
+    <ul>
+        <li>
+            <strong>工具介紹</strong>
+            <p>SchemaNote（以下簡稱本平台）是用來檢視、編輯SQL Server上自定義註記之Web平台</p>
+            <br>
+        </li>
+        <li>
+            <strong>原理說明</strong>
+            <p>本平台註記原理在於利用資料庫物件的<mark title="Extended Property"><a title="前往擴充屬性官方說明" href="https://docs.microsoft.com/en-us/sql/relational-databases/system-catalog-views/extended-properties-catalog-views-sys-extended-properties">擴充屬性</a></mark></p>
+            <br>
+        </li>
+        <li>
+            <strong>注意事項</strong>
+            <ul>
+                <li>建議使用SQL Server版本2008(含)以上，版本2005以下可使用另一套開源工具<a title="前往DDC官方說明" href="https://archive.codeplex.com/?p=datadictionary">DDC</a></li>
+                <li>本平台僅異動擴充屬性，不能控制其他資料庫物件、結構</li>
+                <li>目前只支援資料表(Table)、檢視表(View)這兩種物件</li>
+                <li>目前尚未支援SSL的版本，連線字串傳送過程亦無受到保護，請於受保護的網路環境（e.g. 安全內網環境）使用</li>
+            </ul>
+        </li>
+    </ul>
+    <hr>
+    <footer>
+        <p>© 2019 - SchemaNote (Version: 0.1.3)</p>
+    </footer>
+</div>
