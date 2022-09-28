@@ -1,15 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "g6dKQoZyBTWCDwkrjqAuKsNv61iEp5L5EMStl8tfC2GrCdrLxkmYY2oviONtHDuvGJntq/kJAEyHetcD1Gpf5w==",
+  "dgSpecHash": "QmJP6W5Iof+zbpcoyF7R9HJ9DFcmacBt+df5QTOQCHyOhYmeWjoln1AxiajiTbUGIaiQ+gLnb/Ct4nBnE/jkkA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\A11170\\source\\repos\\Airiti_msit_141\\Airiti_msit_141\\Airiti_msit_141.csproj",
+  "projectFilePath": "D:\\A11169\\Desktop\\華藝數位-試用期\\C#\\作業\\Airiti_msit_141\\Airiti_msit_141.csproj",
   "expectedPackageFiles": [],
   "logs": [
     {
       "code": "Undefined",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "讀取快取檔案 C:\\Users\\A11170\\source\\repos\\Airiti_msit_141\\Airiti_msit_141\\obj\\project.nuget.cache 時發生問題: Invalid property identifier character: <. Path 'version', line 3, position 0."
+      "message": "讀取快取檔案 D:\\A11169\\Desktop\\華藝數位-試用期\\C#\\作業\\Airiti_msit_141\\obj\\project.nuget.cache 時發生問題: Invalid property identifier character: <. Path 'version', line 3, position 0."
     }
   ]
 }
