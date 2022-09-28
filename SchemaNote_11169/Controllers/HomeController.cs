@@ -12,7 +12,7 @@ namespace SchemaNote_11169.Controllers
 {
     public class HomeController : Controller
     {
-     .
+    
         public ActionResult Index()
         {
             return View();
