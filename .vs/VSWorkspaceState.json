@@ -1,7 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Airiti_msit_141"
   ],
+<<<<<<< HEAD
   "SelectedNode": "\\Airiti_msit_141.sln",
+=======
+  "SelectedNode": "\\Airiti_msit_141\\Program.cs",
+>>>>>>> 王柏勛
   "PreviewInSolutionExplorer": false
 }

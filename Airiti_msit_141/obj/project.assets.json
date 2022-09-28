@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\A11170\\Source\\Repos\\Airiti_msit_141\\Airiti_msit_141\\Airiti_msit_141.csproj",
+      "projectUniqueName": "C:\\Users\\A11170\\source\\repos\\Airiti_msit_141\\Airiti_msit_141\\Airiti_msit_141.csproj",
       "projectName": "Airiti_msit_141",
-      "projectPath": "C:\\Users\\A11170\\Source\\Repos\\Airiti_msit_141\\Airiti_msit_141\\Airiti_msit_141.csproj",
+      "projectPath": "C:\\Users\\A11170\\source\\repos\\Airiti_msit_141\\Airiti_msit_141\\Airiti_msit_141.csproj",
       "packagesPath": "C:\\Users\\A11170\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\A11170\\Source\\Repos\\Airiti_msit_141\\Airiti_msit_141\\obj\\",
+      "outputPath": "C:\\Users\\A11170\\source\\repos\\Airiti_msit_141\\Airiti_msit_141\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -69,5 +69,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.411\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "讀取快取檔案 C:\\Users\\A11170\\source\\repos\\Airiti_msit_141\\Airiti_msit_141\\obj\\project.nuget.cache 時發生問題: Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
