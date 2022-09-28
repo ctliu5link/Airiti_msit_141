@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32630.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airiti_msit_141", "Airiti_msit_141\Airiti_msit_141.csproj", "{870A9FAC-2D95-486F-A9FC-0431735E9439}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Airiti_msit_141", "Airiti_msit_141\Airiti_msit_141.csproj", "{870A9FAC-2D95-486F-A9FC-0431735E9439}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaNote_11170", "SchemaNote_11170\SchemaNote_11170.csproj", "{74DB160A-536B-4B57-9973-D4D1BEFDB62D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaNote_11170_(2)", "SchemaNote_11170_(2)\SchemaNote_11170_(2).csproj", "{39B9F159-E8A2-4C5C-8531-E89DA27BFC69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{870A9FAC-2D95-486F-A9FC-0431735E9439}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{870A9FAC-2D95-486F-A9FC-0431735E9439}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{870A9FAC-2D95-486F-A9FC-0431735E9439}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74DB160A-536B-4B57-9973-D4D1BEFDB62D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74DB160A-536B-4B57-9973-D4D1BEFDB62D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74DB160A-536B-4B57-9973-D4D1BEFDB62D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74DB160A-536B-4B57-9973-D4D1BEFDB62D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39B9F159-E8A2-4C5C-8531-E89DA27BFC69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39B9F159-E8A2-4C5C-8531-E89DA27BFC69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39B9F159-E8A2-4C5C-8531-E89DA27BFC69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39B9F159-E8A2-4C5C-8531-E89DA27BFC69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
