@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaNotes_11168", "Schema
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaNote_11169", "SchemaNote_11169\SchemaNote_11169.csproj", "{345EE804-A149-4BEA-96B7-8FF803E0DB28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaNotes_11168(v1)", "C:\Github_VS\SchemaNotes_11168(v1)\SchemaNotes_11168(v1).csproj", "{CAA704B9-3A0F-44DC-B4B9-BBEC0ABB86AE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaNotes_11168(v2)", "SchemaNotes_11168(v2)\SchemaNotes_11168(v2).csproj", "{DC318AE1-1BFC-4183-B1BF-09AF235FCA3A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{345EE804-A149-4BEA-96B7-8FF803E0DB28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{345EE804-A149-4BEA-96B7-8FF803E0DB28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{345EE804-A149-4BEA-96B7-8FF803E0DB28}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CAA704B9-3A0F-44DC-B4B9-BBEC0ABB86AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CAA704B9-3A0F-44DC-B4B9-BBEC0ABB86AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CAA704B9-3A0F-44DC-B4B9-BBEC0ABB86AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CAA704B9-3A0F-44DC-B4B9-BBEC0ABB86AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC318AE1-1BFC-4183-B1BF-09AF235FCA3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC318AE1-1BFC-4183-B1BF-09AF235FCA3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC318AE1-1BFC-4183-B1BF-09AF235FCA3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC318AE1-1BFC-4183-B1BF-09AF235FCA3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

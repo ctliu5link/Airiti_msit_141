@@ -1,0 +1,90 @@
+﻿@using SchemaNotes_11168_v2_.ViewModels
+@model   SchemaNotes_11168_v2_.ViewModels.SchemaViewModel
+
+    <style>
+    table td {
+        width: 90px;
+        white-space: normal;
+    }
+</style>
+<h2>SchemaNotes Details  </h2>
+<div class="container body-content">
+
+    <br> 
+    @{
+//int count = 0;
+        foreach (var q in Model.DASNTList) { 
+       
+
+            <div class="panel-group accordion" id="accordion1" role="tablist" aria-multiselectable="true">
+            </div>
+            <div class="panel panel-default  ">
+                <div class="panel-heading row" role="tab">
+                    <div class="col-lg-10">
+                        <span class="panel-title" role="button" data-toggle="collapse" data-parent="#accordion1" href="#" aria-expanded="false" aria-controls="collapse1">
+                            <span class="caret"></span>
+                            <strong class="objName">
+                               
+                            </strong>
+                        </span>
+                        <a class="description text-info" href="/Home/Details/85575343">
+                            
+                        </a>
+                    </div>
+                    <div class="col-lg-2">
+                        <span class="count" data-toggle="tooltip" data-placement="top" title="" data-original-title="注意！此為參考值，非準確值。">
+                            筆數:<strong class="text-info"></strong>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+            <div id="" class="panel-body panel-collapse collapse tabDetail" role="tabpanel">
+                <table class="tabDetail_left ">
+                    <tbody>
+                        <tr>
+                            <td>物件類型</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>結構描述名稱</td>
+                            <td> </td>
+                        </tr>
+                        <tr>
+                            <td> 物件創建日期  </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>物件修改日期 </td>
+                            <td> </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="tabDetail_right">
+                    <div>
+                        備註 
+                    </div>
+                </div>
+            </div>
+            <table class="table  table-bordered  table-hover subTable " border="1">
+                <thead>
+                    <tr>
+                        <th scope="col">欄位名稱</th>
+                        <th scope="col">欄位說明</th>
+                        <th scope="col">資料型態</th>
+                        <th scope="col">主鍵</th>
+                        <th scope="col">  不為Null</th>
+                        <th scope="col">預設值</th>
+                        <th scope="col">備註</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        }
+    }
+    <hr>
+    <footer>
+        <p>© 2022 - SchemaNotes (Version: 0.1.0)</p>
+    </footer>
+</div>
