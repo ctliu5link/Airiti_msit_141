@@ -1,4 +1,6 @@
-﻿@model Tuple<List<SchemaNote_11170__2_.Models.DataObject.DO_TableDetail>, List<SchemaNote_11170__2_.Models.DataObject.DO_ColumnDetail>>
+﻿@model  SchemaNote_11170__2_.ViewModel.VM_ShowData
+@using SchemaNote_11170__2_.Models.DataObject
+
 @{
     ViewBag.Title = "ShowData";
 }
@@ -6,11 +8,10 @@
 <h2>ShowData</h2>
 
 @{
+
     int count = 0;
 
     <div class="container body-content">
-
-
         <div class="form-inline search">
             <div class="form-group form-group-lg">
                 <label for="choose">搜尋項目</label>
@@ -36,9 +37,9 @@
             </div>
         </div>
         <br>
+        @*===============================↑↑↑↑↑↑搜尋↑↑↑↑↑===================================*@
 
-
-        @foreach (var item1 in Model.Item1)
+        @foreach (var item1 in Model.TableDetail)
         {
             count++;
             <div class="panel-group accordion" id="accordion1" role="tablist" aria-multiselectable="true">
@@ -52,13 +53,35 @@
                                 @item1.table_Name
                             </strong>
                         </span>
-                        <a class="description text-info" href="/Home/Details/85575343">
-                            <code>
-                                @item1.table_Explanation
-                            </code>
+
+                        <a class="description text-info" >
+                            @if (item1.table_Explanation != "null")
+                            {
+                                @Html.ActionLink(item1.table_Explanation, "Details", "Database", new { name = item1.table_Name ,connection=Model.Connection}, "")
+                            }
+                            else
+                            {
+                                <code>
+                                    @Html.ActionLink(item1.table_Explanation, "Details", "Database", new { name = item1.table_Name, connection = Model.Connection }, "")
+                                </code>
+                            }
                         </a>
+                        @*==========原本寫法=========
+                        <a class="description text-info" href="/Database/Details/@(item1.table_Name)" >
+                            @if (item1.table_Explanation != "null")
+                            {
+                                @item1.table_Explanation
+                            }
+                            else
+                            {
+                                <code>
+                                    @item1.table_Explanation
+                                </code>
+                            }
+                        </a>*@
+
                         <span class="count" data-toggle="tooltip" data-placement="top" title="" data-original-title="注意！此為參考值，非準確值。" style="float:right">
-                            筆數:<strong class="text-info">@item1.table_Count</strong>
+                            @Html.DisplayNameFor(model => model.Table.table_Count)<strong class="text-info">@item1.table_Count</strong>
                         </span>
                     </div>
                     <div id="collapse@(count)" class="panel-body panel-collapse tabDetail collapse " role="tabpanel" aria-expanded="true" style="">
@@ -66,15 +89,7 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        物件類型：
-                                    </td>
-                                    <td>
-                                        資料表
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        結構描述名稱：
+                                        @Html.DisplayNameFor(model => model.Table.table_ObjectType)  
                                     </td>
                                     <td>
                                         @item1.table_ObjectType
@@ -82,7 +97,15 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        物件創建日期：
+                                        @Html.DisplayNameFor(model => model.Table.table_Struct)  
+                                    </td>
+                                    <td>
+                                        @item1.table_Struct
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayNameFor(model => model.Table.table_CreateDate)  
                                     </td>
                                     <td>
                                         @item1.table_CreateDate
@@ -90,7 +113,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        物件修改日期：
+                                        @Html.DisplayNameFor(model => model.Table.table_ModifyDate)  
                                     </td>
                                     <td>
                                         @item1.table_ModifyDate
@@ -100,14 +123,33 @@
                         </table>
                         <div class="tabDetail_right">
                             <div>
-                                備註
+                                @Html.DisplayNameFor(model => model.Table.table_Description)
                             </div>
-                            <div>
-                                <a class="remark text-info" href="/Home/Details/85575343">
-                                    <code>
-                                        @item1.table_Description
-                                    </code>
+                            <div class="NoteField">
+                                <a class="remark text-info">
+                                    @if (item1.table_Explanation != "null")
+                                    {
+                                        @Html.ActionLink(item1.table_Description, "Details", "Database", new { name = item1.table_Name, connection = Model.Connection }, "")
+                                    }
+                                    else
+                                    {
+                                        <code>
+                                            @Html.ActionLink(item1.table_Description, "Details", "Database", new { name = item1.table_Name, connection = Model.Connection }, "")
+                                        </code>
+                                    }
                                 </a>
+                                @*<a class="remark text-info" href="/Database/Details/@(item1.table_Name)">
+                                    @if (item1.table_Description != "null")
+                                    {
+                                        @item1.table_Description
+                                    }
+                                    else
+                                    {
+                                        <code>
+                                            @item1.table_Description
+                                        </code>
+                                    }*@
+                                @*</a>*@
                             </div>
                         </div>
                     </div>
@@ -115,32 +157,30 @@
                     <table class="table table-bordered table-hover subTable" border="1">
                         <thead>
                             <tr>
-
                                 <th>
-                                    欄位名稱
+                                    @Html.DisplayNameFor(model=>model.Column.column_Name)
                                 </th>
                                 <th>
-                                    欄位說明
+                                    @Html.DisplayNameFor(model => model.Column.column_Explanation)
                                 </th>
                                 <th>
-                                    資料型態
+                                    @Html.DisplayNameFor(model => model.Column.column_DataType)
                                 </th>
                                 <th>
-                                    主鍵
+                                    @Html.DisplayNameFor(model => model.Column.column_PK)
                                 </th>
                                 <th>
-                                    不為Null
+                                    @Html.DisplayNameFor(model => model.Column.column_IsNotNull)
                                 </th>
                                 <th>
-                                    預設值
+                                    @Html.DisplayNameFor(model => model.Column.column_Default)
                                 </th>
                                 <th>
-                                    備註
+                                    @Html.DisplayNameFor(model => model.Column.column_Description)
                                 </th>
                             </tr>
                         </thead>
-
-                        @foreach (var item2 in Model.Item2)
+                        @foreach (var item2 in Model.ColumnDetail)
                         {
                             if (item2.table_Name == item1.table_Name)
                             {
@@ -152,17 +192,36 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <a class="description text-info" href="/Home/Details/85575343">
-                                                <code>
-                                                    @item2.column_Explanation
-                                                </code>
+                                            <a class="description text-info">
+                                                @if (item1.table_Explanation != "null")
+                                                {
+                                                    @Html.ActionLink(item2.column_Explanation, "Details", "Database", new { name = item1.table_Name, connection = Model.Connection }, "")
+                                                }
+                                                else
+                                                {
+                                                    <code>
+                                                        @Html.ActionLink(item2.column_Explanation, "Details", "Database", new { name = item1.table_Name, connection = Model.Connection }, "")
+                                                    </code>
+                                                }
                                             </a>
+                                            @*<a class="description text-info" href="/Database/Details/@(count)">
+                                                @if (item2.column_Explanation != "null")
+                                                {
+                                                    @item2.column_Explanation
+                                                }
+                                                else
+                                                {
+                                                    <code>
+                                                        @item2.column_Explanation
+                                                    </code>
+                                                }
+                                            </a>*@
                                         </td>
                                         <td>
                                             @item2.column_DataType
                                         </td>
                                         @{
-                                            if (item2.column_PK == "1")
+                                            if (item2.column_PK == PK主鍵.YES.ToString())
                                             {
                                                 <td>
                                                     <input checked="checked" class="check-box" disabled="disabled" type="checkbox">
@@ -177,7 +236,7 @@
                                         }
 
                                         @{
-                                            if (item2.column_IsNotNull == "YES")
+                                            if (item2.column_IsNotNull == Null判斷.不為Null.ToString())
                                             {
                                                 <td>
                                                     <input checked="checked" class="check-box" disabled="disabled" type="checkbox">
@@ -194,20 +253,39 @@
                                             @item2.column_Default
                                         </td>
                                         <td>
-                                            <a class="remark text-info" href="/Home/Details/85575343">
-                                                <code>
-                                                    @item2.column_Description
-                                                </code>
+                                            <a class="description text-info">
+                                                @if (item1.table_Explanation != "null")
+                                                {
+                                                    @Html.ActionLink(item2.column_Description, "Details", "Database", new { name = item1.table_Name, connection = Model.Connection }, "")
+                                                }
+                                                else
+                                                {
+                                                    <code>
+                                                        @Html.ActionLink(item2.column_Description, "Details", "Database", new { name = item1.table_Name, connection = Model.Connection }, "")
+                                                    </code>
+                                                }
                                             </a>
+                                            @*<a class="remark text-info" href="/Database/Details/@(count)">
+                                                @if (item2.column_Description != "null")
+                                                {
+                                                    @item2.column_Description
+                                                }
+                                                else
+                                                {
+                                                    <code>
+                                                        @item2.column_Description
+                                                    </code>
+                                                }
+                                            </a>*@
                                         </td>
                                     </tr>
                                 </tbody>
                             }
-
                         }
                     </table>
                 </div>
             </div>
+
         }
     </div>
 }

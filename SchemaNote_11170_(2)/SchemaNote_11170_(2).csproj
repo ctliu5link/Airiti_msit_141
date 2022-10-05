@@ -134,6 +134,8 @@
     <Compile Include="Models\DataObject\DO_ConnectionString.cs" />
     <Compile Include="Models\DataObject\DO_TableDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\SV_ShowData.cs" />
+    <Compile Include="ViewModel\VM_ShowData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -173,6 +175,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Database\Connect.cshtml" />
     <Content Include="Views\Database\ShowData.cshtml" />
+    <Content Include="Views\Database\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

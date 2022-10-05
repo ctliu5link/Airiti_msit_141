@@ -1,0 +1,176 @@
+﻿@model  SchemaNote_11170__2_.ViewModel.VM_ShowData
+@using SchemaNote_11170__2_.Models.DataObject
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="container body-content">
+
+
+    <h2>Details</h2>
+    @*<div>
+            <a class="btn btn-default" href="/Home/Overview"><strong>&lt; </strong>Overview</a>
+            <button id="EditAll" type="button" class="btn btn-info" onclick="EditAll();">編輯全部</button>
+        </div>*@
+    <br>
+    @{
+        foreach (var item1 in Model.TableDetail)
+        {
+            <form onsubmit="EmptyString('null')" method="post" class="panel panel-default" action="/Home/Details/37575172">
+                <input name="[0].COLUMN_ID" value="0" style="display:none;">
+                <div class="panel-heading">
+                    <stron class="objName">
+                        @item1.table_Name
+                    </stron>
+                    <sapn class="NoteField" data-field="MS_Description" data-content="搜尋引擎的文件" data-column_id="0" data-sortnum="0" data-class="form-control tabMS_Description">
+                        @item1.table_Explanation
+                        <span class="field-validation-valid" data-valmsg-for="[0].MS_Description" data-valmsg-replace="true"></span>
+                    </sapn>
+                    <button type="submit" id="submit" class="btn btn-primary" style="display:none;">提交</button>
+                    <span class="count" data-toggle="tooltip" data-placement="top" title="注意！此為參考值，非準確值。">
+                        @Html.DisplayNameFor(model => model.Table.table_Count)<strong class="text-info">@item1.table_Count</strong>
+                    </span>
+                </div>
+                <div class="panel-body">
+                    <table class="tabDetail_left">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.Table.table_ObjectType)
+                                </td>
+                                <td>
+                                    @item1.table_ObjectType
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.Table.table_Struct)
+                                </td>
+                                <td>
+                                    @item1.table_Struct
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.Table.table_CreateDate)
+                                </td>
+                                <td>
+                                    @item1.table_CreateDate
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.Table.table_ModifyDate)
+                                </td>
+                                <td>
+                                    @item1.table_ModifyDate
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="tabDetail_right">
+                        <div>
+                            @Html.DisplayNameFor(model => model.Table.table_Description)
+                        </div>
+                        <div class="NoteField" data-field="REMARK" data-content="null" data-column_id="0" data-sortnum="0" data-class="form-control">
+                            <code>
+                                @item1.table_Description
+                            </code>
+                            <span class="field-validation-valid" data-valmsg-for="[0].REMARK" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                </div>
+
+               
+                <table class="table table-bordered table-hover table-responsive subTable">
+
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Column.column_Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Column.column_Explanation)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Column.column_DataType)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Column.column_PK)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Column.column_IsNotNull)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Column.column_Default)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Column.column_Description)
+                            </th>
+                        </tr>
+                    </thead>
+                    @foreach (var item2 in Model.ColumnDetail)
+                    {
+                        <tbody>
+                            <tr>
+                                <td rowspan="1">
+                                    @item2.column_Name
+                                    <input name="[1].COLUMN_ID" value="1" style="display:none;">
+                                </td>
+                                <td class="NoteField" data-field="MS_Description" data-content="文章編號" data-column_id="1" data-sortnum="1" data-class="form-control" rowspan="1">
+                                    @item2.column_Explanation
+                                    <span class="field-validation-valid" data-valmsg-for="[1].MS_Description" data-valmsg-replace="true"></span>
+                                </td>
+                                <td rowspan="1">
+                                    @item2.column_DataType
+                                </td>
+                                @if (item2.column_PK == PK主鍵.YES.ToString())
+                                {
+                                    <td>
+                                        <input checked="checked" class="check-box" disabled="disabled" type="checkbox">
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <input class="check-box" disabled="disabled" type="checkbox">
+                                    </td>
+                                }
+                                @if (item2.column_IsNotNull == Null判斷.不為Null.ToString())
+                                {
+                                    <td>
+                                        <input checked="checked" class="check-box" disabled="disabled" type="checkbox">
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <input class="check-box" disabled="disabled" type="checkbox">
+                                    </td>
+                                }
+                                <td>
+                                    @item2.column_Default
+                                </td>
+                                <td class="NoteField" data-field="REMARK" data-content="等於TextualETL_OCR.DocID" data-column_id="1" data-sortnum="1" data-class="form-control">
+                                    @item2.column_Explanation
+                                    <span class="field-validation-valid" data-valmsg-for="[等於TextualETL_OCR.DocID].REMARK" data-valmsg-replace="true"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+                
+
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8Fa3A4DBxnNJj1MDsCOcDshJOycFUGl1BpbEGPCsFmbE8JbR66ZARPaNev9c5tQylohzBinG9vLGPECyncScdAlAlsaIBU9ZgNXMaP2psmRj47yPX61SchwNSrmAj2YEauVo44Mb3s25OYuxIufHECA">
+            </form>
+        }
+
+        <hr>
+        <footer>
+            <p>© 2019 - SchemaNote (Version: 0.1.3)</p>
+        </footer>
+    }
+</div>
+

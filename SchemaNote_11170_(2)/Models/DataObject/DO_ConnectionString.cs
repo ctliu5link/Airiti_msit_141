@@ -15,6 +15,5 @@ namespace SchemaNote_11170__2_.Models.DataObject
         {
             return $"uid={uid};pwd={pwd};database={database};server={server}";
         }
-        
     }
 }
