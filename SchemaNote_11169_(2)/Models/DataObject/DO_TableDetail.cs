@@ -3,22 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SchemaNote_11169.Models
+namespace SchemaNote_11169__2_.Models.DataObject
 {
-    public class columnschema
-    {
-        public string 主鍵 { get; set; } 
-        public string 欄位名稱 { get;set;}
-        public string 欄位說明 { get; set;}
-        public string 資料型態 { get; set; }
-        public string 不為NULL { get; set; }
-        public string 預設值 { get; set; }
-        public string 備註 { get; set; }
-        public string 資料表 { get; set; }
-
-    }
-
-    public class titalschema
+    public class DO_TableDetail
     {
         public string 物件類型 { get; set; }
         public string 備註 { get; set; }

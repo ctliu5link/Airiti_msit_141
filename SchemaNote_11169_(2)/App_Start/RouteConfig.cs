@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace SchemaNote_11169
+namespace SchemaNote_11169__2_
 {
     public class RouteConfig
     {
@@ -16,7 +16,7 @@ namespace SchemaNote_11169
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Connection", id = UrlParameter.Optional }
+                defaults: new { controller = "Database", action = "Connection", id = UrlParameter.Optional }
             );
         }
     }

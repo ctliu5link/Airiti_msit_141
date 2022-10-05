@@ -1,64 +1,23 @@
-﻿using System;
+﻿using SchemaNote_11169__2_.Models.DataObject;
+using SchemaNote_11169__2_.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
-using System.Data.SqlClient;
-using System.Windows;
-using SchemaNote_11169.Models;
-using System.Web.Services.Description;
+using System.Windows.Forms;
 
-namespace SchemaNote_11169.Controllers
+namespace SchemaNote_11169__2_.Models.DataAccess
 {
-    public class HomeController : Controller
+    public class DA_ConnectionString
     {
-    
-        public ActionResult Index()
+        public ConnectionViewModel ColumnDetails(string sql)
         {
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        public  ActionResult Connection(Connection a)
-        {
-            if (string.IsNullOrEmpty(a.txtkeyword))
-            {
-                return View();
-            }
-            return RedirectToAction("action", new { sa = a.txtkeyword });
-
-        }
-        public ActionResult action(string sa)
-        { 
-        if (string.IsNullOrEmpty(sa))
-            {
-                MessageBox.Show("請輸入連接字串");
-                return View();
-            }    
-            return RedirectToAction("connect",new { sql= sa});
-        }
-
-        public ActionResult connect(string sql)
-         {
-            List<columnschema> columnlist = new List<columnschema>();
-            List<titalschema> titallist = new List<titalschema>();
-            
+            List<DO_ColumnDetail> columnDetailsList = new List<DO_ColumnDetail>();
+            List<DO_TableDetail> tableDetailsList = new List<DO_TableDetail>();
             try
             {
-                SqlConnection cn=new SqlConnection(sql);
+                SqlConnection cn = new SqlConnection(sql);
                 cn.Open();
                 SqlCommand command = new SqlCommand(@"SELECT ISC.TABLE_NAME AS [資料表], 
        SC.name AS[A.欄位名稱],
@@ -93,7 +52,7 @@ ORDER BY 資料表; ", cn);
                 SqlDataReader dataReader = command.ExecuteReader();
                 while (dataReader.Read())
                 {
-                    columnschema a = new columnschema();
+                    DO_ColumnDetail a = new DO_ColumnDetail();
                     a.不為NULL = $"{dataReader["E.不為NULL"]}";
                     a.備註 = $"{dataReader["G.備註"]}";
                     a.欄位名稱 = $"{dataReader["A.欄位名稱"]}";
@@ -101,8 +60,8 @@ ORDER BY 資料表; ", cn);
                     a.資料型態 = $"{dataReader["C.資料型態"]}";
                     a.預設值 = $"{dataReader["F.預設值"]}";
                     a.主鍵 = $"{dataReader["D.主鍵"]}";
-                    a.資料表= $"{dataReader["資料表"]}";
-                    columnlist.Add(a);
+                    a.資料表 = $"{dataReader["資料表"]}";
+                    columnDetailsList.Add(a);
                 }
                 cn.Close();
                 cn.Open();
@@ -153,29 +112,34 @@ FROM INFORMATION_SCHEMA.TABLES AS IST
     GROUP BY OBJECT_NAME(object_id)
 ) st ON st.tablename = so.name;", cn);
 
-                
+
                 SqlDataReader dataReader2 = command2.ExecuteReader();
                 while (dataReader2.Read())
                 {
-                    titalschema a = new titalschema();
-                    a.物件類型=$"{dataReader2["物件類型"]}";
-                    a.備註= $"{dataReader2["備註"]}";
-                    a.物件說明= $"{dataReader2["物件說明"]}";
-                    a.結構描述名稱= $"{dataReader2["結構描述名稱"]}";
-                    a.物件名稱= $"{dataReader2["物件名稱"]}";
-                    a.物件創造日期= $"{dataReader2["物件創造日期"]}";
-                    a.物件修改日期= $"{dataReader2["物件修改日期"]}";
-                    a.總筆數= $"{dataReader2["總筆數"]}";
-                    titallist.Add(a);
+                    DO_TableDetail a = new DO_TableDetail();
+                    a.物件類型 = $"{dataReader2["物件類型"]}";
+                    a.備註 = $"{dataReader2["備註"]}";
+                    a.物件說明 = $"{dataReader2["物件說明"]}";
+                    a.結構描述名稱 = $"{dataReader2["結構描述名稱"]}";
+                    a.物件名稱 = $"{dataReader2["物件名稱"]}";
+                    a.物件創造日期 = $"{dataReader2["物件創造日期"]}";
+                    a.物件修改日期 = $"{dataReader2["物件修改日期"]}";
+                    a.總筆數 = $"{dataReader2["總筆數"]}";
+                    tableDetailsList.Add(a);
                 }
-                
+
                 cn.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            return View(new Tuple<List<columnschema>,List<titalschema>>(columnlist, titallist));
+
+            ConnectionViewModel connectionView = new ConnectionViewModel();
+            connectionView.ColumnDetailListViewModel = columnDetailsList;
+            connectionView.TableDetailListViewModel = tableDetailsList;
+
+            return (connectionView);
         }
     }
 }
