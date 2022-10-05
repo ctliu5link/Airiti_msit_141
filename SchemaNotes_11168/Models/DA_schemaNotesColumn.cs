@@ -39,8 +39,7 @@ namespace SchemaNotes_11168.Models
                    + " LEFT JOIN sys.extended_properties SE1 ON SE1.minor_id = SC.column_id AND SE1.major_id = SO.object_id    AND SE1.name = 'MS_Description'"
                    + " LEFT JOIN INFORMATION_SCHEMA.COLUMNS AS ISC ON ISC.COLUMN_NAME = SC.name    AND ISC.TABLE_NAME = SO.name"
                    + " LEFT JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS ISK ON ISK.TABLE_NAME = SO.name  AND SC.name = ISK.COLUMN_NAME "
-                   + $"WHERE OBJECT_NAME(SO.object_id) IN "
-                      + "(SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES) ORDER BY SC.name;";
+                   +"WHERE OBJECT_NAME(SO.object_id) IN (SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES) ORDER BY SC.name;";
                 #endregion
                 SqlCommand command = new SqlCommand(commandText, conn);
                 conn.Open();

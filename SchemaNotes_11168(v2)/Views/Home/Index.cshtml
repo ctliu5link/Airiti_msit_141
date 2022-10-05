@@ -43,6 +43,7 @@
         int count = 0;
         foreach (var itemTable in Model.DASNTList)
         {
+
             count++;
             <div class="panel-group accordion" id="accordion1" role="tablist" aria-multiselectable="true">
             </div>
@@ -109,7 +110,7 @@
                     @{
                         foreach (var itemColumn in Model.DASNCList)
                         {
-                            if (itemColumn.tableName == itemColumn.tableName)
+                            if (itemColumn.tableName == itemTable.tableName)
                             {
                                 <tr>
                                     <td>@itemColumn.columnName</td>
