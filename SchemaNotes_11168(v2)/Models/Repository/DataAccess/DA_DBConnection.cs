@@ -1,14 +1,14 @@
-﻿using System;
+﻿using SchemaNotes_11168_v2_.Models.Repository.DataAccess.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace SchemaNotes_11168_v2_.Models.Repository.DataAccess
 {
-    public class DA_DBConnection
+    public class DA_DBConnection:DA_Base
     {
-        public string connStrings { get; set; }
-        public DA_DBConnection(DO_DBconnection model  )
+        public DA_DBConnection(DO_DBconnection model)
         {
             if (string.IsNullOrEmpty(model.uid) && string.IsNullOrEmpty(model.pwd) && string.IsNullOrEmpty(model.database) && string.IsNullOrEmpty(model.server))
             {

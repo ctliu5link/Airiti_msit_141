@@ -1,5 +1,6 @@
 ﻿using SchemaNotes_11168_v2_.Models;
 using SchemaNotes_11168_v2_.Models.Repository.DataAccess;
+using SchemaNotes_11168_v2_.Models.Repository.DataAccess.Base;
 using SchemaNotes_11168_v2_.Models.Services;
 using SchemaNotes_11168_v2_.ViewModels;
 using System;
@@ -25,13 +26,12 @@ namespace SchemaNotes_11168_v2_.Controllers
         }
         public ActionResult DB_Connection(DO_DBconnection model) 
         {
-            DA_SchemaNotesTable DASNT = new DA_SchemaNotesTable();
-            DASNT.IsConnectedSever(model);
-            if (DASNT.IsConnected==false)
+            DA_DBConnection DADBC = new DA_DBConnection(model);
+            bool val;
+            string connstring;
+            (val, connstring) = DADBC.IsConnectedSever(model);
+            if (DADBC.IsConnected==false)
             {
-                bool val;
-                string connstring;
-                (val, connstring) = DASNT.IsConnectedSever(model);
                 if (val == false && connstring == "New")
                 {
                     return View();
