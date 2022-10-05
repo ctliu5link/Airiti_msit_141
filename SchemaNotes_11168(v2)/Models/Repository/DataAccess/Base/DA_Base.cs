@@ -16,12 +16,11 @@ namespace SchemaNotes_11168_v2_.Models.Repository.DataAccess.Base
         public bool IsConnstrings { get; set; }
        public  Tuple<bool, string> IsConnectedSever(DO_DBconnection model)
         {
-           
-            connStrings = model.getConnstrings(); 
-            if (string.IsNullOrEmpty(model.connStrings))
+            DA_DBConnection DADBC = new DA_DBConnection(model);
+            string connStrings = DADBC.connStrings;
+            if (connStrings=="Error"||connStrings=="New")
             {
                 IsConnstrings = false;
-                connStrings = "error";
                 return Tuple.Create(IsConnstrings, connStrings);
             }
             else
@@ -30,13 +29,14 @@ namespace SchemaNotes_11168_v2_.Models.Repository.DataAccess.Base
                 {
                     try
                     {
+                        conn.Open();
                         IsConnected = true;
                         return Tuple.Create(IsConnected, connStrings);
                     }
                     catch (SqlException ex)
                     {
                         IsConnected = false;
-                        return Tuple.Create(IsConnected, ex.Message);
+                        return Tuple.Create(IsConnected,ex.Message);
                     }
                     finally
                     {

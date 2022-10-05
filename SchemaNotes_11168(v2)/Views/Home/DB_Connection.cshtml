@@ -9,7 +9,6 @@
                 </h4>
             </div>
             <div id="collapseListGroup" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading" aria-expanded="false" style="height: 0px;">
-
                 <div class="col">
                     <form asp-action="DB_Connection" method="post">
                         @using (@Html.BeginForm())
@@ -21,7 +20,7 @@
                             <button type="submit" class="btn btn-primary">確認</button>
                         }
                     </form>
-                    <h3 style="color:blue">@ViewBag.Message</h3>
+                    <h3 style="color:blue">@ViewBag.connectedString</h3>
                 </div>
             </div>
         </div>

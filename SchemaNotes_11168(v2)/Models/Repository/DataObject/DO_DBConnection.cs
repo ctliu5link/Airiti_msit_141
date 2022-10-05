@@ -16,19 +16,11 @@ namespace SchemaNotes_11168_v2_.Models
         /// <summary>
      /// region fields for commponents of connectionstrings
      /// </summary>
-        #region fields of components of connectionstrings
         public string uid { get; set; }
         public string pwd { get; set; }
         public string database { get; set; }
         public string server { get; set; }
-        public string connStrings { get; set; }
-        #endregion
-        public string getConnstrings() {
-            if (string.IsNullOrEmpty(uid) || string.IsNullOrEmpty(pwd) || string.IsNullOrEmpty(database) || string.IsNullOrEmpty(server)) {
-                return "";
-            }
-            connStrings = $"uid={uid} ; pwd={pwd};database={database};server={server};";
-            return connStrings;
+        public string defaultConnectedString { get; set; }
         }
-    }
+ 
 }

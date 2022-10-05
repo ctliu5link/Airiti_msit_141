@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
+using SchemaNotes_11168_v2_.Models.Repository.DataAccess;
 
 namespace SchemaNotes_11168_v2_.Models
 {
@@ -25,7 +26,7 @@ namespace SchemaNotes_11168_v2_.Models
            + $"WHERE OBJECT_NAME(SO.object_id) IN "
               + "(SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES) ORDER BY SC.name;";
         #endregion
-        public List<DO_SchemaNotesColumn> GetTables(DO_DBconnection model)
+        public List<DO_SchemaNotesColumn> GetTables(DA_DBConnection model)
         {
             using (SqlConnection conn = new SqlConnection(model.connStrings))
             {

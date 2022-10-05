@@ -5,6 +5,7 @@ using System.Web;
 using System.Data.SqlClient;
 using SchemaNotes_11168_v2_.Models;
 using SchemaNotes_11168_v2_.Models.Repository.DataAccess.Base;
+using SchemaNotes_11168_v2_.Models.Repository.DataAccess;
 
 namespace SchemaNotes_11168_v2_.Models
 {
@@ -27,7 +28,7 @@ namespace SchemaNotes_11168_v2_.Models
                 " LEFT JOIN sys.dm_db_partition_stats AS SD ON SO.object_id = SD.object_id  AND (index_id < 2)" +
                 " WHERE OBJECT_NAME(SO.object_id)  IN (SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES);";
         #endregion
-        public List<DO_SchemaNotesTable> GetTables(DO_DBconnection model)      {
+        public List<DO_SchemaNotesTable> GetTables(DA_DBConnection model)      {
                 using (SqlConnection conn = new SqlConnection(model.connStrings))
                 {
                     SqlCommand command = new SqlCommand(commandText, conn); 

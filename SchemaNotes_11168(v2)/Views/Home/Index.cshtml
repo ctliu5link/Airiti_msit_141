@@ -1,7 +1,6 @@
-﻿@using SchemaNotes_11168_v2_.ViewModels
-@model   SchemaNotes_11168_v2_.ViewModels.SchemaViewModel
+﻿@model  SchemaNotes_11168_v2_.ViewModels.SchemaViewModel
 
-    <style>
+<style>
     table td {
         width: 90px;
         white-space: normal;
@@ -9,60 +8,88 @@
 </style>
 <h2>SchemaNotes Details  </h2>
 <div class="container body-content">
+    <form asp-action="Index" method="post">
+        @using (@Html.BeginForm())
+        {
+            <div class="form-inline search">
+                <div class="form-group form-group-lg">
+                    <label for="choose">搜尋項目</label>
+                    <select id="choose" class="form-control"><option value="objName">物件名稱</option><option value="colName">欄位名稱</option><option value="description">中文名稱</option><option value="remark">備註</option></select>
+                </div>
+                @{ string keyWord = "SEDoc";
+                    <div class="form-group form-group-lg">
+                        <label for="switch">搜索資料表</label>
+                        <select id="switch" class="form-control" name="tableSelect">
+                            @*@foreach (var q in Model.DASNTList)
+                            {
+                                <option value=@items.tableName selected="" name=@items.tableName>@items.tableName</option>
+                                keyWord = items.tableName;
+                            }*@
+                        </select>
+                    </div>
+                    <div class="form-group form-group-lg">
 
-    <br> 
+                        @Html.TextBox("keyWord", keyWord)
+                    </div>
+                }
+                <div class="form-group form-group-lg">
+                    <button type="submit" class="btn btn-primary">確認</button>
+                </div>
+            </div>
+        }
+    </form>
+    <br>
     @{
-//int count = 0;
-        foreach (var q in Model.DASNTList) { 
-       
-
+        int count = 0;
+        foreach (var itemTable in Model.DASNTList)
+        {
+            count++;
             <div class="panel-group accordion" id="accordion1" role="tablist" aria-multiselectable="true">
             </div>
             <div class="panel panel-default  ">
                 <div class="panel-heading row" role="tab">
                     <div class="col-lg-10">
-                        <span class="panel-title" role="button" data-toggle="collapse" data-parent="#accordion1" href="#" aria-expanded="false" aria-controls="collapse1">
+                        <span class="panel-title" role="button" data-toggle="collapse" data-parent="#accordion1" href="#@count" aria-expanded="false" aria-controls="collapse1">
                             <span class="caret"></span>
                             <strong class="objName">
-                               
+                                @itemTable.tableName
                             </strong>
                         </span>
                         <a class="description text-info" href="/Home/Details/85575343">
-                            
+                            @itemTable.tableMSDescription
                         </a>
                     </div>
                     <div class="col-lg-2">
                         <span class="count" data-toggle="tooltip" data-placement="top" title="" data-original-title="注意！此為參考值，非準確值。">
-                            筆數:<strong class="text-info"></strong>
+                            筆數:<strong class="text-info">@itemTable.tableRows</strong>
                         </span>
                     </div>
-
                 </div>
             </div>
-            <div id="" class="panel-body panel-collapse collapse tabDetail" role="tabpanel">
+            <div id="@count" class="panel-body panel-collapse collapse tabDetail" role="tabpanel">
                 <table class="tabDetail_left ">
                     <tbody>
                         <tr>
                             <td>物件類型</td>
-                            <td></td>
+                            <td>@itemTable.tableType</td>
                         </tr>
                         <tr>
                             <td>結構描述名稱</td>
-                            <td> </td>
+                            <td>@itemTable.tableStruct </td>
                         </tr>
                         <tr>
                             <td> 物件創建日期  </td>
-                            <td></td>
+                            <td>@itemTable.tableCreateTime.ToString("yyyy-MM-dd")</td>
                         </tr>
                         <tr>
                             <td>物件修改日期 </td>
-                            <td> </td>
+                            <td>@itemTable.tableModifiedTime.ToString("yyyy-MM-dd") </td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="tabDetail_right">
                     <div>
-                        備註 
+                        備註 @itemTable.tableRemark
                     </div>
                 </div>
             </div>
@@ -79,6 +106,23 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @{
+                        foreach (var itemColumn in Model.DASNCList)
+                        {
+                            if (itemColumn.tableName == itemColumn.tableName)
+                            {
+                                <tr>
+                                    <td>@itemColumn.columnName</td>
+                                    <td> @itemColumn.columnMSDescription</td>
+                                    <td> @itemColumn.columnType</td>
+                                    <td><input type="checkbox" class="check-box" disabled="disabled" checked=@itemColumn.columnPrimaryKey></td>
+                                    <td> <input type="checkbox" class="check-box" disabled="disabled" @( itemColumn.columnNull == "YES" ? "checked" : "" )></td>
+                                    <td>@itemColumn.columnDefault</td>
+                                    <td> @itemColumn.columnRemark</td>
+                                </tr>
+                            }
+                        }
+                    }
                 </tbody>
             </table>
         }
@@ -88,3 +132,4 @@
         <p>© 2022 - SchemaNotes (Version: 0.1.0)</p>
     </footer>
 </div>
+
