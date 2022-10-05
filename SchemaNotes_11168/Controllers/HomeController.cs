@@ -74,7 +74,7 @@ namespace SchemaNotes_11168.Controllers
             else
             {
                 bool val;
-                (val, connStrings) = model.IsSeverConnected(model.uid, model.pwd, model.database, model.server);
+                (val, connStrings) = model.IsSeverConnected();
                 #endregion
                 #region  dbconnection ok and redirect to Index controller to start the SV
                 if (val) { 

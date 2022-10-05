@@ -25,14 +25,11 @@ namespace SchemaNote_11170__2_.Models.DataAccess
                     " isnull(e1.value,'null') AS [備註], " +
                     " c.row_count as [筆數]" +
             " FROM INFORMATION_SCHEMA.TABLES t" +
-                    " LEFT JOIN" +
-                    " ( SELECT * FROM sys.objects o1 WHERE o1.type = 'U')  o ON t.TABLE_NAME = o.name" +
-                    " LEFT JOIN" +
-                    " (SELECT * FROM sys.extended_properties WHERE minor_id = 0 AND name = 'MS_Description')  AS e ON e.major_id = o.object_id " +
-                    " LEFT JOIN" +
-                    " (SELECT * FROM sys.extended_properties WHERE minor_id = 0 AND name = 'REMARK') AS e1 ON e1.major_id = o.object_id" +
-                    " LEFT JOIN" +
-                    "(SELECT OBJECT_NAME(object_id) as name, row_count FROM sys.dm_db_partition_stats WHERE OBJECT_NAME(object_id) in (select TABLE_NAME from INFORMATION_SCHEMA.TABLES)  AND (index_id < 2)) AS c on c.name = t.TABLE_NAME ;";
+                    " LEFT JOIN ( SELECT * FROM sys.objects o1 WHERE o1.type = 'U')  o ON t.TABLE_NAME = o.name" +
+                    " LEFT JOIN (SELECT * FROM sys.extended_properties WHERE minor_id = 0 AND name = 'MS_Description')  AS e ON e.major_id = o.object_id " +
+                    " LEFT JOIN (SELECT * FROM sys.extended_properties WHERE minor_id = 0 AND name = 'REMARK') AS e1 ON e1.major_id = o.object_id" +
+                    " LEFT JOIN(SELECT OBJECT_NAME(object_id) as name, row_count FROM sys.dm_db_partition_stats" +
+                    " WHERE OBJECT_NAME(object_id) in (select TABLE_NAME from INFORMATION_SCHEMA.TABLES)  AND (index_id < 2)) AS c on c.name = t.TABLE_NAME ;";
             #endregion
             #region   --SQL語法(所有Column)
             string sql_ColumnDetail = " SELECT distinct" +

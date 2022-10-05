@@ -28,7 +28,7 @@ namespace SchemaNotes_11168.Models
         /// <param name="databse"></param>
         /// <param name="IPAddress"></param>
         /// <returns>return the state of dbconnection , connectionstrings or error's message</returns>
-        public Tuple<bool,string> IsSeverConnected(string uid, string pwd, string databse, string server)
+        public Tuple<bool,string> IsSeverConnected()
         {
             string conStrings = $"uid={uid} ; pwd={pwd};database={database};server={server};";
             using (SqlConnection conn = new SqlConnection(conStrings))
