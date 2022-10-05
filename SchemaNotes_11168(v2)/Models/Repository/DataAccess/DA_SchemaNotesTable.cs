@@ -9,7 +9,8 @@ using SchemaNotes_11168_v2_.Models.Repository.DataAccess;
 
 namespace SchemaNotes_11168_v2_.Models
 {
-    public class DA_SchemaNotesTable :DA_Base{
+    public class DA_SchemaNotesTable :DA_Base
+    {
      List<DO_SchemaNotesTable> SNTList = new List<DO_SchemaNotesTable>();
         #region SqlQuery
         string commandText =

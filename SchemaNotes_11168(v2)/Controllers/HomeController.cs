@@ -27,18 +27,16 @@ namespace SchemaNotes_11168_v2_.Controllers
         public ActionResult DB_Connection(DO_DBconnection model) 
         {
             DA_DBConnection DADBC = new DA_DBConnection(model);
-            bool val;
-            string connstring;
-            (val, connstring) = DADBC.IsConnectedSever(model);
+          DADBC.IsConnectedSever(model);
             if (DADBC.IsConnected==false)
             {
-                if (val == false && connstring == "New")
+                if (DADBC.IsConnstrings==false&& DADBC.connStrings == "New")
                 {
                     return View();
                 }
                 else
                 {
-                    MessageBox.Show(connstring);
+                    MessageBox.Show(DADBC.connStrings);
                     return View();
                 }
             }
