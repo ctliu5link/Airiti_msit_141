@@ -137,25 +137,26 @@
                                     if (b.物件名稱 == a.資料表)
                                     {
                                         d++;
+                                        columnDetail.欄位名稱 = a.欄位名稱;
+                                        columnDetail.欄位說明 = a.欄位說明;
+                                        columnDetail.資料型態 = a.資料型態;
+                                        
                                         <tbody>
                                             <tr>
                                                 <td>
                                                     <span class="colName">
                                                         @a.欄位名稱
-                                                        
                                                     </span>
                                                 </td>
                                                 <td>
 
                                                     <label id="descriptionlable_@d" ondblclick="changdescriptionSQL('@d')">
                                                         @a.欄位說明
-                                                        
                                                     </label>
                                                     <input type="text" id="descriptioninput_@d" hidden>
                                                 </td>
                                                 <td>
                                                     @a.資料型態
-                                                    
                                                 </td>
 
                                                 <td>
