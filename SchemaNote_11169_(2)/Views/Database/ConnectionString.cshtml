@@ -152,7 +152,7 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <a class="description text-info" href="/Home/Details/85575343">
+                                            <a class="description text-info" href="/Database/ShowView?table=@a.資料表&sql=@Model.ConnectionString">
                                                 <code>
                                                     @a.欄位說明
                                                 </code>
@@ -173,7 +173,7 @@
                                             }
                                         </td>
                                         <td>
-                                            @if (a.不為NULL == "YES")
+                                            @if (a.不為NULL != "YES")
                                             {
                                                 <input checked="checked" class="check-box" disabled="disabled" type="checkbox">
                                             }
@@ -188,7 +188,7 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <a class="remark text-info" href="/Home/Details/85575343">
+                                            <a class="remark text-info" href="/Database/ShowView?table=@a.資料表&sql=@Model.ConnectionString">
                                                 <code>
                                                     @a.備註
                                                 </code>
@@ -216,5 +216,7 @@
         <p>© 2019 - SchemaNote (Version: 0.1.3)</p>
     </footer>
 </div>
+
+
 
 

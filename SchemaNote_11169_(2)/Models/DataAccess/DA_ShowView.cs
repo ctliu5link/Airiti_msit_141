@@ -9,17 +9,18 @@ using System.Windows.Forms;
 
 namespace SchemaNote_11169__2_.Models.DataAccess
 {
-    public class DA_ConnectionString
+    public class DA_ShowView
     {
-        public ConnectionViewModel ColumnDetails(string sql)
+        public ConnectionViewModel connectionViewModel(string table,string sql)
+        { 
+        ConnectionViewModel connectionViewModel = new ConnectionViewModel();
+        List<DO_ColumnDetail> DoColumn = new List<DO_ColumnDetail>();
+        List<DO_TableDetail> DoTable = new List<DO_TableDetail>();
+        try
         {
-            List<DO_ColumnDetail> columnDetailsList = new List<DO_ColumnDetail>();
-            List<DO_TableDetail> tableDetailsList = new List<DO_TableDetail>();
-            try
-            {
-                SqlConnection cn = new SqlConnection(sql);
-                cn.Open();
-                SqlCommand command = new SqlCommand(@"SELECT ISC.TABLE_NAME AS [資料表], 
+       SqlConnection cn = new SqlConnection(sql);
+       cn.Open();
+       SqlCommand command = new SqlCommand(@"SELECT ISC.TABLE_NAME AS [資料表], 
        SC.name AS[A.欄位名稱],
        SE1.value AS[B.欄位說明],
        ISC.DATA_TYPE + '(' + CONVERT(VARCHAR, ISC.CHARACTER_MAXIMUM_LENGTH) + ')' AS[C.資料型態],
@@ -49,11 +50,11 @@ WHERE OBJECT_NAME(SO.object_id) IN
     FROM INFORMATION_SCHEMA.TABLES
 )
 ORDER BY SC.column_id; ", cn);
-                SqlDataReader dataReader = command.ExecuteReader();
+        SqlDataReader dataReader = command.ExecuteReader();
                 while (dataReader.Read())
                 {
                     DO_ColumnDetail a = new DO_ColumnDetail();
-                    a.不為NULL = $"{dataReader["E.不為NULL"]}";
+        a.不為NULL = $"{dataReader["E.不為NULL"]}";
                     a.備註 = $"{dataReader["G.備註"]}";
                     a.欄位名稱 = $"{dataReader["A.欄位名稱"]}";
                     a.欄位說明 = $"{dataReader["B.欄位說明"]}";
@@ -61,9 +62,9 @@ ORDER BY SC.column_id; ", cn);
                     a.預設值 = $"{dataReader["F.預設值"]}";
                     a.主鍵 = $"{dataReader["D.主鍵"]}";
                     a.資料表 = $"{dataReader["資料表"]}";
-                    columnDetailsList.Add(a);
+                    DoColumn.Add(a);
                 }
-                cn.Close();
+    cn.Close();
                 cn.Open();
 
                 SqlCommand command2 = new SqlCommand(
@@ -113,11 +114,11 @@ FROM INFORMATION_SCHEMA.TABLES AS IST
 ) st ON st.tablename = so.name;", cn);
 
 
-                SqlDataReader dataReader2 = command2.ExecuteReader();
+    SqlDataReader dataReader2 = command2.ExecuteReader();
                 while (dataReader2.Read())
                 {
                     DO_TableDetail a = new DO_TableDetail();
-                    a.物件類型 = $"{dataReader2["物件類型"]}";
+    a.物件類型 = $"{dataReader2["物件類型"]}";
                     a.備註 = $"{dataReader2["備註"]}";
                     a.物件說明 = $"{dataReader2["物件說明"]}";
                     a.結構描述名稱 = $"{dataReader2["結構描述名稱"]}";
@@ -125,22 +126,24 @@ FROM INFORMATION_SCHEMA.TABLES AS IST
                     a.物件創造日期 = $"{dataReader2["物件創造日期"]}";
                     a.物件修改日期 = $"{dataReader2["物件修改日期"]}";
                     a.總筆數 = $"{dataReader2["總筆數"]}";
-                    tableDetailsList.Add(a);
+                    DoTable.Add(a);
                 }
 
-                cn.Close();
+cn.Close();
             }
             catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+{
+    MessageBox.Show(ex.Message);
+}
 
-            ConnectionViewModel connectionView = new ConnectionViewModel();
-            connectionView.ColumnDetailListViewModel = columnDetailsList;
-            connectionView.TableDetailListViewModel = tableDetailsList;
-            connectionView.ConnectionString = sql;
+ConnectionViewModel connectionView = new ConnectionViewModel();
+connectionView.ColumnDetailListViewModel = DoColumn;
+connectionView.TableDetailListViewModel = DoTable;
+connectionView.ConnectionString = sql;
+            connectionView.table = table;
 
-            return (connectionView);
+return (connectionView);
+           }
         }
     }
-}
+    

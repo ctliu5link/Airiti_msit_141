@@ -10,5 +10,8 @@ namespace SchemaNote_11169__2_.ViewModels
     {
         public List<DO_ColumnDetail> ColumnDetailListViewModel { get; set; }
         public List<DO_TableDetail> TableDetailListViewModel { get; set; }
+        public string ConnectionString { get; set; }
+        public string table { get; set; }
+        public List<DO_ColumnDetail> TableChangListViewModel { get; set; }
     }
 }
