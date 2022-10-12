@@ -34,5 +34,11 @@ namespace SchemaNote_11169__2_.Controllers
             DA_ConnectionString connectionString = new DA_ConnectionString();
             return View(connectionString.ColumnDetails(sql));
         }
+
+        public ActionResult ShowView(string table,string sql)
+        {
+            DA_ShowView showView = new DA_ShowView();
+            return View(showView.connectionViewModel(table, sql));
+        }
     }
 }

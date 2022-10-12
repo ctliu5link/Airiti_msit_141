@@ -1,0 +1,152 @@
+﻿@model  SchemaNotes_11168_v2_.ViewModels.SchemaViewModel
+
+<style>
+    table td {
+        width: 90px;
+        white-space: normal;
+    }
+</style>
+<h2>SchemaNotes Details  </h2>
+<body>
+    <div class="container body-content">
+        <form asp-action="Index" method="post">
+            @using (@Html.BeginForm())
+            {
+                <div class="form-inline search">
+                    <div class="form-group form-group-lg">
+                        <label for="choose">搜尋項目</label>
+                        <select id="choose" class="form-control"><option value="objName">物件名稱</option><option value="colName">欄位名稱</option><option value="description">中文名稱</option><option value="remark">備註</option></select>
+                    </div>
+                    @{ string keyWord = "SEDoc";
+                        <div class="form-group form-group-lg">
+                            <label for="switch">搜索資料表</label>
+                            <select id="switch" class="form-control" name="tableSelect">
+                            </select>
+                        </div>
+                        <div class="form-group form-group-lg">
+
+                            @Html.TextBox("keyWord", keyWord)
+                        </div>
+                    }
+                    <div class="form-group form-group-lg">
+                        <button type="submit" class="btn btn-primary">確認</button>
+                    </div>
+                </div>
+            }
+        </form>
+        <br>
+        @{
+            int count = 0;
+            foreach (var itemTable in Model.DASNTList)
+            {
+                
+                <div class="panel-group accordion" id="accordion1" role="tablist" aria-multiselectable="true">
+                </div>
+                <div class="panel panel-default  ">
+                    <div class="panel-heading row" role="tab">
+                        <div class="col-lg-10">
+                            <span class="panel-title" role="button" data-toggle="collapse" data-parent="#accordion1" href="#@count" aria-expanded="false" aria-controls="collapse1">
+                                <span class="caret"></span>
+                                <strong class="objName">
+                                    <input type="text" name="DASNTList[@count].TableMSDescription" value=@itemTable.TableName  disabled/>
+                                    @*@itemTable.TableName*@
+                                </strong>
+                            </span>
+                            <a class="description text-info" href="@Url.Action("Details", "SchemaNotes" ,new { TableName = itemTable.TableName, ConnString = ViewBag.ConnString })" style="@(itemTable.TableMSDescription=="Null"  ? "color:red" : "color:blue") ">
+                                <input type="text" name="DASNTList[@count].TableMSDescription" value=@itemTable.TableMSDescription  disabled/>
+
+                                @*@itemTable.TableMSDescription*@
+                            </a>
+                        </div>
+                        <div class="col-lg-2">
+                            <span class="@count" data-toggle="tooltip" data-placement="top" title="" data-original-title="注意！此為參考值，非準確值。">
+                                筆數:<strong class="text-info">@itemTable.TableRows</strong>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div id="@count" class="panel-body panel-collapse collapse tabDetail" role="tabpanel">
+                    <table class="tabDetail_left ">
+                        <tbody>
+                            <tr>
+                                <td>物件類型</td>
+                                <td>@itemTable.TableType</td>
+                            </tr>
+                            <tr>
+                                <td>結構描述名稱</td>
+                                <td>@itemTable.TableStruct </td>
+                            </tr>
+                            <tr>
+                                <td> 物件創建日期  </td>
+                                <td>@itemTable.TableCreateTime.ToString("yyyy-MM-dd")</td>
+                            </tr>
+                            <tr>
+                                <td>物件修改日期 </td>
+                                <td>@itemTable.TableModifiedTime.ToString("yyyy-MM-dd") </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="tabDetail_right">
+                        <div>
+                            備註 
+                            <a class="description text-info" href="@Url.Action("Details", "SchemaNotes" ,new { TableName = itemTable.TableName, ConnString = ViewBag.ConnString })" style="@(itemTable.TableRemark=="Null"  ? "color:red" : "color:blue") ">
+                                @itemTable.TableRemark
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                count++;
+                <table class="table  table-bordered  table-hover subTable " border="1">
+                    <thead>
+                        <tr>
+                            <th scope="col">欄位名稱</th>
+                            <th scope="col">欄位說明</th>
+                            <th scope="col">資料型態</th>
+                            <th scope="col">主鍵</th>
+                            <th scope="col">  不為Null</th>
+                            <th scope="col">預設值</th>
+                            <th scope="col">備註</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var itemColumn in Model.DASNCList)
+                            {
+                                if (itemColumn.TableName == itemTable.TableName)
+                                {
+                                    <tr>
+                                        <td>@itemColumn.ColumnName</td>
+                                        <td id="idR">
+                                            <a class="description text-info" href="@Url.Action("Details", "SchemaNotes" ,new { TableName = itemTable.TableName,    ConnString = ViewBag.ConnString })" style="@(itemColumn.ColumnMSDescription=="Null"  ? "color:red" : "color:blue") ">
+                                                @itemColumn.ColumnMSDescription
+                                            </a>
+                                        </td>
+                                        <td> @itemColumn.ColumnType</td>
+                                        <td><input type="checkbox" class="check-box" disabled="disabled" @(itemColumn.ColumnPrimaryKey == "YES" ? "checked" : "")></td>
+                                        <td> <input type="checkbox" class="check-box" disabled="disabled" @( itemColumn.ColumnNull == "NO" ? "checked" : "" )></td>
+                                        <td>@itemColumn.ColumnDefault</td>
+                                        <td>
+                                            <a class="description text-info" href="@Url.Action("Details", "SchemaNotes" ,new { TableName = itemTable.TableName, ConnString = ViewBag.ConnString })" style="@(itemColumn.ColumnRemark=="Null"  ? "color:red" : "color:blue") ">
+                                                @itemColumn.ColumnRemark
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            }
+        }
+        <hr>
+        <footer>
+            <p>© 2022 - SchemaNotes (Version: 0.1.0)</p>
+        </footer>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+  </script>
+
+</body>

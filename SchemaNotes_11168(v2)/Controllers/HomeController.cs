@@ -10,40 +10,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Windows.Forms;
+using Airiti.Common;
 
 namespace SchemaNotes_11168_v2_.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index(DO_DBconnection model, SchemaViewModel vModel)
+        public ActionResult Index()
         {
-            #region get details of table and column from SV by SchemaViewModel
-            SV_SchemaTablesColumns STC = new SV_SchemaTablesColumns();
-            DA_DBConnection da = new DA_DBConnection(model);
-            vModel = STC.SchemaDetails(da);
-            return View(vModel);
-            #endregion
+            return View();
         }
-        public ActionResult DB_Connection(DO_DBconnection model) 
-        {
-            DA_DBConnection DADBC = new DA_DBConnection(model);
-          DADBC.IsConnectedSever(model);
-            if (DADBC.IsConnected==false)
-            {
-                if (DADBC.IsConnstrings==false&& DADBC.connStrings == "New")
-                {
-                    return View();
-                }
-                else
-                {
-                    MessageBox.Show(DADBC.connStrings);
-                    return View();
-                }
-            }
-            else
-            {
-                return RedirectToAction("Index", model);
-            }
+        public ActionResult test() {
+            return View();
         }
     }
 }

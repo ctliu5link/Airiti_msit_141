@@ -1,0 +1,137 @@
+﻿<form asp-action="Edit" method="post">
+    <br>
+    <div class="panel-group accordion" id="accordion1" role="tablist" aria-multiselectable="true">
+    </div>
+    <div class="panel panel-default  ">
+        <div class="panel-heading row" role="tab">
+            <div class="col-lg-10">
+                <span class="panel-title" role="button" data-toggle="collapse" data-parent="#accordion1" href="#Detail" aria-expanded="false" aria-controls="collapse1">
+                    <span class="caret"></span>
+                    <strong class="objName">
+                        <input type="text" name="DASNTList[0].TableName" value="SEDoc">
+
+                    </strong>
+                </span>
+                <input type="text" name="DASNTList[0].TableMSDescription" value="搜尋引擎的文件">
+
+            </div>
+            <div class="col-lg-2">
+                <span class="count" data-toggle="tooltip" data-placement="top" title="" data-original-title="注意！此為參考值，非準確值。">
+                    筆數:<strong class="text-info">352709</strong>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div id="Detail" class="panel-body panel-collapse collapse tabDetail" role="tabpanel">
+        <table class="tabDetail_left ">
+            <tbody>
+                <tr>
+                    <td>物件類型</td>
+                    <td>資料表</td>
+                </tr>
+                <tr>
+                    <td>結構描述名稱</td>
+                    <td>dbo </td>
+                </tr>
+                <tr>
+                    <td> 物件創建日期  </td>
+                    <td>2022-10-06</td>
+                </tr>
+                <tr>
+                    <td>物件修改日期 </td>
+                    <td>2022-10-06 </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="tabDetail_right">
+            <div>
+                備註
+                <input type="text" name="DASNTList[0].TableRemark" value="Null">
+
+            </div>
+        </div>
+    </div>
+    <table class="table  table-bordered  table-hover subTable " border="1">
+        <thead>
+            <tr>
+                <th scope="col">欄位名稱</th>
+                <th scope="col">欄位說明</th>
+                <th scope="col">資料型態</th>
+                <th scope="col">主鍵</th>
+                <th scope="col">  不為Null</th>
+                <th scope="col">預設值</th>
+                <th scope="col">備註</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <input type="hidden" name="DASNCList[0].ColumnName" value="docid">
+                <td>docid </td>
+                <td>
+                    <input type="text" name="DASNCList[0].ColumnMSDescription" value="文章編號">
+                </td>
+                <td> nvarchar(150)</td>
+                <td><input type="checkbox" class="check-box" disabled="disabled" checked=""></td>
+                <td> <input type="checkbox" class="check-box" disabled="disabled" checked=""></td>
+                <td></td>
+                <td>
+
+                    <input type="text" name="DASNCList[0].ColumnRemark" value="等於TextualETL_OCR.DocID">
+
+                </td>
+            </tr>
+            <tr>
+                <input type="hidden" name="DASNCList[1].ColumnName" value="PublishTypeID">
+                <td>PublishTypeID </td>
+                <td>
+                    <input type="text" name="DASNCList[1].ColumnMSDescription" value="文章類型">
+                </td>
+                <td> nvarchar(10)</td>
+                <td><input type="checkbox" class="check-box" disabled="disabled"></td>
+                <td> <input type="checkbox" class="check-box" disabled="disabled"></td>
+                <td></td>
+                <td>
+
+                    <input type="text" name="DASNCList[1].ColumnRemark" value="Null">
+
+                </td>
+            </tr>
+            <tr>
+                <input type="hidden" name="DASNCList[2].ColumnName" value="Source">
+                <td>Source </td>
+                <td>
+                    <input type="text" name="DASNCList[2].ColumnMSDescription" value="文本來源類型">
+                </td>
+                <td> nvarchar(20)</td>
+                <td><input type="checkbox" class="check-box" disabled="disabled"></td>
+                <td> <input type="checkbox" class="check-box" disabled="disabled"></td>
+                <td></td>
+                <td>
+
+                    <input type="text" name="DASNCList[2].ColumnRemark" value="等於TextualETL_OCR.TextualSource">
+
+                </td>
+            </tr>
+            <tr>
+                <input type="hidden" name="DASNCList[3].ColumnName" value="deleteMark">
+                <td>deleteMark </td>
+                <td>
+                    <input type="text" name="DASNCList[3].ColumnMSDescription" value="刪除標註">
+                </td>
+                <td> bit</td>
+                <td><input type="checkbox" class="check-box" disabled="disabled"></td>
+                <td> <input type="checkbox" class="check-box" disabled="disabled"></td>
+                <td>((1))</td>
+                <td>
+
+                    <input type="text" name="DASNCList[3].ColumnRemark" value="0：刪除" 1：存活="">
+
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <input id="btnSave" type="submit" value="確認">
+</form>
+
