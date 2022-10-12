@@ -6,10 +6,11 @@ using System.Data.SqlClient;
 using SchemaNotes_11168_v2_.Models;
 using SchemaNotes_11168_v2_.Models.Repository.DataAccess.Base;
 using SchemaNotes_11168_v2_.Models.Repository.DataAccess;
+using Airiti.Common;
 
 namespace SchemaNotes_11168_v2_.Models
 {
-    public class DA_SchemaNotesTable :DA_Base
+    public class DA_SchemaNotesTable :DA_Base<DO_SchemaNotesTable>
     {
      List<DO_SchemaNotesTable> SNTList = new List<DO_SchemaNotesTable>();
         #region SqlQuery
@@ -21,16 +22,28 @@ namespace SchemaNotes_11168_v2_.Models
                  " SS.name AS[結構描述],  " +
                 " CONVERT(VARCHAR(10), create_date, 120) AS[物件創建日期],   " +
                 " CONVERT(VARCHAR(10), modify_date, 120) AS[物件修改日期],   " +
-                " SE1.value AS[備註]," +
+                "  CASE WHEN SE1.value IS NULL THEN 'Null' ELSE SE1.value  END AS[備註]," +
                 " row_count AS[筆數]" +
                 " FROM sys.objects AS SO  JOIN sys.schemas AS SS ON SO.schema_id = SS.schema_id  " +
                 " LEFT JOIN sys.extended_properties AS SE ON SO.object_id = SE.major_id  AND SE.minor_id = 0  AND SE.name = 'MS_Description'" +
                 " LEFT JOIN sys.extended_properties AS SE1 ON SO.object_id = SE1.major_id   AND SE1.minor_id = 0   AND SE1.name = 'REMARK'" +
                 " LEFT JOIN sys.dm_db_partition_stats AS SD ON SO.object_id = SD.object_id  AND (index_id < 2)" +
                 " WHERE OBJECT_NAME(SO.object_id)  IN (SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES);";
+
+        public override string TableName => throw new NotImplementedException();
+
+        public override ReturnObject<int> AddData(List<DO_SchemaNotesTable> pData)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ReturnObject<int> DeleteData(List<DO_SchemaNotesTable> pData)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
-        public List<DO_SchemaNotesTable> GetTables(DA_DBConnection model)      {
-                using (SqlConnection conn = new SqlConnection(model.connStrings))
+        public List<DO_SchemaNotesTable> GetTables(String connString)      {
+                using (SqlConnection conn = new SqlConnection(connString))
                 {
                     SqlCommand command = new SqlCommand(commandText, conn); 
                      conn.Open();
@@ -40,14 +53,14 @@ namespace SchemaNotes_11168_v2_.Models
                     {
                      DO_SchemaNotesTable DOSNT = new DO_SchemaNotesTable
                 {
-                            tableName = dataReader["物件名稱"].ToString(),
-                            tableMSDescription = dataReader["物件說明"].ToString(),
-                            tableType = dataReader["物件類型"].ToString(),
-                            tableStruct = dataReader["結構描述"].ToString(),
-                            tableCreateTime = Convert.ToDateTime(dataReader["物件創建日期"]),
-                            tableModifiedTime = Convert.ToDateTime(dataReader["物件修改日期"]),
-                            tableRemark = dataReader["備註"].ToString(),
-                            tableRows = int.Parse(dataReader["筆數"].ToString())
+                            TableName = dataReader["物件名稱"].ToString(),
+                            TableMSDescription = dataReader["物件說明"].ToString(),
+                            TableType = dataReader["物件類型"].ToString(),
+                            TableStruct = dataReader["結構描述"].ToString(),
+                            TableCreateTime = Convert.ToDateTime(dataReader["物件創建日期"]),
+                            TableModifiedTime = Convert.ToDateTime(dataReader["物件修改日期"]),
+                            TableRemark = dataReader["備註"].ToString(),
+                            TableRows = int.Parse(dataReader["筆數"].ToString())
                         };
                         SNTList.Add(DOSNT);
                     }
@@ -55,6 +68,14 @@ namespace SchemaNotes_11168_v2_.Models
 
                     #endregion 
                 }
+        }
+        public override ReturnObject<int> ModifyData(List<DO_SchemaNotesTable> pData)
+        {
+            throw new NotImplementedException();
+        }
+        public override ReturnObject<int> SaveData(List<DO_SchemaNotesTable> pData)
+        {
+            throw new NotImplementedException();
         }
     }
 }

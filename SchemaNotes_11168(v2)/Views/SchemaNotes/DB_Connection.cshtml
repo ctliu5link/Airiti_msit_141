@@ -1,0 +1,110 @@
+﻿
+@model SchemaNotes_11168_v2_.Models.DO_DBconnection
+
+
+<body>
+    <div class="panel-group" role="tablist">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="collapseListGroupHeading">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup" aria-expanded="false" aria-controls="collapseListGroup">
+                        Let's Connect
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseListGroup" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading" aria-expanded="false" style="height: 0px;">
+                <div class="col">
+                    @*<form asp-action="DB_Connection" method="post">
+                            @using (@Html.BeginForm())
+                            {
+                                @:UID @Html.TextBox("uid")
+                                @:PWD @Html.TextBox("pwd")
+                                @:DataBase @Html.TextBox("database")
+                                @:Server @Html.TextBox("server")
+                                <button type="submit" class="btn btn-primary">確認</button>
+                            }
+                        </form>
+                        <h5 style="color:blue">@ViewBag.MyConnectionString</h5>*@
+                    <form asp-action="DB_Connection" method="post">
+                        @Html.DisplayNameFor(model => model.uid)
+                        <input id="uid" name="uid" autocomplete="off" />
+
+                        @Html.DisplayNameFor(model => model.pwd)
+                        <input id="pwd" name="pwd" autocomplete="off" />
+
+                        @Html.DisplayNameFor(model => model.database)
+                        <input id="database" name="database" autocomplete="off" "   />
+
+                        @Html.DisplayNameFor(model => model.server)
+                        <input id="server" name="server" autocomplete="off" />
+                        <button type="submit" class="btn btn-primary">確認</button>
+
+                        <br />
+                        <button id="defaultConnectedString" style="background-color: lightgray;" type="button" class="btn">自動填寫ConnectionString</button>
+                        @*<br />*@
+
+                    </form>
+                    <span id="viewbag" hidden>@ViewBag.MyConnectionString</span>
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            <h2>SchemaNotes information </h2>
+
+            <hr>
+            <br>
+            <ul>
+                <li>
+                    <strong>工具介紹</strong>
+                    <p>SchemaNote（以下簡稱本平台）是用來檢視、編輯SQL Server上自定義註記之Web平台</p>
+                    <br>
+                </li>
+                <li>
+                    <strong>原理說明</strong>
+                    <p>本平台註記原理在於利用資料庫物件的<mark title="Extended Property"><a title="前往擴充屬性官方說明" href="https://docs.microsoft.com/en-us/sql/relational-databases/system-catalog-views/extended-properties-catalog-views-sys-extended-properties">擴充屬性</a></mark></p>
+                    <br>
+                </li>
+                <li>
+                    <strong>注意事項</strong>
+                    <ul>
+                        <li>建議使用SQL Server版本2008(含)以上，版本2005以下可使用另一套開源工具<a title="前往DDC官方說明" href="https://archive.codeplex.com/?p=datadictionary">DDC</a></li>
+                        <li>本平台僅異動擴充屬性，不能控制其他資料庫物件、結構</li>
+                        <li>目前只支援資料表(Table)、檢視表(View)這兩種物件</li>
+                        <li>目前尚未支援SSL的版本，連線字串傳送過程亦無受到保護，請於受保護的網路環境（e.g. 安全內網環境）使用</li>
+                    </ul>
+                </li>
+            </ul>
+            <hr>
+            <footer>
+                @*<p>© 2019 - SchemaNote (Version: 0.1.3)</p>*@
+            </footer>
+        </div>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        $("#defaultConnectedString").click(function () {
+
+            let dConnectedStrings = $("#viewbag").text();
+            const connectedString = dConnectedStrings.split(";");
+            for (let i = 0; i < connectedString.length; i++) {
+                let a0 = connectedString[i].indexOf("=") + 1;
+                let apex = connectedString[i].substring(0, a0 - 1);
+                switch (apex) {
+                    case "uid":
+                      $("#uid").val(connectedString[i].substring(a0));
+                        break;
+                    case "pwd":
+                        $("#pwd").val(connectedString[i].substring(a0));
+                        break;
+                    case "database":
+                        $("#database").val(connectedString[i].substring(a0));
+                        break;
+                    case "server":
+                        $("#server").val(connectedString[i].substring(a0));
+                        break;
+                }
+            }
+        });
+
+    </script>
+</body>

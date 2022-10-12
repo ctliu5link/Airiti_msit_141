@@ -8,14 +8,14 @@ namespace SchemaNotes_11168_v2_.Models
     public class DO_SchemaNotesColumn
     {
         #region fields of details of column for SchemaNotes
-        public string tableName { get; set; }
-        public string columnName { get; set; }
-        public string columnMSDescription { get; set; }
-        public string columnType { get; set; }
-        public bool columnPrimaryKey { get; set; }
-        public string columnNull { get; set; }
-        public string columnDefault { get; set; }
-        public string columnRemark { get; set; }
+        public string TableName { get; set; }
+        public string ColumnName { get; set; }
+        public string ColumnMSDescription { get; set; }
+        public string ColumnType { get; set; }
+        public string ColumnPrimaryKey { get; set; }
+        public string ColumnNull { get; set; }
+        public string ColumnDefault { get; set; }
+        public string ColumnRemark { get; set; }
         #endregion
     }
 }

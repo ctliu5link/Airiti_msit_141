@@ -5,11 +5,11 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
-
+using Airiti.Common;
 
 namespace SchemaNotes_11168_v2_.Models.Repository.DataAccess.Base
 {
-    public abstract class DA_Base
+    public abstract class DA_Base<T>
     {
         public string connStrings { get; set; }
         public bool IsConnected { get; set; }
@@ -43,5 +43,10 @@ namespace SchemaNotes_11168_v2_.Models.Repository.DataAccess.Base
                 }
             }
         }
+       public abstract  string TableName { get;  }
+        public abstract ReturnObject<int> AddData(List<T> pData);
+        public abstract ReturnObject<int> ModifyData(List<T> pData);
+        public abstract ReturnObject<int> DeleteData(List<T> pData);
+        public abstract ReturnObject<int> SaveData(List<T> pData);
     }
 }
