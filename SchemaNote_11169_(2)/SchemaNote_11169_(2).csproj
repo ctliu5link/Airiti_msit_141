@@ -128,6 +128,7 @@
     </Compile>
     <Compile Include="Models\DataAccess\DA_ConnectionString.cs" />
     <Compile Include="Models\DataAccess\DA_ConnectionStringDecide.cs" />
+    <Compile Include="Models\DataAccess\DA_ShowView.cs" />
     <Compile Include="Models\DataObject\DO_ColumnDetail.cs" />
     <Compile Include="Models\DataObject\DO_ConnectionString.cs" />
     <Compile Include="Models\DataObject\DO_TableDetail.cs" />
@@ -172,7 +173,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Database\Connection.cshtml" />
     <Content Include="Views\Database\ConnectionString.cshtml" />
-    <Content Include="Views\Database\Index.cshtml" />
+    <Content Include="Views\Database\ShowView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
