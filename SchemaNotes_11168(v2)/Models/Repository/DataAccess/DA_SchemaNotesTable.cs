@@ -17,7 +17,7 @@ namespace SchemaNotes_11168_v2_.Models
         string commandText =
                  "SELECT" +
                  " SO.name AS [物件名稱]," +
-                 " SE.value AS[物件說明],  " +
+                 " CASE  WHEN SE.value IS NULL THEN 'Null' ELSE SE.value END AS[物件說明],  " +
                  " CASE  WHEN SO.TYPE = 'U'  THEN '資料表'    ELSE '檢視表'  END AS[物件類型]," +
                  " SS.name AS[結構描述],  " +
                 " CONVERT(VARCHAR(10), create_date, 120) AS[物件創建日期],   " +

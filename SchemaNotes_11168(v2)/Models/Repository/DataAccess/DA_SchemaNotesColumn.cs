@@ -32,7 +32,7 @@ namespace SchemaNotes_11168_v2_.Models
            " LEFT JOIN INFORMATION_SCHEMA.COLUMNS AS ISC ON ISC.COLUMN_NAME = SC.name    AND ISC.TABLE_NAME = SO.name"+
             " LEFT JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS ISK ON ISK.TABLE_NAME = SO.name  AND SC.name = ISK.COLUMN_NAME "+
             "WHERE OBJECT_NAME(SO.object_id) IN "+
-            "(SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES) ORDER BY  ISK.CONSTRAINT_NAME DESC,ISC.COLUMN_DEFAULT  ,SC.name, SE1.value ;";
+            "(SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES) ORDER BY  SC.column_id ;";
 
         public override string TableName => throw new NotImplementedException();
 

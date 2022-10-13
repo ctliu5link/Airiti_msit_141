@@ -60,7 +60,7 @@ namespace SchemaNotes_11168_v2_.Controllers
         public ActionResult Edit(SchemaViewModel vModel) {
             SV_SchemaTablesColumns SV_STC = new SV_SchemaTablesColumns();
               bool value= SV_STC.SchemaEdit(vModel);
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("SchemaNotesDetails", new { ConnString = vModel.ConnString });
         }
         public ActionResult DB_Connection(DO_DBconnection model)
         {
