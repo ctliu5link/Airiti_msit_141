@@ -6,122 +6,130 @@
 
 <h2>Details</h2>
 
+
+@*<style>
+    .NoteField::after {
+       content: attr(data-content);
+    }
+</style>*@
+
+
 <div class="container body-content">
-
-
     <h2>Details</h2>
-    @*<div>
-            <a class="btn btn-default" href="/Home/Overview"><strong>&lt; </strong>Overview</a>
-            <button id="EditAll" type="button" class="btn btn-info" onclick="EditAll();">編輯全部</button>
-        </div>*@
-    <br>
+    
     @{
         foreach (var item1 in Model.TableDetail)
         {
-            <form onsubmit="EmptyString('null')" method="post" class="panel panel-default" action="/Home/Details/37575172">
-                <input name="[0].COLUMN_ID" value="0" style="display:none;">
-                <div class="panel-heading">
-                    <stron class="objName">
-                        @item1.table_Name
-                    </stron>
-                    <sapn class="NoteField" data-field="MS_Description" data-content="搜尋引擎的文件" data-column_id="0" data-sortnum="0" data-class="form-control tabMS_Description">
-                        @item1.table_Explanation
-                        <span class="field-validation-valid" data-valmsg-for="[0].MS_Description" data-valmsg-replace="true"></span>
-                    </sapn>
-                    <button type="submit" id="submit" class="btn btn-primary" style="display:none;">提交</button>
-                    <span class="count" data-toggle="tooltip" data-placement="top" title="注意！此為參考值，非準確值。">
-                        @Html.DisplayNameFor(model => model.Table.table_Count)<strong class="text-info">@item1.table_Count</strong>
-                    </span>
-                </div>
-                <div class="panel-body">
-                    <table class="tabDetail_left">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    @Html.DisplayNameFor(model => model.Table.table_ObjectType)
-                                </td>
-                                <td>
-                                    @item1.table_ObjectType
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    @Html.DisplayNameFor(model => model.Table.table_Struct)
-                                </td>
-                                <td>
-                                    @item1.table_Struct
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    @Html.DisplayNameFor(model => model.Table.table_CreateDate)
-                                </td>
-                                <td>
-                                    @item1.table_CreateDate
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    @Html.DisplayNameFor(model => model.Table.table_ModifyDate)
-                                </td>
-                                <td>
-                                    @item1.table_ModifyDate
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="tabDetail_right">
-                        <div>
-                            @Html.DisplayNameFor(model => model.Table.table_Description)
-                        </div>
-                        <div class="NoteField" data-field="REMARK" data-content="null" data-column_id="0" data-sortnum="0" data-class="form-control">
-                            <code>
-                                @item1.table_Description
-                            </code>
-                            <span class="field-validation-valid" data-valmsg-for="[0].REMARK" data-valmsg-replace="true"></span>
-                        </div>
+        <form onsubmit="EmptyString('null')" method="post" class="panel panel-default" action="/Database/Details">
+            <input name="Connection" type="hidden" value="@Model.Connection" />
+            <div class="panel-heading">
+                <stron class="objName">
+                    <input name="TableDetail[0].table_Name" type="hidden" value="@item1.table_Name" />
+                    @item1.table_Name
+                </stron>
+                <sapn ondblclick="ShowElement(this)" class="NoteField" data-name="TableDetail[0].table_Explanation" data-content="table_Explanation" data-column_id="0" data-sortnum="0" data-class="form-control tabMS_Description">
+                    <input type="hidden" name="TableDetail[0].table_Explanation" value="@item1.table_Explanation" />
+                    @item1.table_Explanation
+                    <span class="field-validation-valid" data-valmsg-for="[0].MS_Description" data-valmsg-replace="true"></span>
+                </sapn>
+                <button type="submit" id="submit" class="btn btn-primary" style="">提交</button>
+                <span class="count" data-toggle="tooltip" data-placement="top" title="注意！此為參考值，非準確值。">
+                    @Html.DisplayNameFor(model => model.Table.table_Count)<strong class="text-info">@item1.table_Count</strong>
+                </span>
+            </div>
+            <div class="panel-body">
+                <table class="tabDetail_left">
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => model.Table.table_ObjectType)
+                            </td>
+                            <td>
+                                @item1.table_ObjectType
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => model.Table.table_Struct)
+                            </td>
+                            <td>
+                                <input type="hidden" name="TableDetail[0].table_Struct" value="@item1.table_Struct" />
+                                @item1.table_Struct
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => model.Table.table_CreateDate)
+                            </td>
+                            <td>
+                                @item1.table_CreateDate
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => model.Table.table_ModifyDate)
+                            </td>
+                            <td>
+                                @item1.table_ModifyDate
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="tabDetail_right">
+                    <div>
+                        @Html.DisplayNameFor(model => model.Table.table_Description)
+                    </div>
+                    <div ondblclick="ShowElement(this)" class="NoteField" data-name="TableDetail[0].table_Description" data-content="@item1.table_Description" data-column_id="0" data-sortnum="0" data-class="form-control">
+                        <code>
+                            <input type="hidden" name="TableDetail[0].table_Description" value="@item1.table_Description" />
+                            @item1.table_Description
+                        </code>
+                        <span class="field-validation-valid" data-valmsg-for="[0].REMARK" data-valmsg-replace="true"></span>
                     </div>
                 </div>
+            </div>
 
-               
-                <table class="table table-bordered table-hover table-responsive subTable">
 
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Column.column_Name)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Column.column_Explanation)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Column.column_DataType)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Column.column_PK)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Column.column_IsNotNull)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Column.column_Default)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Column.column_Description)
-                            </th>
-                        </tr>
-                    </thead>
-                    @foreach (var item2 in Model.ColumnDetail)
+            <table class="table table-bordered table-hover table-responsive subTable">
+
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Column.column_Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Column.column_Explanation)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Column.column_DataType)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Column.column_PK)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Column.column_IsNotNull)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Column.column_Default)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Column.column_Description)
+                        </th>
+                    </tr>
+                </thead>
+                @{int count = 0;
+                    foreach (var item2 in Model.ColumnDetail)
                     {
+
                         <tbody>
                             <tr>
                                 <td rowspan="1">
+                                    <input name="ColumnDetail[@count].column_Name" type="hidden" value="@item2.column_Name" />
                                     @item2.column_Name
-                                    <input name="[1].COLUMN_ID" value="1" style="display:none;">
                                 </td>
-                                <td class="NoteField" data-field="MS_Description" data-content="文章編號" data-column_id="1" data-sortnum="1" data-class="form-control" rowspan="1">
+                                <td ondblclick="ShowElement(this)" class="NoteField" data-name="ColumnDetail[@count].column_Explanation" data-content="@item2.column_Explanation" data-column_id="1" data-sortnum="1" data-class="form-control" rowspan="1">
+                                    <input type="hidden" name="ColumnDetail[@count].column_Explanation" value="@item2.column_Explanation" />
                                     @item2.column_Explanation
-                                    <span class="field-validation-valid" data-valmsg-for="[1].MS_Description" data-valmsg-replace="true"></span>
                                 </td>
                                 <td rowspan="1">
                                     @item2.column_DataType
@@ -153,24 +161,50 @@
                                 <td>
                                     @item2.column_Default
                                 </td>
-                                <td class="NoteField" data-field="REMARK" data-content="等於TextualETL_OCR.DocID" data-column_id="1" data-sortnum="1" data-class="form-control">
-                                    @item2.column_Explanation
-                                    <span class="field-validation-valid" data-valmsg-for="[等於TextualETL_OCR.DocID].REMARK" data-valmsg-replace="true"></span>
+                                <td ondblclick="ShowElement(this)" class="NoteField" data-name="ColumnDetail[@count].column_Description" data-column_id="5" data-sortnum="5" data-class="form-control">
+                                    <input type="hidden" name="ColumnDetail[@count].column_Description" value="@item2.column_Description" />
+                                    @item2.column_Description
                                 </td>
                             </tr>
                         </tbody>
+                        count++;
                     }
-                </table>
-                
-
-                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8Fa3A4DBxnNJj1MDsCOcDshJOycFUGl1BpbEGPCsFmbE8JbR66ZARPaNev9c5tQylohzBinG9vLGPECyncScdAlAlsaIBU9ZgNXMaP2psmRj47yPX61SchwNSrmAj2YEauVo44Mb3s25OYuxIufHECA">
-            </form>
+                }
+            </table>
+            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8Fa3A4DBxnNJj1MDsCOcDshJOycFUGl1BpbEGPCsFmbE8JbR66ZARPaNev9c5tQylohzBinG9vLGPECyncScdAlAlsaIBU9ZgNXMaP2psmRj47yPX61SchwNSrmAj2YEauVo44Mb3s25OYuxIufHECA">
+        </form>
         }
-
-        <hr>
-        <footer>
-            <p>© 2019 - SchemaNote (Version: 0.1.3)</p>
-        </footer>
     }
 </div>
 
+
+<script type="text/javascript">
+    
+
+        //==============================原本寫法=====================================
+    function ShowElement(element) {
+
+        var oldhtml = element.textContent.trim();
+        //建立新的input元素
+        var newobj = document.createElement('input');
+        
+        //為新增元素新增型別
+        newobj.type = 'text';
+        newobj.name = $(element).data('name');
+
+        //為新增元素新增value值
+         newobj.value = oldhtml;
+
+        //設定該標籤的子節點為空
+        element.innerHTML = '';
+        //新增該標籤的子節點，input物件
+        element.appendChild(newobj);
+        //設定選擇文字的內容或設定游標位置（兩個引數：start,end；start為開始位置，end為結束位置；如果開始位置和結束位置相同則就是游標位置）
+        newobj.setSelectionRange(0, oldhtml.length);
+        //設定獲得游標
+        newobj.focus();
+    }
+
+
+
+</script>

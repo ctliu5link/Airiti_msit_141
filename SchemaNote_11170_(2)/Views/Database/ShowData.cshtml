@@ -45,7 +45,6 @@
             <div class="panel-group accordion" id="accordion1" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default ">
 
-
                     <div class="panel-heading" role="tab">
                         <span class="panel-title" role="button" data-toggle="collapse" data-parent="#accordion1" href="#collapse@(count)" aria-expanded="true" aria-controls="collapse@(count)">
                             <span class="caret"></span>
@@ -53,21 +52,7 @@
                                 @item1.table_Name
                             </strong>
                         </span>
-
-                        <a class="description text-info" >
-                            @if (item1.table_Explanation != "null")
-                            {
-                                @Html.ActionLink(item1.table_Explanation, "Details", "Database", new { name = item1.table_Name ,connection=Model.Connection}, "")
-                            }
-                            else
-                            {
-                                <code>
-                                    @Html.ActionLink(item1.table_Explanation, "Details", "Database", new { name = item1.table_Name, connection = Model.Connection }, "")
-                                </code>
-                            }
-                        </a>
-                        @*==========原本寫法=========
-                        <a class="description text-info" href="/Database/Details/@(item1.table_Name)" >
+                        <a class="description text-info" href="/Database/Details?name=@(item1.table_Name)&connection=@(Model.Connection)" >
                             @if (item1.table_Explanation != "null")
                             {
                                 @item1.table_Explanation
@@ -78,10 +63,9 @@
                                     @item1.table_Explanation
                                 </code>
                             }
-                        </a>*@
-
+                        </a>
                         <span class="count" data-toggle="tooltip" data-placement="top" title="" data-original-title="注意！此為參考值，非準確值。" style="float:right">
-                            @Html.DisplayNameFor(model => model.Table.table_Count)<strong class="text-info">@item1.table_Count</strong>
+                            @Html.DisplayNameFor(model => item1.table_Count)<strong class="text-info">@item1.table_Count</strong>
                         </span>
                     </div>
                     <div id="collapse@(count)" class="panel-body panel-collapse tabDetail collapse " role="tabpanel" aria-expanded="true" style="">
@@ -89,7 +73,7 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        @Html.DisplayNameFor(model => model.Table.table_ObjectType)  
+                                        @Html.DisplayNameFor(model => item1.table_ObjectType)  
                                     </td>
                                     <td>
                                         @item1.table_ObjectType
@@ -97,7 +81,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        @Html.DisplayNameFor(model => model.Table.table_Struct)  
+                                        @Html.DisplayNameFor(model => item1.table_Struct)  
                                     </td>
                                     <td>
                                         @item1.table_Struct
@@ -105,7 +89,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        @Html.DisplayNameFor(model => model.Table.table_CreateDate)  
+                                        @Html.DisplayNameFor(model => item1.table_CreateDate)  
                                     </td>
                                     <td>
                                         @item1.table_CreateDate
@@ -113,7 +97,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        @Html.DisplayNameFor(model => model.Table.table_ModifyDate)  
+                                        @Html.DisplayNameFor(model => item1.table_ModifyDate)  
                                     </td>
                                     <td>
                                         @item1.table_ModifyDate
@@ -123,22 +107,11 @@
                         </table>
                         <div class="tabDetail_right">
                             <div>
-                                @Html.DisplayNameFor(model => model.Table.table_Description)
+                                @Html.DisplayNameFor(model => item1.table_Description)
                             </div>
                             <div class="NoteField">
-                                <a class="remark text-info">
-                                    @if (item1.table_Explanation != "null")
-                                    {
-                                        @Html.ActionLink(item1.table_Description, "Details", "Database", new { name = item1.table_Name, connection = Model.Connection }, "")
-                                    }
-                                    else
-                                    {
-                                        <code>
-                                            @Html.ActionLink(item1.table_Description, "Details", "Database", new { name = item1.table_Name, connection = Model.Connection }, "")
-                                        </code>
-                                    }
-                                </a>
-                                @*<a class="remark text-info" href="/Database/Details/@(item1.table_Name)">
+
+                                <a class="remark text-info" href="/Database/Details?name=@(item1.table_Name)&connection=@(Model.Connection)">
                                     @if (item1.table_Description != "null")
                                     {
                                         @item1.table_Description
@@ -148,8 +121,8 @@
                                         <code>
                                             @item1.table_Description
                                         </code>
-                                    }*@
-                                @*</a>*@
+                                    }
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -192,19 +165,7 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <a class="description text-info">
-                                                @if (item1.table_Explanation != "null")
-                                                {
-                                                    @Html.ActionLink(item2.column_Explanation, "Details", "Database", new { name = item1.table_Name, connection = Model.Connection }, "")
-                                                }
-                                                else
-                                                {
-                                                    <code>
-                                                        @Html.ActionLink(item2.column_Explanation, "Details", "Database", new { name = item1.table_Name, connection = Model.Connection }, "")
-                                                    </code>
-                                                }
-                                            </a>
-                                            @*<a class="description text-info" href="/Database/Details/@(count)">
+                                            <a class="description text-info" href="/Database/Details?name=@(item1.table_Name)&connection=@(Model.Connection)">
                                                 @if (item2.column_Explanation != "null")
                                                 {
                                                     @item2.column_Explanation
@@ -215,7 +176,7 @@
                                                         @item2.column_Explanation
                                                     </code>
                                                 }
-                                            </a>*@
+                                            </a>
                                         </td>
                                         <td>
                                             @item2.column_DataType
@@ -253,19 +214,7 @@
                                             @item2.column_Default
                                         </td>
                                         <td>
-                                            <a class="description text-info">
-                                                @if (item1.table_Explanation != "null")
-                                                {
-                                                    @Html.ActionLink(item2.column_Description, "Details", "Database", new { name = item1.table_Name, connection = Model.Connection }, "")
-                                                }
-                                                else
-                                                {
-                                                    <code>
-                                                        @Html.ActionLink(item2.column_Description, "Details", "Database", new { name = item1.table_Name, connection = Model.Connection }, "")
-                                                    </code>
-                                                }
-                                            </a>
-                                            @*<a class="remark text-info" href="/Database/Details/@(count)">
+                                            <a class="remark text-info" href="/Database/Details?name=@(item1.table_Name)&connection=@(Model.Connection)">
                                                 @if (item2.column_Description != "null")
                                                 {
                                                     @item2.column_Description
@@ -276,7 +225,7 @@
                                                         @item2.column_Description
                                                     </code>
                                                 }
-                                            </a>*@
+                                            </a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -285,7 +234,6 @@
                     </table>
                 </div>
             </div>
-
         }
     </div>
 }

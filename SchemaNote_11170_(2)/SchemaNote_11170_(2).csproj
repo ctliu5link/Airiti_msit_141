@@ -129,6 +129,7 @@
     <Compile Include="Models\DataAccess\DataAdapter.cs" />
     <Compile Include="Models\DataAccess\DA_ColumnDetail.cs" />
     <Compile Include="Models\DataAccess\DA_ConnectionString.cs" />
+    <Compile Include="Models\DataAccess\DA_EditDetail.cs" />
     <Compile Include="Models\DataAccess\DA_TableDetail.cs" />
     <Compile Include="Models\DataObject\DO_ColumnDetail.cs" />
     <Compile Include="Models\DataObject\DO_ConnectionString.cs" />

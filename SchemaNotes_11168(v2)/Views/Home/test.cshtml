@@ -1,0 +1,145 @@
+﻿<table class="table table-bordered table-hover subTable" border="1">
+    <thead>
+        <tr>
+            <th>
+                欄位名稱
+            </th>
+            <th>
+                欄位說明
+            </th>
+            <th>
+                資料型態
+            </th>
+            <th>
+                主鍵
+            </th>
+            <th>
+                不為Null
+            </th>
+            <th>
+                預設值
+            </th>
+            <th>
+                備註
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <span class="colName">
+                    docid
+                </span>
+            </td>
+            <td>
+                <a class="description text-info" href="/Home/Details/37575172">
+                    文章編號
+                </a>
+            </td>
+            <td>
+                nvarchar(150)
+            </td>
+            <td>
+                <input checked="checked" class="check-box" disabled="disabled" type="checkbox">
+            </td>
+            <td>
+                <input checked="checked" class="check-box" disabled="disabled" type="checkbox">
+            </td>
+            <td>
+            </td>
+            <td>
+                <a class="remark text-info" href="/Home/Details/37575172">
+                    等於TextualETL_OCR.DocID
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="colName">
+                    PublishTypeID
+                </span>
+            </td>
+            <td>
+                <a class="description text-info" href="/Home/Details/37575172">
+                    文章類型
+                </a>
+            </td>
+            <td>
+                nvarchar(10)
+            </td>
+            <td>
+                <input class="check-box" disabled="disabled" type="checkbox">
+            </td>
+            <td>
+                <input class="check-box" disabled="disabled" type="checkbox">
+            </td>
+            <td>
+            </td>
+            <td>
+                <a class="remark text-info" href="/Home/Details/37575172">
+                    <code>
+                        null
+                    </code>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="colName">
+                    Source
+                </span>
+            </td>
+            <td>
+                <a class="description text-info" href="/Home/Details/37575172">
+                    文本來源類型
+                </a>
+            </td>
+            <td>
+                nvarchar(20)
+            </td>
+            <td>
+                <input class="check-box" disabled="disabled" type="checkbox">
+            </td>
+            <td>
+                <input class="check-box" disabled="disabled" type="checkbox">
+            </td>
+            <td>
+            </td>
+            <td>
+                <a class="remark text-info" href="/Home/Details/37575172">
+                    等於TextualETL_OCR.TextualSource
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="colName">
+                    deleteMark
+                </span>
+            </td>
+            <td>
+                <a class="description text-info" href="/Home/Details/37575172">
+                    刪除標註
+                </a>
+            </td>
+            <td>
+                bit
+            </td>
+            <td>
+                <input class="check-box" disabled="disabled" type="checkbox">
+            </td>
+            <td>
+                <input class="check-box" disabled="disabled" type="checkbox">
+            </td>
+            <td>
+                ((1))
+            </td>
+            <td>
+                <a class="remark text-info" href="/Home/Details/37575172">
+                    0：刪除    1：存活
+                </a>
+            </td>
+        </tr>
+    </tbody>
+
+</table>
