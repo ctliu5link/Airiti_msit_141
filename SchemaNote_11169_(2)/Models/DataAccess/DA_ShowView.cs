@@ -142,6 +142,7 @@ connectionView.TableDetailListViewModel = DoTable;
 connectionView.ConnectionString = sql;
             connectionView.table = table;
 
+
 return (connectionView);
            }
         }
