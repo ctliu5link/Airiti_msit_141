@@ -19,8 +19,6 @@
             <input id="inputColumnName" type="hidden" name="ColumnName" />
             @Html.Hidden("ConnString",Model.ConnString)
             <button id="btnSubmit">送出</button>
-
-
         </form>
         <br>
         @{
@@ -142,8 +140,6 @@
             let columnSelectVal = document.getElementById("selectColumn").value;
             $('#inputColumnName').val(columnSelectVal);
         if (columnSelectVal != "") { $('#btnSubmit').click(); }
- /*         $('#btnSubmit').click();*/
-
         });
         
     </script>

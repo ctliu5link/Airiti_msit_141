@@ -8,6 +8,17 @@
 </style>
 <h2>SchemaNotes SearchResult  </h2>
 <a class="description text-info" href="@Url.Action("SchemaNotes_OverView", "SchemaNotes" ,new {  ConnString = Model.ConnString })">OverView</a>
+<form action="Search" method="post">
+    @Html.DisplayName("物件名稱")
+    @Html.DropDownList("selectTable", new SelectList(Model.DASNTList.Select(x => x.TableName)), "請選擇")
+    <input id="inputTableName" type="hidden" name="TableName" />
+
+    @Html.DisplayName("欄位名稱")
+    @Html.DropDownList("selectColumn", new SelectList(Model.DASNCList.Select(x => x.ColumnName.ToUpper()).Distinct()), "請選擇")
+    <input id="inputColumnName" type="hidden" name="ColumnName" />
+    @Html.Hidden("ConnString", Model.ConnString)
+    <button id="btnSubmit">送出</button>
+</form>
 <body>
     <div class="container body-content">
         <br>
@@ -122,7 +133,18 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
-    </script>
+        $('#selectTable').mouseout(function () {
+            let tableSelectVal = document.getElementById("selectTable").value;
+            $('#inputTableName').val(tableSelectVal);
+            if (tableSelectVal != "") { $('#btnSubmit').click(); }
+        });
 
+        $('#selectColumn').mouseout(function () {
+            let columnSelectVal = document.getElementById("selectColumn").value;
+            $('#inputColumnName').val(columnSelectVal);
+            if (columnSelectVal != "") { $('#btnSubmit').click(); }
+        });
+
+    </script>
 </body>
 
