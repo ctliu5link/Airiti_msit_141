@@ -14,7 +14,7 @@ namespace SchemaNotes_11168_v2_.Controllers
 {
     public class SchemaNotesController : Controller
     {
-        public ActionResult SchemaNotesDetails(String ConnString)
+        public ActionResult SchemaNotes_OverView(String ConnString)
         {
             if (string.IsNullOrEmpty(ConnString))
             {
@@ -23,7 +23,6 @@ namespace SchemaNotes_11168_v2_.Controllers
             else
             {
                 #region get details of table and column from SV by SchemaViewModel
-                ViewBag.ConnString = ConnString;
                 SV_SchemaTablesColumns STC = new SV_SchemaTablesColumns();
                 return View(STC.SchemaDetails(ConnString));
                 #endregion
@@ -37,7 +36,7 @@ namespace SchemaNotes_11168_v2_.Controllers
             else
             {
                 #region get details of table and column from SV by SchemaViewModel
-                ViewBag.ConnString = viewModel.ConnString;
+                //ViewBag.ConnString = viewModel.ConnString;
                 SV_SchemaTablesColumns STC = new SV_SchemaTablesColumns();
                 return View(STC.SchemaDetails(viewModel.ConnString,viewModel.TableName));
                 #endregion
@@ -59,8 +58,8 @@ namespace SchemaNotes_11168_v2_.Controllers
         [HttpPost]
         public ActionResult Edit(SchemaViewModel vModel) {
             SV_SchemaTablesColumns SV_STC = new SV_SchemaTablesColumns();
-              bool value= SV_STC.SchemaEdit(vModel);
-            return RedirectToAction("SchemaNotesDetails", new { ConnString = vModel.ConnString });
+             SV_STC.SchemaEdit(vModel);
+            return RedirectToAction("Details", vModel);
         }
         public ActionResult DB_Connection(DO_DBconnection model)
         {
@@ -82,7 +81,7 @@ namespace SchemaNotes_11168_v2_.Controllers
             }
             else
             {
-              return RedirectToAction("SchemaNotesDetails", new { ConnString =DADBC.connStrings });
+              return RedirectToAction("SchemaNotes_OverView", new { ConnString =DADBC.connStrings });
             }
         }
         public ActionResult test()

@@ -1,41 +1,71 @@
 ﻿@model  SchemaNotes_11168_v2_.ViewModels.SchemaViewModel
 
-<h4>SchemaNotes Details</h4>
-
-    <a class="description text-info" href="@Url.Action("SchemaNotes_OverView", "SchemaNotes" ,new {  ConnString = Model.ConnString })">OverView</a>
-
-
+<style>
+    table td {
+        width: 90px;
+        white-space: normal;
+    }
+</style>
+<h2>SchemaNotes OverView  </h2>
+<body>
     <div class="container body-content">
+        <form asp-action="Index" method="post">
+            @using (@Html.BeginForm())
+            {
+                <div class="form-inline search">
+                    <div class="form-group form-group-lg">
+                        <label for="choose">搜尋項目</label>
+                        <select id="choose" class="form-control"><option value="objName">物件名稱</option><option value="colName">欄位名稱</option><option value="description">中文名稱</option><option value="remark">備註</option></select>
+                    </div>
+                    @{ string keyWord = "SEDoc";
+                        <div class="form-group form-group-lg">
+                            <label for="switch">搜索資料表</label>
+                            <select id="switch" class="form-control" name="tableSelect">
+                            </select>
+                        </div>
+                        <div class="form-group form-group-lg">
+
+                            @Html.TextBox("keyWord", keyWord)
+                        </div>
+                    }
+                    <div class="form-group form-group-lg">
+                        <button type="submit" class="btn btn-primary">確認</button>
+                    </div>
+                </div>
+            }
+        </form>
         <br>
         @{
+            int count = 0;
             foreach (var itemTable in Model.DASNTList)
             {
+
                 <div class="panel-group accordion" id="accordion1" role="tablist" aria-multiselectable="true">
                 </div>
                 <div class="panel panel-default  ">
                     <div class="panel-heading row" role="tab">
                         <div class="col-lg-10">
-                            <span class="panel-title" role="button" data-toggle="collapse" data-parent="#accordion1" href="#Detail" aria-expanded="false" aria-controls="collapse1">
+                            <span class="panel-title" role="button" data-toggle="collapse" data-parent="#accordion1" href="#@count" aria-expanded="false" aria-controls="collapse1">
                                 <span class="caret"></span>
                                 <strong class="objName">
-                                    @itemTable.TableName
+                                    <input type="text" name="DASNTList[@count].TableMSDescription" value=@itemTable.TableName disabled />
+                                    @*@itemTable.TableName*@
                                 </strong>
                             </span>
-                            <span style="@(itemTable.TableMSDescription=="Null"  ? "color:red" : "color:blue") ">
-                                @itemTable.TableMSDescription
-                            </span>
-                            <a class="description text-info" href="@Url.Action("Edit", "SchemaNotes" ,new { TableName = itemTable.TableName, ConnString = Model.ConnString })">
-                                    編輯
-                                </a>
+                            <a class="description text-info" href="@Url.Action("Details", "SchemaNotes" ,new { TableName = itemTable.TableName, ConnString = Model.ConnString })" style="@(itemTable.TableMSDescription=="Null"  ? "color:red" : "color:blue") ">
+                                <input type="text" name="DASNTList[@count].TableMSDescription" value=@itemTable.TableMSDescription disabled />
+
+                                @*@itemTable.TableMSDescription*@
+                            </a>
                         </div>
                         <div class="col-lg-2">
-                            <span class="count" data-toggle="tooltip" data-placement="top" title="" data-original-title="注意！此為參考值，非準確值。">
+                            <span class="@count" data-toggle="tooltip" data-placement="top" title="" data-original-title="注意！此為參考值，非準確值。">
                                 筆數:<strong class="text-info">@itemTable.TableRows</strong>
                             </span>
                         </div>
                     </div>
                 </div>
-                <div id="Detail" class="panel-body panel-collapse collapse tabDetail" role="tabpanel">
+                <div id="@count" class="panel-body panel-collapse collapse tabDetail" role="tabpanel">
                     <table class="tabDetail_left ">
                         <tbody>
                             <tr>
@@ -59,12 +89,13 @@
                     <div class="tabDetail_right">
                         <div>
                             備註
-                            <span style="@(itemTable.TableRemark=="Null"  ? "color:red" : "color:blue") ">
+                            <a class="description text-info" href="@Url.Action("Details", "SchemaNotes" ,new { TableName = itemTable.TableName, ConnString = Model.ConnString })" style="@(itemTable.TableRemark=="Null"  ? "color:red" : "color:blue") ">
                                 @itemTable.TableRemark
-                            </span>
+                            </a>
                         </div>
                     </div>
                 </div>
+                count++;
                 <table class="table  table-bordered  table-hover subTable " border="1">
                     <thead>
                         <tr>
@@ -85,18 +116,19 @@
                                 {
                                     <tr>
                                         <td>@itemColumn.ColumnName</td>
-                                        <td style="@(itemColumn.ColumnMSDescription=="Null"  ? "color:red" : "color:blue") ">
-                                            @itemColumn.ColumnMSDescription
-
+                                        <td id="idR">
+                                            <a class="description text-info" href="@Url.Action("Details", "SchemaNotes" ,new { TableName = itemTable.TableName,    ConnString = Model.ConnString })" style="@(itemColumn.ColumnMSDescription=="Null"  ? "color:red" : "color:blue") ">
+                                                @itemColumn.ColumnMSDescription
+                                            </a>
                                         </td>
                                         <td> @itemColumn.ColumnType</td>
                                         <td><input type="checkbox" class="check-box" disabled="disabled" @(itemColumn.ColumnPrimaryKey == "YES" ? "checked" : "")></td>
                                         <td> <input type="checkbox" class="check-box" disabled="disabled" @( itemColumn.ColumnNull == "NO" ? "checked" : "" )></td>
                                         <td>@itemColumn.ColumnDefault</td>
-
-                                        <td style="@(itemColumn.ColumnRemark=="Null"  ? "color:red" : "color:blue") ">
-                                            @itemColumn.ColumnRemark
-
+                                        <td>
+                                            <a class="description text-info" href="@Url.Action("Details", "SchemaNotes" ,new { TableName = itemTable.TableName, ConnString = Model.ConnString })" style="@(itemColumn.ColumnRemark=="Null"  ? "color:red" : "color:blue") ">
+                                                @itemColumn.ColumnRemark
+                                            </a>
                                         </td>
 
                                     </tr>
@@ -105,10 +137,16 @@
                         }
                     </tbody>
                 </table>
-            }
+                            }
         }
         <hr>
         <footer>
             <p>© 2022 - SchemaNotes (Version: 0.1.0)</p>
         </footer>
     </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+    </script>
+
+</body>

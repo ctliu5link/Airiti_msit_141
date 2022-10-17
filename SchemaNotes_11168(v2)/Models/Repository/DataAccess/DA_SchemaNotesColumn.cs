@@ -18,7 +18,7 @@ namespace SchemaNotes_11168_v2_.Models
         string commandText =
            "SELECT SO.name AS [物件名稱]," +
            "SC.name AS[欄位名稱],  "+
-           "  SE1.value AS[欄位說明], "+
+           " CASE WHEN SE1.value IS NULL THEN 'Null' ELSE SE1.value END AS[欄位說明], "+
            " CASE WHEN ISC.CHARACTER_MAXIMUM_LENGTH IS NULL THEN ISC.DATA_TYPE ELSE  (ISC.DATA_TYPE + '(' + CONVERT(VARCHAR, ISC.CHARACTER_MAXIMUM_LENGTH) + ')') END AS[資料型態],"+
            " CASE  WHEN ISK.CONSTRAINT_NAME IS NULL THEN 'NO'   ELSE 'YES'   END AS[主鍵], " +
            " ISC.IS_NULLABLE AS[不為NULL]," +
