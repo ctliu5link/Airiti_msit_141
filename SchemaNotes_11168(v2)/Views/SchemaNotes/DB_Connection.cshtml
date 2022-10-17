@@ -25,7 +25,7 @@
                             }
                         </form>
                         <h5 style="color:blue">@ViewBag.MyConnectionString</h5>*@
-                    <form asp-action="DB_Connection" method="post">
+                    <form action="DB_Connection" method="post">
                         @Html.DisplayNameFor(model => model.uid)
                         <input id="uid" name="uid" autocomplete="off" />
 
@@ -33,11 +33,10 @@
                         <input id="pwd" name="pwd" autocomplete="off" />
 
                         @Html.DisplayNameFor(model => model.database)
-                        <input id="database" name="database" autocomplete="off" "   />
-
-                        @Html.DisplayNameFor(model => model.server)
+                        <input id="database" name="database" autocomplete="off"  />
+                          @Html.DisplayNameFor(model => model.server)
                         <input id="server" name="server" autocomplete="off" />
-                        <button type="submit" class="btn btn-primary">確認</button>
+                        <button id="btnSubmit" type="submit" class="btn btn-primary">確認</button>
 
                         <br />
                         <button id="defaultConnectedString" style="background-color: lightgray;" type="button" class="btn">自動填寫ConnectionString</button>
@@ -83,7 +82,6 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
         $("#defaultConnectedString").click(function () {
-
             let dConnectedStrings = $("#viewbag").text();
             const connectedString = dConnectedStrings.split(";");
             for (let i = 0; i < connectedString.length; i++) {
@@ -103,6 +101,7 @@
                         $("#server").val(connectedString[i].substring(a0));
                         break;
                 }
+                $('#btnSubmit').click();
             }
         });
 

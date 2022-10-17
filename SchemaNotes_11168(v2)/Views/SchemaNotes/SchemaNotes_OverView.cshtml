@@ -9,30 +9,18 @@
 <h2>SchemaNotes OverView  </h2>
 <body>
     <div class="container body-content">
-        <form asp-action="Index" method="post">
-            @using (@Html.BeginForm())
-            {
-                <div class="form-inline search">
-                    <div class="form-group form-group-lg">
-                        <label for="choose">搜尋項目</label>
-                        <select id="choose" class="form-control"><option value="objName">物件名稱</option><option value="colName">欄位名稱</option><option value="description">中文名稱</option><option value="remark">備註</option></select>
-                    </div>
-                    @{ string keyWord = "SEDoc";
-                        <div class="form-group form-group-lg">
-                            <label for="switch">搜索資料表</label>
-                            <select id="switch" class="form-control" name="tableSelect">
-                            </select>
-                        </div>
-                        <div class="form-group form-group-lg">
+        <form action="Search" method="post">
+            @Html.DisplayName("物件名稱")
+            @Html.DropDownList("selectTable", new SelectList(Model.DASNTList.Select(x => x.TableName)), "請選擇")
+            <input id="inputTableName" type="hidden" name="TableName" />
 
-                            @Html.TextBox("keyWord", keyWord)
-                        </div>
-                    }
-                    <div class="form-group form-group-lg">
-                        <button type="submit" class="btn btn-primary">確認</button>
-                    </div>
-                </div>
-            }
+            @Html.DisplayName("欄位名稱")
+            @Html.DropDownList("selectColumn", new SelectList(Model.DASNCList.Select(x => x.ColumnName.ToUpper()).Distinct()), "請選擇")
+            <input id="inputColumnName" type="hidden" name="ColumnName" />
+            @Html.Hidden("ConnString",Model.ConnString)
+            <button id="btnSubmit">送出</button>
+
+
         </form>
         <br>
         @{
@@ -54,8 +42,6 @@
                             </span>
                             <a class="description text-info" href="@Url.Action("Details", "SchemaNotes" ,new { TableName = itemTable.TableName, ConnString = Model.ConnString })" style="@(itemTable.TableMSDescription=="Null"  ? "color:red" : "color:blue") ">
                                 <input type="text" name="DASNTList[@count].TableMSDescription" value=@itemTable.TableMSDescription disabled />
-
-                                @*@itemTable.TableMSDescription*@
                             </a>
                         </div>
                         <div class="col-lg-2">
@@ -144,9 +130,22 @@
             <p>© 2022 - SchemaNotes (Version: 0.1.0)</p>
         </footer>
     </div>
-
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
+        $('#selectTable').mouseout(function () {
+            let tableSelectVal = document.getElementById("selectTable").value;
+            $('#inputTableName').val(tableSelectVal);
+            if (tableSelectVal != "") { $('#btnSubmit').click(); }
+        });
+
+        $('#selectColumn').mouseout(function () {
+            let columnSelectVal = document.getElementById("selectColumn").value;
+            $('#inputColumnName').val(columnSelectVal);
+        //    if (columnSelectVal != "") { $('#btnSubmit').click(); }
+          $('#btnSubmit').click();
+
+        });
+        
     </script>
 
 </body>

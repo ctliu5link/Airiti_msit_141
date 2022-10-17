@@ -116,7 +116,6 @@ namespace SchemaNotes_11168_v2_.Models.Services
                 }
             }
         }
-
         public void SchemaUpdateOrAddTable(string connectionString, string TableName, string prop, string value)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))

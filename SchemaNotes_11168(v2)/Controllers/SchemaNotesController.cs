@@ -36,9 +36,9 @@ namespace SchemaNotes_11168_v2_.Controllers
             else
             {
                 #region get details of table and column from SV by SchemaViewModel
-                //ViewBag.ConnString = viewModel.ConnString;
                 SV_SchemaTablesColumns STC = new SV_SchemaTablesColumns();
-                return View(STC.SchemaDetails(viewModel.ConnString,viewModel.TableName));
+                SchemaViewModel vModel = STC.SchemaDetails(viewModel.ConnString, viewModel.TableName);
+                return View(vModel);
                 #endregion
             }
         }
@@ -60,6 +60,33 @@ namespace SchemaNotes_11168_v2_.Controllers
             SV_SchemaTablesColumns SV_STC = new SV_SchemaTablesColumns();
              SV_STC.SchemaEdit(vModel);
             return RedirectToAction("Details", vModel);
+        }
+        public ActionResult Search(SearchViewModel vModel) {
+            if (string.IsNullOrEmpty(vModel.ConnString)) {
+                return RedirectToAction("DB_Connection"); }
+            else if (!string.IsNullOrEmpty(vModel.TableName)) {
+                #region get details of table and column from SV by SchemaViewModel
+                SV_SchemaTablesColumns STC = new SV_SchemaTablesColumns();
+                return View(STC.SchemaDetails(vModel.ConnString,vModel.TableName));
+                #endregion
+
+                }
+            else {
+                #region get details of table and column from SV by SchemaViewModel
+
+                SchemaViewModel VM = new SchemaViewModel();
+                SV_SchemaTablesColumns STC = new SV_SchemaTablesColumns();
+                STC.SchemaDetails(vModel.ConnString);
+                List<string> listTable = new List<string>();
+                var q = STC.SchemaDetails(vModel.ConnString).DASNCList.Where(x => x.ColumnName.ToUpper() == vModel.ColumnName).ToList();
+                foreach (var item in q) {
+                    listTable.Add(item.TableName);
+                }
+
+                    return View(STC.SchemaDetails(vModel.ConnString, vModel.TableName));
+                #endregion
+            }
+
         }
         public ActionResult DB_Connection(DO_DBconnection model)
         {
