@@ -69,22 +69,14 @@ namespace SchemaNotes_11168_v2_.Controllers
                 SV_SchemaTablesColumns STC = new SV_SchemaTablesColumns();
                 return View(STC.SchemaDetails(vModel.ConnString,vModel.TableName));
                 #endregion
-
                 }
             else {
-                #region get details of table and column from SV by SchemaViewModel
 
                 SchemaViewModel VM = new SchemaViewModel();
-                SV_SchemaTablesColumns STC = new SV_SchemaTablesColumns();
-                STC.SchemaDetails(vModel.ConnString);
-                List<string> listTable = new List<string>();
-                var q = STC.SchemaDetails(vModel.ConnString).DASNCList.Where(x => x.ColumnName.ToUpper() == vModel.ColumnName).ToList();
-                foreach (var item in q) {
-                    listTable.Add(item.TableName);
-                }
 
-                    return View(STC.SchemaDetails(vModel.ConnString, vModel.TableName));
-                #endregion
+                SV_SchemaTablesColumns STC = new SV_SchemaTablesColumns();
+                VM = STC.SchemaDetails(vModel);
+                return View(VM);
             }
 
         }
@@ -92,8 +84,8 @@ namespace SchemaNotes_11168_v2_.Controllers
         {
             DA_DBConnection DADBC = new DA_DBConnection(model);
             DADBC.IsConnectedSever(model);
-            ViewBag.MyConnectionString = ConfigurationManager.ConnectionStrings["MySchemaNotes"].ConnectionString;
-            //ViewBag.MyConnectionString = ConfigurationManager.ConnectionStrings["MyHOME"].ConnectionString;
+            //ViewBag.MyConnectionString = ConfigurationManager.ConnectionStrings["MySchemaNotes"].ConnectionString;
+            ViewBag.MyConnectionString = ConfigurationManager.ConnectionStrings["MyHOME"].ConnectionString;
             if (DADBC.IsConnected == false)
             {
                 if (DADBC.IsConnstrings == false && DADBC.connStrings == "New")

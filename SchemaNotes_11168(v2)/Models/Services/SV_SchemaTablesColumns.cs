@@ -31,6 +31,23 @@ namespace SchemaNotes_11168_v2_.Models.Services
             VM.DASNCList = DASNC.GetTables(ConnString).Where(column => column.TableName == TableName).ToList();
             return VM;
         }
+        public SchemaViewModel SchemaDetails(SearchViewModel searchModel) {
+            SchemaViewModel VM = new SchemaViewModel();
+            List<string> listTable = new List<string>();
+            List<DO_SchemaNotesTable> DOSNT = new List<DO_SchemaNotesTable>();
+            List<DO_SchemaNotesColumn> DOSNC = new List<DO_SchemaNotesColumn>();
+            var q = SchemaDetails(searchModel.ConnString).DASNCList.Where(x => x.ColumnName.ToUpper() == searchModel.ColumnName).ToList();
+            foreach (var item in q)
+            {
+                listTable.Add(item.TableName);
+                DOSNT.Add(SchemaDetails(searchModel.ConnString).DASNTList.Where(x => x.TableName == item.TableName).First());
+                DOSNC.AddRange(SchemaDetails(searchModel.ConnString).DASNCList.Where(x => x.TableName == item.TableName).ToList().Distinct()); ;
+            }
+            VM.ConnString = searchModel.ConnString;
+            VM.DASNTList = DOSNT;
+            VM.DASNCList = DOSNC;
+            return VM;
+        }
 
         public void SchemaEdit(SchemaViewModel vModel)
         {
