@@ -1,4 +1,6 @@
-﻿using SchemaNotes_11168_v2_.Models;
+﻿
+using SchemaNotes_11168_v2_.Models;
+using SchemaNotes_11168_v2_.Models.Commons;
 using SchemaNotes_11168_v2_.Models.Repository.DataAccess;
 using SchemaNotes_11168_v2_.Models.Services;
 using SchemaNotes_11168_v2_.ViewModels;
@@ -82,10 +84,16 @@ namespace SchemaNotes_11168_v2_.Controllers
         }
         public ActionResult DB_Connection(DO_DBconnection model)
         {
-            DA_DBConnection DADBC = new DA_DBConnection(model);
+            
+            #region get the default settings of connectionString from webconfiguration
+            getWebConnectionString GWCS = new getWebConnectionString();
+            List<WebConfigConnectionString> WCCS = new List<WebConfigConnectionString>();
+            WCCS = GWCS.getDefaultConnStrings();
+            ViewBag.model = WCCS;
+            #endregion
+
+           DA_DBConnection DADBC = new DA_DBConnection(model);
             DADBC.IsConnectedSever(model);
-            //ViewBag.MyConnectionString = ConfigurationManager.ConnectionStrings["MySchemaNotes"].ConnectionString;
-            ViewBag.MyConnectionString = ConfigurationManager.ConnectionStrings["MyHOME"].ConnectionString;
             if (DADBC.IsConnected == false)
             {
                 if (DADBC.IsConnstrings == false && DADBC.connStrings == "New")
@@ -94,7 +102,7 @@ namespace SchemaNotes_11168_v2_.Controllers
                 }
                 else
                 {
-                    MessageBox.Show(DADBC.connStrings);
+                    MessageBox.Show(DADBC.connStrings+"連接失敗");
                     return View();
                 }
             }

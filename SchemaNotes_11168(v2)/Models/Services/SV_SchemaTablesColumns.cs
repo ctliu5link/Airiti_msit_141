@@ -15,7 +15,7 @@ namespace SchemaNotes_11168_v2_.Models.Services
         {
             SchemaViewModel VM = new SchemaViewModel();
             DA_SchemaNotesTable DASNT = new DA_SchemaNotesTable();
-            DA_SchemaNotesColumn DASNC = new DA_SchemaNotesColumn();
+             DA_SchemaNotesColumn DASNC = new DA_SchemaNotesColumn();
             VM.ConnString = ConnString;
             VM.DASNTList = DASNT.GetTables(ConnString);
             VM.DASNCList = DASNC.GetTables(ConnString);
@@ -145,6 +145,7 @@ namespace SchemaNotes_11168_v2_.Models.Services
               @name = N'{prop}'  ,@value = '{value}'  
              ,@level0type = N'Schema', @level0name = dbo  
               ,@level1type = N'Table',  @level1name = {TableName}
+
              ELSE EXEC sp_addextendedproperty
              @name = N'{prop}'  ,@value = '{value}'  
              ,@level0type = N'Schema', @level0name = dbo  

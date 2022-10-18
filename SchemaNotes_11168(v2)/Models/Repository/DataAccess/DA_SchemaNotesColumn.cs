@@ -16,14 +16,14 @@ namespace SchemaNotes_11168_v2_.Models
         List<DO_SchemaNotesColumn> SNCList = new List<DO_SchemaNotesColumn>();
         #region SqlQuery 
         string commandText =
-           "SELECT SO.name AS [物件名稱]," +
-           "SC.name AS[欄位名稱],  "+
-           " CASE WHEN SE1.value IS NULL THEN 'Null' ELSE SE1.value END AS[欄位說明], "+
-           " CASE WHEN ISC.CHARACTER_MAXIMUM_LENGTH IS NULL THEN ISC.DATA_TYPE ELSE  (ISC.DATA_TYPE + '(' + CONVERT(VARCHAR, ISC.CHARACTER_MAXIMUM_LENGTH) + ')') END AS[資料型態],"+
-           " CASE  WHEN ISK.CONSTRAINT_NAME IS NULL THEN 'NO'   ELSE 'YES'   END AS[主鍵], " +
-           " ISC.IS_NULLABLE AS[不為NULL]," +
-            "ISC.COLUMN_DEFAULT AS[預設值]," +
-           "CASE WHEN SE.value IS NULL THEN 'Null' ELSE SE.value  END AS[備註]"+
+           "SELECT SO.name AS [TableName]," +
+           "SC.name AS[ColumnName],  " +
+           " CASE WHEN SE1.value IS NULL THEN 'Null' ELSE SE1.value END AS[ColumnMSDescription], " +
+           " CASE WHEN ISC.CHARACTER_MAXIMUM_LENGTH IS NULL THEN ISC.DATA_TYPE ELSE  (ISC.DATA_TYPE + '(' + CONVERT(VARCHAR, ISC.CHARACTER_MAXIMUM_LENGTH) + ')') END AS[ColumnType]," +
+           " CASE  WHEN ISK.CONSTRAINT_NAME IS NULL THEN 'NO'   ELSE 'YES'   END AS[ColumnPrimaryKey], " +
+           " ISC.IS_NULLABLE AS[ColumnNull]," +
+            "ISC.COLUMN_DEFAULT AS[ColumnDefault]," +
+           "CASE WHEN SE.value IS NULL THEN 'Null' ELSE SE.value  END AS[ColumnRemark]" +
 
            " FROM sys.columns AS SC"+
            " LEFT JOIN sys.objects SO ON SO.object_id = SC.object_id"+
@@ -34,17 +34,7 @@ namespace SchemaNotes_11168_v2_.Models
             "WHERE OBJECT_NAME(SO.object_id) IN "+
             "(SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES) ORDER BY  SC.column_id ;";
 
-        public override string TableName => throw new NotImplementedException();
 
-        public override ReturnObject<int> AddData(List<DA_DBConnection> pData)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ReturnObject<int> DeleteData(List<DA_DBConnection> pData)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
         public List<DO_SchemaNotesColumn> GetTables(string connString)
         {
@@ -58,14 +48,14 @@ namespace SchemaNotes_11168_v2_.Models
                 {
                     DO_SchemaNotesColumn DOSNC = new DO_SchemaNotesColumn
                     {
-                        TableName = dataReader["物件名稱"].ToString(),
-                        ColumnName = dataReader["欄位名稱"].ToString(),
-                        ColumnMSDescription = dataReader["欄位說明"].ToString(),
-                        ColumnType = dataReader["資料型態"].ToString(),
-                        ColumnPrimaryKey =dataReader["主鍵"].ToString(),
-                        ColumnNull = dataReader["不為NULL"].ToString(),
-                        ColumnDefault = dataReader["預設值"].ToString(),
-                        ColumnRemark = dataReader["備註"].ToString()
+                        TableName = dataReader["TableName"].ToString(),
+                        ColumnName = dataReader["ColumnName"].ToString(),
+                        ColumnMSDescription = dataReader["ColumnMSDescription"].ToString(),
+                        ColumnType = dataReader["ColumnType"].ToString(),
+                        ColumnPrimaryKey =dataReader["ColumnPrimaryKey"].ToString(),
+                        ColumnNull = dataReader["ColumnNull"].ToString(),
+                        ColumnDefault = dataReader["ColumnDefault"].ToString(),
+                        ColumnRemark = dataReader["ColumnRemark"].ToString()
                     };
                     SNCList.Add(DOSNC);
                 }
@@ -73,7 +63,6 @@ namespace SchemaNotes_11168_v2_.Models
                 #endregion
             } 
         }
-
  
         public override ReturnObject<int> ModifyData(List<DA_DBConnection> pData)
         {
@@ -81,6 +70,17 @@ namespace SchemaNotes_11168_v2_.Models
         }
 
         public override ReturnObject<int> SaveData(List<DA_DBConnection> pData)
+        {
+            throw new NotImplementedException();
+        }
+        public override string TableName => throw new NotImplementedException();
+
+        public override ReturnObject<int> AddData(List<DA_DBConnection> pData)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ReturnObject<int> DeleteData(List<DA_DBConnection> pData)
         {
             throw new NotImplementedException();
         }

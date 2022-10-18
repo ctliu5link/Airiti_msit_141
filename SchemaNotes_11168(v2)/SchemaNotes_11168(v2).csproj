@@ -155,6 +155,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Commons\WebConfigConnectionString.cs" />
     <Compile Include="Models\Repository\DataAccess\Base\DA_Base.cs" />
     <Compile Include="Models\Repository\DataAccess\DA_DBConnection.cs" />
     <Compile Include="Models\Repository\DataAccess\DA_SchemaNotesColumn.cs" />
