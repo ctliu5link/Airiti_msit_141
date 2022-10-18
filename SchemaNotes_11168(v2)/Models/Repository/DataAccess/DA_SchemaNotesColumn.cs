@@ -1,4 +1,6 @@
-﻿using SchemaNotes_11168_v2_.Models;
+﻿//#define version_1
+#define version_2
+using SchemaNotes_11168_v2_.Models;
 using SchemaNotes_11168_v2_.Models.Repository.DataAccess.Base;
 using System;
 using System.Collections.Generic;
@@ -7,15 +9,18 @@ using System.Web;
 using System.Data.SqlClient;
 using SchemaNotes_11168_v2_.Models.Repository.DataAccess;
 using Airiti.Common;
+using Airiti.DataAccess;
+using System.Reflection;
+using System.Data;
+using Airiti.Extensions;
 
 namespace SchemaNotes_11168_v2_.Models
 {
     public class DA_SchemaNotesColumn: DA_Base<DA_DBConnection>
     {
-   
         List<DO_SchemaNotesColumn> SNCList = new List<DO_SchemaNotesColumn>();
         #region SqlQuery 
-        string commandText =
+        string strSQLCmd =
            "SELECT SO.name AS [TableName]," +
            "SC.name AS[ColumnName],  " +
            " CASE WHEN SE1.value IS NULL THEN 'Null' ELSE SE1.value END AS[ColumnMSDescription], " +
@@ -38,11 +43,12 @@ namespace SchemaNotes_11168_v2_.Models
         #endregion
         public List<DO_SchemaNotesColumn> GetTables(string connString)
         {
+#if (version_1)
             using (SqlConnection conn = new SqlConnection(connString))
             {
-                SqlCommand command = new SqlCommand(commandText, conn);
+                SqlCommand command = new SqlCommand(strSQLCmd, conn);
                 conn.Open();
-                #region  add all queried result to List  and return the list
+#region  add all queried result to List  and return the list
                 SqlDataReader dataReader = command.ExecuteReader();
                 while (dataReader.Read())
                 {
@@ -59,11 +65,51 @@ namespace SchemaNotes_11168_v2_.Models
                     };
                     SNCList.Add(DOSNC);
                 }
-             return SNCList;
-                #endregion
+#endregion
+                return SNCList;
             } 
+#endif
+#if (version_2)
+#region 必要宣告
+            string strClassName = "Airiti.Check.Models.Repository.DataAccess.DA_Account";
+            string strMethodName = MethodBase.GetCurrentMethod().Name;
+            LogFile objLogFile = new LogFile(strClassName, strMethodName);
+            objLogFile.StartLog();
+            ReturnObject<DataTable> objDBReturn = new ReturnObject<DataTable>();
+#endregion
+            try
+            {
+                objDBReturn = DBService.SingleQuery(connString, strSQLCmd);
+                if (objDBReturn.ReturnData.Rows.Count != 0)
+                {
+                    objDBReturn.ReturnValue = OpReturnValue.Correct;
+                    SNCList = objDBReturn.ReturnData.ToList<DO_SchemaNotesColumn>().ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                objDBReturn.ReturnValue = OpReturnValue.Exception;
+                objDBReturn.ReturnMessage = ex.Message;
+                objDBReturn.ReturnStackTrace = ex.StackTrace;
+                objDBReturn.ReturnErrNum = OpErrNum.Exception;
+                objLogFile.Log(string.Format("ReturnValue:{0}", OpReturnValue.Exception));
+                objLogFile.Log(string.Format("ReturnMessage:{0}", ex.Message));
+                objLogFile.Log(string.Format("ReturnStackTrace:{0}", ex.StackTrace));
+                if (ex.InnerException != null)
+                {
+                    objLogFile.Log(string.Format("ReturnInnerMessage:{0}", ex.InnerException.Message));
+                    objLogFile.Log(string.Format("ReturnInnerStackTrace:{0}", ex.InnerException.StackTrace));
+                }
+            }
+            finally
+            {
+                objLogFile.EndLog();
+            }
+
+            return SNCList;
+#endif
         }
- 
+
         public override ReturnObject<int> ModifyData(List<DA_DBConnection> pData)
         {
             throw new NotImplementedException();
