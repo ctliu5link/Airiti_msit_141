@@ -9,21 +9,21 @@ namespace SchemaNote_11170__2_.Models.DataObject
     public class DO_ColumnDetail
     {
         [DisplayName("資料表名稱")]
-        public string table_Name { get; set; }
+        public string 資料表 { get; set; }
         [DisplayName("欄位名稱")]
-        public string column_Name { get; set; }
+        public string 欄位名稱 { get; set; }
         [DisplayName("欄位說明")]
-        public string column_Explanation { get; set; }
+        public string 欄位說明 { get; set; }
         [DisplayName("資料型態")]
-        public string column_DataType { get; set; }
+        public string 資料型態 { get; set; }
         [DisplayName("主鍵")]
-        public string column_PK { get; set; }
+        public string 主鍵 { get; set; }
         [DisplayName("不為Null")]
-        public string column_IsNotNull { get; set; }
+        public string 不為Null { get; set; }
         [DisplayName("預設值")]
-        public string column_Default{ get; set; }
+        public string 預設值 { get; set; }
         [DisplayName("備註")]
-        public string column_Description { get; set; }
+        public string 備註 { get; set; }
     }
 
     /// <summary>

@@ -49,23 +49,23 @@
                         <span class="panel-title" role="button" data-toggle="collapse" data-parent="#accordion1" href="#collapse@(count)" aria-expanded="true" aria-controls="collapse@(count)">
                             <span class="caret"></span>
                             <strong class="objName">
-                                @item1.table_Name
+                                @item1.資料表名稱
                             </strong>
                         </span>
-                        <a class="description text-info" href="/Database/Details?name=@(item1.table_Name)&connection=@(Model.Connection)" >
-                            @if (item1.table_Explanation != "null")
+                        <a class="description text-info" href="/Database/Details?name=@(item1.資料表名稱)&connection=@(Model.Connection)" >
+                            @if (item1.資料說明 != "null")
                             {
-                                @item1.table_Explanation
+                                @item1.資料說明
                             }
                             else
                             {
                                 <code>
-                                    @item1.table_Explanation
+                                    @item1.資料說明
                                 </code>
                             }
                         </a>
                         <span class="count" data-toggle="tooltip" data-placement="top" title="" data-original-title="注意！此為參考值，非準確值。" style="float:right">
-                            @Html.DisplayNameFor(model => item1.table_Count)<strong class="text-info">@item1.table_Count</strong>
+                            @Html.DisplayNameFor(model => item1.筆數)<strong class="text-info">@item1.筆數</strong>
                         </span>
                     </div>
                     <div id="collapse@(count)" class="panel-body panel-collapse tabDetail collapse " role="tabpanel" aria-expanded="true" style="">
@@ -73,53 +73,53 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        @Html.DisplayNameFor(model => item1.table_ObjectType)  
+                                        @Html.DisplayNameFor(model => item1.物件類型)  
                                     </td>
                                     <td>
-                                        @item1.table_ObjectType
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        @Html.DisplayNameFor(model => item1.table_Struct)  
-                                    </td>
-                                    <td>
-                                        @item1.table_Struct
+                                        @item1.物件類型
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        @Html.DisplayNameFor(model => item1.table_CreateDate)  
+                                        @Html.DisplayNameFor(model => item1.結構描述名稱)  
                                     </td>
                                     <td>
-                                        @item1.table_CreateDate
+                                        @item1.結構描述名稱
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        @Html.DisplayNameFor(model => item1.table_ModifyDate)  
+                                        @Html.DisplayNameFor(model => item1.Create_date)  
                                     </td>
                                     <td>
-                                        @item1.table_ModifyDate
+                                        @item1.Create_date
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayNameFor(model => item1.Modify_date)  
+                                    </td>
+                                    <td>
+                                        @item1.Modify_date
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                         <div class="tabDetail_right">
                             <div>
-                                @Html.DisplayNameFor(model => item1.table_Description)
+                                @Html.DisplayNameFor(model => item1.備註)
                             </div>
                             <div class="NoteField">
 
-                                <a class="remark text-info" href="/Database/Details?name=@(item1.table_Name)&connection=@(Model.Connection)">
-                                    @if (item1.table_Description != "null")
+                                <a class="remark text-info" href="/Database/Details?name=@(item1.資料表名稱)&connection=@(Model.Connection)">
+                                    @if (item1.備註 != "null")
                                     {
-                                        @item1.table_Description
+                                        @item1.備註
                                     }
                                     else
                                     {
                                         <code>
-                                            @item1.table_Description
+                                            @item1.備註
                                         </code>
                                     }
                                 </a>
@@ -131,58 +131,58 @@
                         <thead>
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model=>model.Column.column_Name)
+                                    @Html.DisplayNameFor(model=>model.Column.欄位名稱)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Column.column_Explanation)
+                                    @Html.DisplayNameFor(model => model.Column.欄位說明)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Column.column_DataType)
+                                    @Html.DisplayNameFor(model => model.Column.資料型態)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Column.column_PK)
+                                    @Html.DisplayNameFor(model => model.Column.主鍵)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Column.column_IsNotNull)
+                                    @Html.DisplayNameFor(model => model.Column.不為Null)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Column.column_Default)
+                                    @Html.DisplayNameFor(model => model.Column.預設值)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Column.column_Description)
+                                    @Html.DisplayNameFor(model => model.Column.備註)
                                 </th>
                             </tr>
                         </thead>
                         @foreach (var item2 in Model.ColumnDetail)
                         {
-                            if (item2.table_Name == item1.table_Name)
+                            if (item2.資料表 == item1.資料表名稱)
                             {
                                 <tbody>
                                     <tr>
                                         <td>
                                             <span class="colName">
-                                                @item2.column_Name
+                                                @item2.欄位名稱
                                             </span>
                                         </td>
                                         <td>
-                                            <a class="description text-info" href="/Database/Details?name=@(item1.table_Name)&connection=@(Model.Connection)">
-                                                @if (item2.column_Explanation != "null")
+                                            <a class="description text-info" href="/Database/Details?name=@(item1.資料表名稱)&connection=@(Model.Connection)">
+                                                @if (item2.欄位說明 != "null")
                                                 {
-                                                    @item2.column_Explanation
+                                                    @item2.欄位說明
                                                 }
                                                 else
                                                 {
                                                     <code>
-                                                        @item2.column_Explanation
+                                                        @item2.欄位說明
                                                     </code>
                                                 }
                                             </a>
                                         </td>
                                         <td>
-                                            @item2.column_DataType
+                                            @item2.資料型態
                                         </td>
                                         @{
-                                            if (item2.column_PK == PK主鍵.YES.ToString())
+                                            if (item2.主鍵 == PK主鍵.YES.ToString())
                                             {
                                                 <td>
                                                     <input checked="checked" class="check-box" disabled="disabled" type="checkbox">
@@ -197,7 +197,7 @@
                                         }
 
                                         @{
-                                            if (item2.column_IsNotNull == Null判斷.不為Null.ToString())
+                                            if (item2.不為Null == Null判斷.不為Null.ToString())
                                             {
                                                 <td>
                                                     <input checked="checked" class="check-box" disabled="disabled" type="checkbox">
@@ -211,18 +211,18 @@
                                             }
                                         }
                                         <td>
-                                            @item2.column_Default
+                                            @item2.預設值
                                         </td>
                                         <td>
-                                            <a class="remark text-info" href="/Database/Details?name=@(item1.table_Name)&connection=@(Model.Connection)">
-                                                @if (item2.column_Description != "null")
+                                            <a class="remark text-info" href="/Database/Details?name=@(item1.資料表名稱)&connection=@(Model.Connection)">
+                                                @if (item2.備註 != "null")
                                                 {
-                                                    @item2.column_Description
+                                                    @item2.備註
                                                 }
                                                 else
                                                 {
                                                     <code>
-                                                        @item2.column_Description
+                                                        @item2.備註
                                                     </code>
                                                 }
                                             </a>
