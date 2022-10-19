@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Windows.Forms;
@@ -49,9 +50,12 @@ namespace SchemaNote_11170__2_.Controllers
             {
                 return RedirectToAction("ShowData", new { connection = connectionStrings });
             }
+            else
+            {
+                MessageBox.Show(objReturn.ReturnValue+"\n"+objReturn.ReturnMessage);
+                return RedirectToAction("Connect");
+            }
 #endif
-            MessageBox.Show(objReturn.ReturnValue.ToString());
-            return RedirectToAction("Connect");
         }
         /// <summary>
         /// 展示所有DataDetail
@@ -60,6 +64,7 @@ namespace SchemaNote_11170__2_.Controllers
         /// <returns></returns>
         public ActionResult ShowData(string connection)
         {
+#if Level1
             if (!string.IsNullOrEmpty(connection))
             {
                 VM_ShowData vModel = new VM_ShowData();
@@ -70,6 +75,25 @@ namespace SchemaNote_11170__2_.Controllers
                 return View(vModel);
             }
                 return RedirectToAction("Connect");
+#endif
+
+#if Level2
+            ReturnObject<string> objReturn= DBService.DBConnectionTest(connection);
+            if (objReturn.ReturnValue==OpReturnValue.Correct)
+            {
+                VM_ShowData vModel = new VM_ShowData();
+                SV_ShowData SV = new SV_ShowData();
+                vModel.TableDetail = SV.InsertTableDetail(connection);
+                vModel.ColumnDetail = SV.InsertColumnDetail(connection);
+                vModel.Connection = connection;
+                return View(vModel);
+            }
+            else
+            {
+                MessageBox.Show(objReturn.ReturnValue + "\n" + objReturn.ReturnMessage);
+                return RedirectToAction("Connect");
+            }
+#endif
         }
         /// <summary>
         /// 根據TableName，展示此表的Detail
@@ -79,12 +103,31 @@ namespace SchemaNote_11170__2_.Controllers
         /// <returns></returns>
         public ActionResult Details(string name,string connection)
         {
-            VM_ShowData vModel = new VM_ShowData();
-            SV_ShowData SV = new SV_ShowData();
-            vModel.TableDetail = SV.InsertTableDetail_ByTableName(connection, name);
-            vModel.ColumnDetail = SV.InsertColumnDetail_ByTableName(connection, name);
-            vModel.Connection = connection;
-            return View(vModel);
+#if Level1
+if (!string.IsNullOrEmpty(connection))
+            {
+                VM_ShowData vModel = new VM_ShowData();
+                SV_ShowData SV = new SV_ShowData();
+                vModel.TableDetail = SV.InsertTableDetail_ByTableName(connection, name);
+                vModel.ColumnDetail = SV.InsertColumnDetail_ByTableName(connection, name);
+                vModel.Connection = connection;
+                return View(vModel);
+            }
+            return RedirectToAction("Connect");
+#endif
+#if Level2
+            ReturnObject<string> objReturn = DBService.DBConnectionTest(connection);
+            if (objReturn.ReturnValue == OpReturnValue.Correct)
+            {
+                VM_ShowData vModel = new VM_ShowData();
+                SV_ShowData SV = new SV_ShowData();
+                vModel.TableDetail = SV.InsertTableDetail_ByTableName(connection, name);
+                vModel.ColumnDetail = SV.InsertColumnDetail_ByTableName(connection, name);
+                vModel.Connection = connection;
+                return View(vModel);
+            }
+            return RedirectToAction("Connect");
+#endif
         }
         /// <summary>
         /// 按下送出，進行Data的CRUD邏輯運算

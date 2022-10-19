@@ -1,5 +1,5 @@
-﻿#define Level1
-//#define Level2
+﻿//#define Level1
+#define Level2
 using Airiti.Common;
 using Airiti.DataAccess;
 using Airiti.Extensions;
@@ -115,21 +115,22 @@ namespace SchemaNote_11170__2_.Models.DataAccess
             #region  --連線，並找出所有table，存在list中
             try
             {
-                ReturnObject<DataTable> table = DBService.SingleQuery(connectionString, sql_TableDetail);
-                if (table.ReturnValue == OpReturnValue.Correct)
+                objReturn = DBService.SingleQuery(connectionString, sql_TableDetail);
+                if (objReturn.ReturnData.Rows.Count != 0)
                 {
-                    objReturn.ReturnValue = OpReturnValue.Correct;
-                    list_table = table.ReturnData.ToList<DO_TableDetail>().ToList();
+                    list_table = objReturn.ReturnData.ToList<DO_TableDetail>().ToList();
                 }
             }
             catch (Exception ex)
             {
                 #region --植入錯誤訊息
-                objReturn.ReturnValue = OpReturnValue.Exception;
-                objReturn.ReturnMessage = ex.Message;
-                objReturn.ReturnStackTrace = ex.StackTrace;
-                objReturn.ReturnErrNum = OpErrNum.Exception;
+                //第一種，儲存在objReturn的屬性中
+                //objReturn.ReturnValue = OpReturnValue.Exception;
+                //objReturn.ReturnMessage = ex.Message;
+                //objReturn.ReturnStackTrace = ex.StackTrace;
+                //objReturn.ReturnErrNum = OpErrNum.Exception;
 
+                //第二種，Log中顯示Exception
                 objLogFile.Log(string.Format("ReturnValue:{0}", OpReturnValue.Exception));
                 objLogFile.Log(string.Format("ReturnMessage:{0}", ex.Message));
                 objLogFile.Log(string.Format("ReturnStackTrace:{0}", ex.StackTrace));
@@ -249,21 +250,22 @@ namespace SchemaNote_11170__2_.Models.DataAccess
             #region  --連線，並找出所有table，存在list中
             try
             {
-                ReturnObject<DataTable> table = DBService.SingleQuery(connectionString, sql_TableDetail);
-                if (table.ReturnValue == OpReturnValue.Correct)
+                objReturn = DBService.SingleQuery(connectionString, sql_TableDetail);
+                if (objReturn.ReturnData.Rows.Count != 0)
                 {
-                    objReturn.ReturnValue = OpReturnValue.Correct;
-                    list_table = table.ReturnData.ToList<DO_TableDetail>().ToList();
+                    list_table = objReturn.ReturnData.ToList<DO_TableDetail>().ToList();
                 }
             }
             catch (Exception ex)
             {
                 #region --植入錯誤訊息
-                objReturn.ReturnValue = OpReturnValue.Exception;
-                objReturn.ReturnMessage = ex.Message;
-                objReturn.ReturnStackTrace = ex.StackTrace;
-                objReturn.ReturnErrNum = OpErrNum.Exception;
+                //第一種，儲存在objReturn的屬性中
+                //objReturn.ReturnValue = OpReturnValue.Exception;
+                //objReturn.ReturnMessage = ex.Message;
+                //objReturn.ReturnStackTrace = ex.StackTrace;
+                //objReturn.ReturnErrNum = OpErrNum.Exception;
 
+                //第二種，Log中顯示Exception
                 objLogFile.Log(string.Format("ReturnValue:{0}", OpReturnValue.Exception));
                 objLogFile.Log(string.Format("ReturnMessage:{0}", ex.Message));
                 objLogFile.Log(string.Format("ReturnStackTrace:{0}", ex.StackTrace));
