@@ -1,4 +1,5 @@
-﻿using System;
+﻿//#define  version_1
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
 using Airiti.Common;
+using Airiti.DataAccess;
 
 namespace SchemaNotes_11168_v2_.Models.Repository.DataAccess.Base
 {
@@ -23,6 +25,18 @@ namespace SchemaNotes_11168_v2_.Models.Repository.DataAccess.Base
             }
             else
             {
+                ReturnObject<string> objDBReturn = DBService.DBConnectionTest(connStrings);
+                if (objDBReturn.ReturnValue == OpReturnValue.Correct)
+                {
+                    IsConnected = true;
+                    return Tuple.Create(IsConnected, connStrings);
+                }
+                else {
+                    IsConnected = false;
+                    connStrings = OpReturnValue.NotCorrect.ToString();
+                    return Tuple.Create(IsConnected, connStrings);
+                }
+#if (version_1)
                 using (SqlConnection conn = new SqlConnection(connStrings))
                 {
                     try
@@ -34,13 +48,14 @@ namespace SchemaNotes_11168_v2_.Models.Repository.DataAccess.Base
                     catch (SqlException ex)
                     {
                         IsConnected = false;
-                        return Tuple.Create(IsConnected,ex.Message);
+                        return Tuple.Create(IsConnected, ex.Message);
                     }
                     finally
                     {
                         conn.Close();
                     }
                 }
+#endif
             }
         }
        public abstract  string TableName { get;  }

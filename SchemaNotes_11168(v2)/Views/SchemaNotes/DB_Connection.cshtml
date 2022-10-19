@@ -1,5 +1,4 @@
-﻿
-@model SchemaNotes_11168_v2_.Models.DO_DBconnection
+﻿@model SchemaNotes_11168_v2_.Models.DO_DBconnection
 
 
 <body>
@@ -14,18 +13,8 @@
             </div>
             <div id="collapseListGroup" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading" aria-expanded="false" style="height: 0px;">
                 <div class="col">
-                    @*<form asp-action="DB_Connection" method="post">
-                            @using (@Html.BeginForm())
-                            {
-                                @:UID @Html.TextBox("uid")
-                                @:PWD @Html.TextBox("pwd")
-                                @:DataBase @Html.TextBox("database")
-                                @:Server @Html.TextBox("server")
-                                <button type="submit" class="btn btn-primary">確認</button>
-                            }
-                        </form>
-                        <h5 style="color:blue">@ViewBag.MyConnectionString</h5>*@
-                    <form asp-action="DB_Connection" method="post">
+   
+                    <form action="DB_Connection" method="post">
                         @Html.DisplayNameFor(model => model.uid)
                         <input id="uid" name="uid" autocomplete="off" />
 
@@ -33,23 +22,27 @@
                         <input id="pwd" name="pwd" autocomplete="off" />
 
                         @Html.DisplayNameFor(model => model.database)
-                        <input id="database" name="database" autocomplete="off" "   />
-
+                        <input id="database" name="database" autocomplete="off" />
                         @Html.DisplayNameFor(model => model.server)
                         <input id="server" name="server" autocomplete="off" />
-                        <button type="submit" class="btn btn-primary">確認</button>
-
+                        <button id="btnSubmit" type="submit" class="btn btn-primary">確認</button>
                         <br />
-                        <button id="defaultConnectedString" style="background-color: lightgray;" type="button" class="btn">自動填寫ConnectionString</button>
-                        @*<br />*@
-
                     </form>
-                    <span id="viewbag" hidden>@ViewBag.MyConnectionString</span>
+
+                    @Html.DisplayName("自動連接 ")
+                    <select id="DefaultConnectedString" value="請選擇">
+                        @foreach (var item in ViewBag.model)
+                        {
+                            <option selected>   @item.Name </option>
+                        }
+                        <option selected="selected" hidden="hidden">請選擇</option>
+                    </select>
                 </div>
             </div>
         </div>
+
         <div class="container body-content">
-            <h2>SchemaNotes information </h2>
+            <h2>SchemaNotes Information </h2>
 
             <hr>
             <br>
@@ -82,29 +75,45 @@
     </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
-        $("#defaultConnectedString").click(function () {
+        $('#DefaultConnectedString').mouseout(function () {
+        var array = JSON.parse('@Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(ViewBag.model))');
+            let name = document.getElementById("DefaultConnectedString").value;
+            if (name != "請選擇") {
+            for (let i = 0; i < array.length; i++) {
+                const dname = array[i].Name;
+                if (dname == name) {
+                    const connectionString = array[i].ConnectionString;
 
-            let dConnectedStrings = $("#viewbag").text();
-            const connectedString = dConnectedStrings.split(";");
-            for (let i = 0; i < connectedString.length; i++) {
-                let a0 = connectedString[i].indexOf("=") + 1;
-                let apex = connectedString[i].substring(0, a0 - 1);
-                switch (apex) {
-                    case "uid":
-                      $("#uid").val(connectedString[i].substring(a0));
-                        break;
-                    case "pwd":
-                        $("#pwd").val(connectedString[i].substring(a0));
-                        break;
-                    case "database":
-                        $("#database").val(connectedString[i].substring(a0));
-                        break;
-                    case "server":
-                        $("#server").val(connectedString[i].substring(a0));
-                        break;
+                    const connectedString = connectionString.split(";");
+                    for (let i = 0; i < connectedString.length; i++) {
+                        let a0 = connectedString[i].indexOf("=") + 1;
+                        let apex = connectedString[i].substring(0, a0 - 1);
+                        switch (apex) {
+                            case "uid":
+                                $("#uid").val(connectedString[i].substring(a0));
+                                break;
+                            case "pwd":
+                                $("#pwd").val(connectedString[i].substring(a0));
+                                break;
+                            case "database":
+                                $("#database").val(connectedString[i].substring(a0));
+                                break;
+                            case "server":
+                                $("#server").val(connectedString[i].substring(a0));
+                                break;
+                        }
+                        $('#btnSubmit').click();
+                    }
+
                 }
+
+            }
             }
         });
-
+        $(document).ready(function () {
+            $("#DefaultConnectedString").html($("#DefaultConnectedString option").sort(function (a, b) {
+                return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+            }));
+        });
     </script>
 </body>
