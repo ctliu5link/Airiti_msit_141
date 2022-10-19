@@ -17,7 +17,6 @@ namespace SchemaNotes_11168_v2_.Models.Commons
 
         public   List<WebConfigConnectionString>getDefaultConnStrings(){
            List<string> names = ConfigurationManager.ConnectionStrings.Cast<ConnectionStringSettings>().Select(v => v.Name).ToList();
-            //string    MyConnectionString = ConfigurationManager.ConnectionStrings["MySchemaNotes"].ConnectionString;
             for (int i = 0; i < names.Count; i++)
             {
                 if (names[i] != "LocalSqlServer")
