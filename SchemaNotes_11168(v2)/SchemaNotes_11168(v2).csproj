@@ -155,6 +155,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Commons\AddOrUpdateConnectionString.cs" />
     <Compile Include="Models\Commons\WebConfigConnectionString.cs" />
     <Compile Include="Models\Repository\DataAccess\Base\DA_Base.cs" />
     <Compile Include="Models\Repository\DataAccess\DA_DBConnection.cs" />
@@ -209,6 +210,7 @@
     <Content Include="Views\SchemaNotes\test.cshtml" />
     <Content Include="Views\SchemaNotes\SchemaNotes_OverView.cshtml" />
     <Content Include="Views\SchemaNotes\Search.cshtml" />
+    <Content Include="Views\SchemaNotes\DeepSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

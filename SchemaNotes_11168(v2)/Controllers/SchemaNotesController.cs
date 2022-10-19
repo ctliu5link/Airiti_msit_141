@@ -75,11 +75,32 @@ namespace SchemaNotes_11168_v2_.Controllers
             else {
 
                 SchemaViewModel VM = new SchemaViewModel();
-
                 SV_SchemaTablesColumns STC = new SV_SchemaTablesColumns();
                 VM = STC.SchemaDetails(vModel);
                 return View(VM);
             }
+
+        }
+        public ActionResult DeepSearch(SearchViewModel vModel) {
+            if (string.IsNullOrEmpty(vModel.ConnString))
+            {
+                return RedirectToAction("DB_Connection");
+            }
+            else if (!string.IsNullOrEmpty(vModel.TableName))
+            {
+                #region get details of table and column from SV by SchemaViewModel
+                SV_SchemaTablesColumns STC = new SV_SchemaTablesColumns();
+                return View(STC.SchemaDetails(vModel.ConnString, vModel.TableName));
+                #endregion
+            }
+            else
+            {
+                SchemaViewModel VM = new SchemaViewModel();
+                SV_SchemaTablesColumns STC = new SV_SchemaTablesColumns();
+                VM = STC.SchemaDeepDetails(vModel);
+                return View(VM);
+            }
+
 
         }
         public ActionResult DB_Connection(DO_DBconnection model)
@@ -91,8 +112,9 @@ namespace SchemaNotes_11168_v2_.Controllers
             WCCS = GWCS.getDefaultConnStrings();
             ViewBag.model = WCCS;
             #endregion
-
-           DA_DBConnection DADBC = new DA_DBConnection(model);
+            AddOrUpdateConnectionString AOCS = new AddOrUpdateConnectionString();
+            AOCS.UpdateSetting("TEST","TEST");
+          DA_DBConnection DADBC = new DA_DBConnection(model);
             DADBC.IsConnectedSever(model);
             if (DADBC.IsConnected == false)
             {

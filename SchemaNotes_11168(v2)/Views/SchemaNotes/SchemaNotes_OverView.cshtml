@@ -34,8 +34,8 @@
                             <span class="panel-title" role="button" data-toggle="collapse" data-parent="#accordion1" href="#@count" aria-expanded="false" aria-controls="collapse1">
                                 <span class="caret"></span>
                                 <strong class="objName">
-                                    <input type="text" name="DASNTList[@count].TableMSDescription" value=@itemTable.TableName disabled />
-                                    @*@itemTable.TableName*@
+                                    <input type="hidden" name="DASNTList[@count].TableName " value=@itemTable.TableName  />
+                                    @itemTable.TableName
                                 </strong>
                             </span>
                             <a class="description text-info" href="@Url.Action("Details", "SchemaNotes" ,new { TableName = itemTable.TableName, ConnString = Model.ConnString })" style="@(itemTable.TableMSDescription=="Null"  ? "color:red" : "color:blue") ">
@@ -130,6 +130,32 @@
     </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
+
+        $(document).ready(function () {
+
+            $("#selectTable").html($("#selectTable option").sort(function (a, b) {
+              return a.text == b.text ? 0 : a.text < b.text ? -1 : 1 
+            }));
+
+            $("#selectColumn").html($("#selectColumn option").sort(function (a, b) { return a.text == b.text ? 0 : a.text < b.text ? -1 : 1 }));
+
+            let select = document.getElementById('selectTable');
+            let option;
+            for (let i = 0; i < select.options.length; i++) {
+                option = select.options[i];
+                if (option.value == 0) { option.setAttribute('hidden', true);}
+            }
+            
+            let select1 = document.getElementById('selectColumn');
+            let option1;
+            for (let j = 0; j < select1.options.length; j++) {
+                option1 = select1.options[j];
+              if (option1.value == 0) { option1.setAttribute('hidden', true); return; }
+            }
+        });
+
+
+        
         $('#selectTable').mouseout(function () {
             let tableSelectVal = document.getElementById("selectTable").value;
             $('#inputTableName').val(tableSelectVal);
