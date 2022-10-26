@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32630.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaNote_11170", "SchemaNote_11170\SchemaNote_11170.csproj", "{74DB160A-536B-4B57-9973-D4D1BEFDB62D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaNote_11170_(2)", "SchemaNote_11170_(2)\SchemaNote_11170_(2).csproj", "{39B9F159-E8A2-4C5C-8531-E89DA27BFC69}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaNote_11169", "SchemaNote_11169\SchemaNote_11169.csproj", "{345EE804-A149-4BEA-96B7-8FF803E0DB28}"
@@ -19,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{74DB160A-536B-4B57-9973-D4D1BEFDB62D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{74DB160A-536B-4B57-9973-D4D1BEFDB62D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{74DB160A-536B-4B57-9973-D4D1BEFDB62D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{74DB160A-536B-4B57-9973-D4D1BEFDB62D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{39B9F159-E8A2-4C5C-8531-E89DA27BFC69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{39B9F159-E8A2-4C5C-8531-E89DA27BFC69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39B9F159-E8A2-4C5C-8531-E89DA27BFC69}.Release|Any CPU.ActiveCfg = Release|Any CPU

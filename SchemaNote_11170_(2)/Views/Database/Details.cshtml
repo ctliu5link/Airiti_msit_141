@@ -15,7 +15,6 @@
 
 
 <div class="container body-content">
-    <h2>Details</h2>
     
     @{
         foreach (var item1 in Model.TableDetail)
@@ -23,18 +22,18 @@
         <form onsubmit="EmptyString('null')" method="post" class="panel panel-default" action="/Database/Details">
             <input name="Connection" type="hidden" value="@Model.Connection" />
             <div class="panel-heading">
-                <stron class="objName">
-                    <input name="TableDetail[0].table_Name" type="hidden" value="@item1.table_Name" />
-                    @item1.table_Name
-                </stron>
-                <sapn ondblclick="ShowElement(this)" class="NoteField" data-name="TableDetail[0].table_Explanation" data-content="table_Explanation" data-column_id="0" data-sortnum="0" data-class="form-control tabMS_Description">
-                    <input type="hidden" name="TableDetail[0].table_Explanation" value="@item1.table_Explanation" />
-                    @item1.table_Explanation
+                <strong class="objName" style="font-size:25px">
+                    <input name="TableDetail[0].資料表名稱" type="hidden" value="@item1.資料表名稱" />
+                    @item1.資料表名稱
+                </strong>
+                <sapn ondblclick="ShowElement(this)" class="NoteField" data-name="TableDetail[0].資料說明" data-content="table_Explanation" data-column_id="0" data-sortnum="0" data-class="form-control tabMS_Description">
+                    <input type="hidden" name="TableDetail[0].資料說明" value="@item1.資料說明" />
+                    @item1.資料說明
                     <span class="field-validation-valid" data-valmsg-for="[0].MS_Description" data-valmsg-replace="true"></span>
                 </sapn>
-                <button type="submit" id="submit" class="btn btn-primary" style="">提交</button>
-                <span class="count" data-toggle="tooltip" data-placement="top" title="注意！此為參考值，非準確值。">
-                    @Html.DisplayNameFor(model => model.Table.table_Count)<strong class="text-info">@item1.table_Count</strong>
+                <button style="margin:5px" type="submit" id="submit" class="btn btn-primary" >提交</button>
+                <span style="float:right" class="count" data-toggle="tooltip" data-placement="top" title="注意！此為參考值，非準確值。">
+                    @Html.DisplayNameFor(model => model.Table.筆數)<strong class="text-info">@item1.筆數</strong>
                 </span>
             </div>
             <div class="panel-body">
@@ -42,47 +41,47 @@
                     <tbody>
                         <tr>
                             <td>
-                                @Html.DisplayNameFor(model => model.Table.table_ObjectType)
+                                @Html.DisplayNameFor(model => model.Table.物件類型)
                             </td>
                             <td>
-                                @item1.table_ObjectType
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                @Html.DisplayNameFor(model => model.Table.table_Struct)
-                            </td>
-                            <td>
-                                <input type="hidden" name="TableDetail[0].table_Struct" value="@item1.table_Struct" />
-                                @item1.table_Struct
+                                @item1.物件類型
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                @Html.DisplayNameFor(model => model.Table.table_CreateDate)
+                                @Html.DisplayNameFor(model => model.Table.結構描述名稱)
                             </td>
                             <td>
-                                @item1.table_CreateDate
+                                <input type="hidden" name="TableDetail[0].結構描述名稱" value="@item1.結構描述名稱" />
+                                @item1.結構描述名稱
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                @Html.DisplayNameFor(model => model.Table.table_ModifyDate)
+                                @Html.DisplayNameFor(model => model.Table.Create_date)
                             </td>
                             <td>
-                                @item1.table_ModifyDate
+                                @item1.Create_date
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => model.Table.Modify_date)
+                            </td>
+                            <td>
+                                @item1.Modify_date
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="tabDetail_right">
                     <div>
-                        @Html.DisplayNameFor(model => model.Table.table_Description)
+                        @Html.DisplayNameFor(model => model.Table.備註)
                     </div>
-                    <div ondblclick="ShowElement(this)" class="NoteField" data-name="TableDetail[0].table_Description" data-content="@item1.table_Description" data-column_id="0" data-sortnum="0" data-class="form-control">
+                    <div ondblclick="ShowElement(this)" class="NoteField" data-name="TableDetail[0].備註" data-content="@item1.備註" data-column_id="0" data-sortnum="0" data-class="form-control">
                         <code>
-                            <input type="hidden" name="TableDetail[0].table_Description" value="@item1.table_Description" />
-                            @item1.table_Description
+                            <input type="hidden" name="TableDetail[0].備註" value="@item1.備註" />
+                            @item1.備註
                         </code>
                         <span class="field-validation-valid" data-valmsg-for="[0].REMARK" data-valmsg-replace="true"></span>
                     </div>
@@ -95,25 +94,25 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.Column.column_Name)
+                            @Html.DisplayNameFor(model => model.Column.欄位名稱)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Column.column_Explanation)
+                            @Html.DisplayNameFor(model => model.Column.欄位說明)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Column.column_DataType)
+                            @Html.DisplayNameFor(model => model.Column.資料型態)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Column.column_PK)
+                            @Html.DisplayNameFor(model => model.Column.主鍵)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Column.column_IsNotNull)
+                            @Html.DisplayNameFor(model => model.Column.不為Null)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Column.column_Default)
+                            @Html.DisplayNameFor(model => model.Column.預設值)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Column.column_Description)
+                            @Html.DisplayNameFor(model => model.Column.備註)
                         </th>
                     </tr>
                 </thead>
@@ -124,17 +123,17 @@
                         <tbody>
                             <tr>
                                 <td rowspan="1">
-                                    <input name="ColumnDetail[@count].column_Name" type="hidden" value="@item2.column_Name" />
-                                    @item2.column_Name
+                                    <input name="ColumnDetail[@count].欄位名稱" type="hidden" value="@item2.欄位名稱" />
+                                    @item2.欄位名稱
                                 </td>
-                                <td ondblclick="ShowElement(this)" class="NoteField" data-name="ColumnDetail[@count].column_Explanation" data-content="@item2.column_Explanation" data-column_id="1" data-sortnum="1" data-class="form-control" rowspan="1">
-                                    <input type="hidden" name="ColumnDetail[@count].column_Explanation" value="@item2.column_Explanation" />
-                                    @item2.column_Explanation
+                                <td ondblclick="ShowElement(this)" class="NoteField" data-name="ColumnDetail[@count].欄位說明" data-content="@item2.欄位說明" data-column_id="1" data-sortnum="1" data-class="form-control" rowspan="1">
+                                    <input type="hidden" name="ColumnDetail[@count].欄位說明" value="@item2.欄位說明" />
+                                    @item2.欄位說明
                                 </td>
                                 <td rowspan="1">
-                                    @item2.column_DataType
+                                    @item2.資料型態
                                 </td>
-                                @if (item2.column_PK == PK主鍵.YES.ToString())
+                                @if (item2.主鍵 == PK主鍵.YES.ToString())
                                 {
                                     <td>
                                         <input checked="checked" class="check-box" disabled="disabled" type="checkbox">
@@ -146,7 +145,7 @@
                                         <input class="check-box" disabled="disabled" type="checkbox">
                                     </td>
                                 }
-                                @if (item2.column_IsNotNull == Null判斷.不為Null.ToString())
+                                @if (item2.不為Null == Null判斷.不為Null.ToString())
                                 {
                                     <td>
                                         <input checked="checked" class="check-box" disabled="disabled" type="checkbox">
@@ -159,11 +158,11 @@
                                     </td>
                                 }
                                 <td>
-                                    @item2.column_Default
+                                    @item2.預設值
                                 </td>
-                                <td ondblclick="ShowElement(this)" class="NoteField" data-name="ColumnDetail[@count].column_Description" data-column_id="5" data-sortnum="5" data-class="form-control">
-                                    <input type="hidden" name="ColumnDetail[@count].column_Description" value="@item2.column_Description" />
-                                    @item2.column_Description
+                                <td ondblclick="ShowElement(this)" class="NoteField" data-name="ColumnDetail[@count].備註" data-column_id="5" data-sortnum="5" data-class="form-control">
+                                    <input type="hidden" name="ColumnDetail[@count].備註" value="@item2.備註" />
+                                    @item2.備註
                                 </td>
                             </tr>
                         </tbody>
@@ -171,7 +170,7 @@
                     }
                 }
             </table>
-            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8Fa3A4DBxnNJj1MDsCOcDshJOycFUGl1BpbEGPCsFmbE8JbR66ZARPaNev9c5tQylohzBinG9vLGPECyncScdAlAlsaIBU9ZgNXMaP2psmRj47yPX61SchwNSrmAj2YEauVo44Mb3s25OYuxIufHECA">
+           
         </form>
         }
     }

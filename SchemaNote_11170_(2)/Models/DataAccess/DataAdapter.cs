@@ -64,31 +64,31 @@ namespace SchemaNote_11170__2_.Models.DataAccess
                 DataSet dataset = new DataSet();
                 DataSet dataset2 = new DataSet();
                 adapter.Fill(dataset);
-                adapter2.Fill(dataset2);
+                adapter2.Fill(dataset);
                 foreach (DataRow datarow in dataset.Tables[0].Rows)
                 {
                     DO_TableDetail table = new DO_TableDetail();
-                    table.table_Name = datarow.Field<string>("資料表名稱");
-                    table.table_Explanation = datarow.Field<string>("資料說明");
-                    table.table_ObjectType = datarow.Field<string>("物件類型");
-                    table.table_Struct = datarow.Field<string>("結構描述名稱");
-                    table.table_CreateDate = datarow.Field<string>("Create_date");
-                    table.table_ModifyDate = datarow.Field<string>("Modify_date");
-                    table.table_Description = datarow.Field<string>("備註");
-                    table.table_Count = datarow.Field<Int64>("筆數").ToString();
+                    table.資料表名稱 = datarow.Field<string>("資料表名稱");
+                    table.資料說明 = datarow.Field<string>("資料說明");
+                    table.物件類型 = datarow.Field<string>("物件類型");
+                    table.結構描述名稱 = datarow.Field<string>("結構描述名稱");
+                    table.Create_date = datarow.Field<string>("Create_date");
+                    table.Modify_date = datarow.Field<string>("Modify_date");
+                    table.備註 = datarow.Field<string>("備註");
+                    table.筆數 = datarow.Field<int>("筆數");
                     list_table.Add(table);
                 }
                 foreach (DataRow datarow in dataset2.Tables[0].Rows)
                 {
                     DO_ColumnDetail table = new DO_ColumnDetail();
-                    table.table_Name = datarow.Field<string>("資料表");
-                    table.column_Name = datarow.Field<string>("欄位名稱");
-                    table.column_Explanation = datarow.Field<string>("欄位說明");
-                    table.column_DataType = datarow.Field<string>("資料型態");
-                    table.column_PK = datarow.Field<string>("主鍵");
-                    table.column_IsNotNull = datarow.Field<string>("不為NULL");
-                    table.column_Default = datarow.Field<string>("預設值");
-                    table.column_Description = datarow.Field<Int64>("備註").ToString();
+                    table.資料表 = datarow.Field<string>("資料表");
+                    table.欄位名稱 = datarow.Field<string>("欄位名稱");
+                    table.欄位說明 = datarow.Field<string>("欄位說明");
+                    table.資料型態 = datarow.Field<string>("資料型態");
+                    table.主鍵 = datarow.Field<string>("主鍵");
+                    table.不為Null = datarow.Field<string>("不為NULL");
+                    table.預設值  = datarow.Field<string>("預設值");
+                    table.備註 = datarow.Field<Int64>("備註").ToString();
                     list_column.Add(table);
                 }
             }

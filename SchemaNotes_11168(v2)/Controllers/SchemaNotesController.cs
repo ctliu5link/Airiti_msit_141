@@ -1,4 +1,6 @@
-﻿using SchemaNotes_11168_v2_.Models;
+﻿
+using SchemaNotes_11168_v2_.Models;
+using SchemaNotes_11168_v2_.Models.Commons;
 using SchemaNotes_11168_v2_.Models.Repository.DataAccess;
 using SchemaNotes_11168_v2_.Models.Services;
 using SchemaNotes_11168_v2_.ViewModels;
@@ -14,7 +16,7 @@ namespace SchemaNotes_11168_v2_.Controllers
 {
     public class SchemaNotesController : Controller
     {
-        public ActionResult SchemaNotesDetails(String ConnString)
+        public ActionResult SchemaNotes_OverView(String ConnString)
         {
             if (string.IsNullOrEmpty(ConnString))
             {
@@ -23,7 +25,6 @@ namespace SchemaNotes_11168_v2_.Controllers
             else
             {
                 #region get details of table and column from SV by SchemaViewModel
-                ViewBag.ConnString = ConnString;
                 SV_SchemaTablesColumns STC = new SV_SchemaTablesColumns();
                 return View(STC.SchemaDetails(ConnString));
                 #endregion
@@ -37,9 +38,9 @@ namespace SchemaNotes_11168_v2_.Controllers
             else
             {
                 #region get details of table and column from SV by SchemaViewModel
-                ViewBag.ConnString = viewModel.ConnString;
                 SV_SchemaTablesColumns STC = new SV_SchemaTablesColumns();
-                return View(STC.SchemaDetails(viewModel.ConnString,viewModel.TableName));
+                SchemaViewModel vModel = STC.SchemaDetails(viewModel.ConnString, viewModel.TableName);
+                return View(vModel);
                 #endregion
             }
         }
@@ -59,15 +60,62 @@ namespace SchemaNotes_11168_v2_.Controllers
         [HttpPost]
         public ActionResult Edit(SchemaViewModel vModel) {
             SV_SchemaTablesColumns SV_STC = new SV_SchemaTablesColumns();
-              bool value= SV_STC.SchemaEdit(vModel);
-            return RedirectToAction("SchemaNotesDetails", new { ConnString = vModel.ConnString });
+             SV_STC.SchemaEdit(vModel);
+            return RedirectToAction("Details", vModel);
+        }
+        public ActionResult Search(SearchViewModel vModel) {
+            if (string.IsNullOrEmpty(vModel.ConnString)) {
+                return RedirectToAction("DB_Connection"); }
+            else if (!string.IsNullOrEmpty(vModel.TableName)) {
+                #region get details of table and column from SV by SchemaViewModel
+                SV_SchemaTablesColumns STC = new SV_SchemaTablesColumns();
+                return View(STC.SchemaDetails(vModel.ConnString,vModel.TableName));
+                #endregion
+                }
+            else {
+
+                SchemaViewModel VM = new SchemaViewModel();
+                SV_SchemaTablesColumns STC = new SV_SchemaTablesColumns();
+                VM = STC.SchemaDetails(vModel);
+                return View(VM);
+            }
+
+        }
+        public ActionResult DeepSearch(SearchViewModel vModel) {
+            if (string.IsNullOrEmpty(vModel.ConnString))
+            {
+                return RedirectToAction("DB_Connection");
+            }
+            else if (!string.IsNullOrEmpty(vModel.TableName))
+            {
+                #region get details of table and column from SV by SchemaViewModel
+                SV_SchemaTablesColumns STC = new SV_SchemaTablesColumns();
+                return View(STC.SchemaDetails(vModel.ConnString, vModel.TableName));
+                #endregion
+            }
+            else
+            {
+                SchemaViewModel VM = new SchemaViewModel();
+                SV_SchemaTablesColumns STC = new SV_SchemaTablesColumns();
+                VM = STC.SchemaDeepDetails(vModel);
+                return View(VM);
+            }
+
+
         }
         public ActionResult DB_Connection(DO_DBconnection model)
         {
-            DA_DBConnection DADBC = new DA_DBConnection(model);
+            
+            #region get the default settings of connectionString from webconfiguration
+            getWebConnectionString GWCS = new getWebConnectionString();
+            List<WebConfigConnectionString> WCCS = new List<WebConfigConnectionString>();
+            WCCS = GWCS.getDefaultConnStrings();
+            ViewBag.model = WCCS;
+            #endregion
+            AddOrUpdateConnectionString AOCS = new AddOrUpdateConnectionString();
+            AOCS.UpdateSetting("TEST","TEST");
+          DA_DBConnection DADBC = new DA_DBConnection(model);
             DADBC.IsConnectedSever(model);
-            ViewBag.MyConnectionString = ConfigurationManager.ConnectionStrings["MySchemaNotes"].ConnectionString;
-            //ViewBag.MyConnectionString = ConfigurationManager.ConnectionStrings["MyHOME"].ConnectionString;
             if (DADBC.IsConnected == false)
             {
                 if (DADBC.IsConnstrings == false && DADBC.connStrings == "New")
@@ -76,13 +124,13 @@ namespace SchemaNotes_11168_v2_.Controllers
                 }
                 else
                 {
-                    MessageBox.Show(DADBC.connStrings);
+                    MessageBox.Show(DADBC.connStrings+"連接失敗");
                     return View();
                 }
             }
             else
             {
-              return RedirectToAction("SchemaNotesDetails", new { ConnString =DADBC.connStrings });
+              return RedirectToAction("SchemaNotes_OverView", new { ConnString =DADBC.connStrings });
             }
         }
         public ActionResult test()

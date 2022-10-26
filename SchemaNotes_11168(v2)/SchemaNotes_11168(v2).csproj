@@ -63,6 +63,9 @@
     <Reference Include="CommonServiceLocator.SolrNet, Version=1.0.19.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SolrNet.1.0.19\lib\net46\CommonServiceLocator.SolrNet.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -144,11 +147,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -157,6 +155,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Commons\AddOrUpdateConnectionString.cs" />
+    <Compile Include="Models\Commons\WebConfigConnectionString.cs" />
     <Compile Include="Models\Repository\DataAccess\Base\DA_Base.cs" />
     <Compile Include="Models\Repository\DataAccess\DA_DBConnection.cs" />
     <Compile Include="Models\Repository\DataAccess\DA_SchemaNotesColumn.cs" />
@@ -166,8 +166,8 @@
     <Compile Include="Models\Repository\DataObject\DO_SchemaNotesTable.cs" />
     <Compile Include="Models\Services\SV_SchemaTablesColumns.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\SchemaEditViewModel.cs" />
     <Compile Include="ViewModels\SchemaViewModel.cs" />
+    <Compile Include="ViewModels\SearchViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -203,12 +203,14 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\SchemaNotes\SchemaNotesDetails.cshtml" />
     <Content Include="Views\SchemaNotes\DB_Connection.cshtml" />
     <Content Include="Views\SchemaNotes\Details.cshtml" />
     <Content Include="Views\Home\test.cshtml" />
     <Content Include="Views\SchemaNotes\Edit.cshtml" />
     <Content Include="Views\SchemaNotes\test.cshtml" />
+    <Content Include="Views\SchemaNotes\SchemaNotes_OverView.cshtml" />
+    <Content Include="Views\SchemaNotes\Search.cshtml" />
+    <Content Include="Views\SchemaNotes\DeepSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

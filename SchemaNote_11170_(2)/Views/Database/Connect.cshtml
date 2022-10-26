@@ -29,9 +29,13 @@
                             }
                         </div>
                         
-                        <button style="color: darkgray; background-color: lightgray;" type="button" class="btn" onclick="$('#ConnectionString').val('Server=.;Database=AdventureWorks;Trusted_Connection=True')">自動填寫ConnectionString</button>
-                        <button style="color: transparent; background-color: transparent;" type="button" class="btn" onclick="$('#ConnectionString').val('Server=linkliu.hopto.org;Initial Catalog=AdventureWorks;User ID=sa;Password=1234')">自動填寫ConnectionString</button>
-                        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8Fa3A4DBxnNJj1MDsCOcDsj4MQoW4bZXH7R5l6V9cra8s-V7neQpyeIkh75Gnqhu5ejyONM3JpxL7XSORIAC3OnP0bwYHxcpUhgIQdX7tM70S67nrYBpvLByHAAkkYB_0hRjmdEf1Su-30IoSJp5QQQ">
+                        <button style=" background-color: lightgray;" type="button" class="btn" onclick="ConnectionString()">自動填寫ConnectionString</button>
+                        <select id="connect" title="請選擇" class="btn btn-primary" >
+                            <option value="0">Robert(自己)</option>
+                            <option value="1">Link</option>
+                            <option value="2">Charles(周大哥)</option>
+                            <option value="3">JasonChen(昱瑋)</option>
+                        </select>
                     </form>
 
                 </div>
@@ -42,7 +46,6 @@
 @*============================================下半部===========================================*@
 <div class="container body-content">
     <h2>Index</h2>
-
     <hr>
     <br>
     <ul>
@@ -71,3 +74,45 @@
         <p>© 2019 - SchemaNote (Version: 0.1.3)</p>
     </footer>
 </div>
+
+<script>
+    var select = document.getElementById("connect");
+    select.addEventListener("change", change);
+
+    function ConnectionString() {
+        $("#uid").val("sa");
+        $("#pwd").val("1234");
+        $("#database").val("TestRepo");
+        $("#server").val("192.168.203.101");
+    }
+    
+    function change() {
+        var optValue = select.value;
+        console.log(optValue);
+        if (optValue == 0) {
+            $("#uid").val("sa");
+            $("#pwd").val("1234");
+            $("#database").val("TestRepo");
+            $("#server").val("192.168.203.101");
+        }
+        else if (optValue == 1) {
+            $("#uid").val("sa");
+            $("#pwd").val("1111");
+            $("#database").val("TestRepo");
+            $("#server").val("192.168.221.33");
+        }
+        else if (optValue == 2) {
+            $("#uid").val("sa");
+            $("#pwd").val("1234");
+            $("#database").val("TestRepo");
+            $("#server").val("192.168.203.170");
+        }
+        else if (optValue == 3) {
+            $("#uid").val("sa");
+            $("#pwd").val("1234");
+            $("#database").val("TestRepo");
+            $("#server").val("192.168.203.154");
+        }
+    }
+
+</script>
