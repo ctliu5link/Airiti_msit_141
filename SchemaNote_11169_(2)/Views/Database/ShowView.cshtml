@@ -15,237 +15,241 @@
     <div class="panel-group accordion" id="accordion1" role="tablist" aria-multiselectable="true">
 
         <div class="panel panel-default ">
+            <form method="post" action="/Database/SaveSql">
+                @{
+                    int c = 1;
 
-
-            @{
-                int c = 1;
-
-                foreach (var b in Model.TableDetailListViewModel)
-                {
-                    if (b.物件名稱 == Model.table)
+                    foreach (var b in Model.TableDetailListViewModel)
                     {
+                        if (b.物件名稱 == Model.table)
+                        {
 
-                        c++;
-                        <div class="panel-heading" role="tab">
-                            <span class="panel-title" role="button" data-toggle="collapse" data-parent="#accordion1" href="#@c" aria-expanded="false" aria-controls="collapse1">
-                                <span class="caret"></span>
-                                <strong class="objName">
-                                    @b.物件名稱
-                                </strong>
-                            </span>
-                            <a class="description text-info" href="/Home/Details/85575343">
-                                <code>
-                                    @b.物件說明
-                                </code>
-                            </a>
-                            <span class="count" data-toggle="tooltip" data-placement="top" title="" data-original-title="注意！此為參考值，非準確值。">
-                                筆數:<strong class="text-info">@b.總筆數</strong>
-                            </span>
+                            c++;
 
-                            <button type="button" id="buttonsubmit" hidden onclick="submitevent()">提交</button>
-                        </div>
+                            <div class="panel-heading" role="tab">
+                                <span class="panel-title" role="button" data-toggle="collapse" data-parent="#accordion1" href="#@c" aria-expanded="false" aria-controls="collapse1">
+                                    <span class="caret"></span>
+                                    <strong class="objName">
+                                        <input name="TableDetailListViewModel[0].物件名稱" value="@b.物件名稱" hidden>
+                                        @b.物件名稱
+                                    </strong>
+                                </span>
+                                    <input id="tablescriptioninput_@c" hidden name="TableDetailListViewModel[0].物件說明"value="@b.物件說明">
+                                    <lable id="tablescriptionlable_@c" ondblclick="changtablescriptionSQL('@c')">
+                                        @b.物件說明
+                                    </lable>
+                                <span class="count" data-toggle="tooltip" data-placement="top" title="" data-original-title="注意！此為參考值，非準確值。">
+                                    筆數:<strong class="text-info">@b.總筆數</strong>
+                                </span>
 
-                        <div id="@c" class="panel-body panel-collapse collapse tabDetail" role="tabpanel">
+                                <button type="submit">提交</button>
+                            </div>
 
-                            <table class="tabDetail_left">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            物件類型
-                                        </td>
+                            <div id="@c" class="panel-body panel-collapse collapse tabDetail" role="tabpanel">
 
-
-                                        <td>
-                                            @b.物件類型
-                                        </td>
+                                <table class="tabDetail_left">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                物件類型
+                                            </td>
 
 
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            結構描述名稱
-                                        </td>
-                                        <td>
-                                            @b.結構描述名稱
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            物件創建日期
-                                        </td>
-                                        <td>
-                                            @b.物件創造日期
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            物件修改日期
-                                        </td>
-                                        <td>
-                                            @b.物件修改日期
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="tabDetail_right">
-                                <div>
-                                    備註
-                                </div>
-                                <div>
-                                    <a class="remark text-info" href="/Home/Details/85575343">
-                                        <code>
-                                            @b.備註
-                                        </code>
-                                    </a>
+                                            <td>
+                                                @b.物件類型
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                結構描述名稱
+                                            </td>
+                                            <td>
+                                                <input name="TableDetailListViewModel[0].結構描述名稱" value="@b.結構描述名稱" hidden>
+                                                @b.結構描述名稱
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                物件創建日期
+                                            </td>
+                                            <td>
+                                                @b.物件創造日期
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                物件修改日期
+                                            </td>
+                                            <td>
+                                                @b.物件修改日期
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="tabDetail_right">
+                                    <div>
+                                        備註
+                                    </div>
+                                    <div>
+                                        <input id="tableremarkinput_@c" hidden name="TableDetailListViewModel[0].備註" value="@b.備註">
+                                        <lable id="tableremarklable_@c" ondblclick="changtableremarkSQL('@c')">
+                                                @b.備註
+                                        </lable>    
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <table class="table table-bordered table-hover subTable" border="1">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        欄位名稱
-                                    </th>
-                                    <th>
-                                        欄位說明
-                                    </th>
-                                    <th>
-                                        資料型態
-                                    </th>
-                                    <th>
-                                        主鍵
-                                    </th>
-                                    <th>
-                                        不為Null
-                                    </th>
-                                    <th>
-                                        預設值
-                                    </th>
-                                    <th>
-                                        備註
-                                    </th>
-                                </tr>
-                            </thead>
-                            @{
-                                List<DO_ColumnDetail> tableDetails = new List<DO_ColumnDetail>();
-                                DO_ColumnDetail columnDetail = new DO_ColumnDetail();
-
-                                int d = 1;
-                                foreach (var a in Model.ColumnDetailListViewModel)
-                                {
-                                    if (b.物件名稱 == a.資料表)
+                            <table class="table table-bordered table-hover subTable" border="1">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            欄位名稱
+                                        </th>
+                                        <th>
+                                            欄位說明
+                                        </th>
+                                        <th>
+                                            資料型態
+                                        </th>
+                                        <th>
+                                            主鍵
+                                        </th>
+                                        <th>
+                                            不為Null
+                                        </th>
+                                        <th>
+                                            預設值
+                                        </th>
+                                        <th>
+                                            備註
+                                        </th>
+                                    </tr>
+                                </thead>
+                                @{
+                                    int d = -1;
+                                    foreach (var a in Model.ColumnDetailListViewModel)
                                     {
-                                        d++;
-                                        columnDetail.欄位名稱 = a.欄位名稱;
-                                        columnDetail.欄位說明 = a.欄位說明;
-                                        columnDetail.資料型態 = a.資料型態;
-                                        
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <span class="colName">
-                                                        @a.欄位名稱
-                                                    </span>
-                                                </td>
-                                                <td>
+                                        if (b.物件名稱 == a.資料表)
+                                        {
+                                            d++;
 
-                                                    <label id="descriptionlable_@d" ondblclick="changdescriptionSQL('@d')">
-                                                        @a.欄位說明
-                                                    </label>
-                                                    <input type="text" id="descriptioninput_@d" hidden>
-                                                </td>
-                                                <td>
-                                                    @a.資料型態
-                                                </td>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                     <span class="colName">
+                                                     <input name="ColumnDetailListViewModel[@d].欄位名稱" value="@a.欄位名稱" hidden>
+                                                     @a.欄位名稱
+                                                     </span>
+                                                    </td>
+                                                    <td>
+                                                        <input hidden name="ConnectionString" value="@Model.ConnectionString">
+                                                        <input type="text" id="columndescriptioninput_@d" hidden name="ColumnDetailListViewModel[@d].欄位說明" value="@a.欄位說明">
+                                                        <label id="columndescriptionlable_@d" ondblclick="changcolumndescriptionSQL('@d')">
+                                                            @a.欄位說明
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        @a.資料型態
+                                                    </td>
 
-                                                <td>
-                                                    @if (a.主鍵 == "1")
-                                                    {
-                                                        <input checked="checked" class="check-box" disabled="disabled" type="checkbox">
-                                                        @*@columnDetail.主鍵=1;*@
-                }
-                else
-                {
-                    <input class="check-box" disabled="disabled" type="checkbox">
-                    @*@columnDetail.主鍵= 0;*@
-}
-                                                </td>
-                                                <td>
-                                                    @if (a.不為NULL != "YES")
-                                                    {
-                                                        <input checked="checked" class="check-box" disabled="disabled" type="checkbox">
-                                                        @*@columnDetail.不為NULL= "NO";*@
-            }
-            else
-            {
-                <input class="check-box" disabled="disabled" type="checkbox">
-                @*@columnDetail.不為NULL= "YES";*@
-}
-                                                </td>
-                                                <td>
-                                                    <span class="colName">
-                                                        @a.預設值
-                                                        
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <label id="remarklable_@d" ondblclick="changremarkSQL('@d')">
-                                                        @a.備註
-                                                        @*@tableDetails.Add(columnDetail)*@
-                                                    </label>
-                                                    <input type="text" id="remarkinput_@d" hidden>
-                                                </td>
-                                            </tr>
+                                                    <td>
+                                                        @if (a.主鍵 == "1")
+                                                        {
+                                                            <input checked="checked" class="check-box" disabled="disabled" type="checkbox">
 
-                                        </tbody>
+                                                        }
+                                                        else
+                                                        {
+                                                            <input class="check-box" disabled="disabled" type="checkbox">
+
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @if (a.不為NULL != "YES")
+                                                        {
+                                                            <input checked="checked" class="check-box" disabled="disabled" type="checkbox">
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <input class="check-box" disabled="disabled" type="checkbox">
+
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        <span class="colName">
+                                                            @a.預設值
+
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="columnremarkinput_@d" hidden name="ColumnDetailListViewModel[@d].備註" value="@a.備註">
+                                                        <label id="columnremarklable_@d" ondblclick="changcolumnremarkSQL('@d')">
+                                                            @a.備註
+                                                        </label>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+
+                                        }
 
                                     }
-
                                 }
-                            }
-                        </table>
+                            </table>
 
+                        }
                     }
+
                 }
+            </form>
+                    </div>
+                    
+                </div>
+
+
+
+
+                <hr>
+                <footer>
+                    <p>© 2019 - SchemaNote (Version: 0.1.3)</p>
+                </footer>
+            </div>
+            
+            @section Scripts{
+                <script>
+                    function changcolumndescriptionSQL(d) {
+                        var remarklableval = $("#columndescriptionlable_" + d).text();
+                        console.log(remarklableval);
+                        $('#columndescriptionlable_' + d).attr('hidden', true);
+                        $('#columndescriptioninput_' + d).attr('hidden', false);
+                        $('#columndescriptioninput_' + d).val($.trim(remarklableval))
+                    }
+
+                    function changcolumnremarkSQL(d) {
+                        var columndescriptionval = $("#columnremarklable_" + d).text();
+                        $('#columnremarklable_' + d).attr('hidden', true);
+                        $('#columnremarkinput_' + d).attr('hidden', false);
+                        $('#columnremarkinput_' + d).val($.trim(columndescriptionval))
+                    }
+
+                    function changtablescriptionSQL(c)
+                    {
+                        var tablescriptionval = $("#tablescriptionlable_" + c).text();
+                        $('#tablescriptionlable_' + c).attr('hidden', true);
+                        $('#tablescriptioninput_' + c).attr('hidden', false);
+                        $('#tablescriptioninput_' + c).val($.trim(tablescriptionval));
+                    }
+
+                    function changtableremarkSQL(c)
+                    {
+                        var tableremarkval = $('#tableremarklable_' + c).text();
+                        $('#tableremarklable_' + c).attr('hidden', true);
+                        $('#tableremarkinput_' + c).attr('hidden', false);
+                        $('#tableremarkinput_' + c).val($.trim(tableremarkval));
+                    }
+                </script>
+
             }
-        </div>
-
-    </div>
-
-
-
-
-    <hr>
-    <footer>
-        <p>© 2019 - SchemaNote (Version: 0.1.3)</p>
-    </footer>
-</div>
-
-@section Scripts{
-    <script>
-        function changremarkSQL(d) {
-            var remarklableval = $("#remarklable_" + d).text();
-            console.log(remarklableval);
-            $('#remarklable_' + d).attr('hidden', true);
-            $('#remarkinput_' + d).attr('hidden', false);
-            $('#remarkinput_' + d).val($.trim(remarklableval))
-            $('#buttonsubmit').attr('hidden', false);
-        }
-
-        function changdescriptionSQL(d) {
-            var descriptionlableval = $("#descriptionlable_" + d).text();
-            $('#descriptionlable_' + d).attr('hidden', true);
-            $('#descriptioninput_' + d).attr('hidden', false);
-            $('#descriptioninput_' + d).val($.trim(descriptionlableval))
-            $('#buttonsubmit').attr('hidden', false);
-        }
-
-        function submitevent() {
-
-        }
-
-
-    </script>
-
-}

@@ -47,7 +47,7 @@
                                 @b.物件名稱
                             </strong>
                         </span>
-                        <a class="description text-info" href="/Home/Details/85575343">
+                        <a class="description text-info" href="/Database/ShowView?table=@b.物件名稱&sql=@Model.ConnectionString">
                             <code>
                                 @b.物件說明
                             </code>
@@ -104,7 +104,7 @@
                                 備註
                             </div>
                             <div>
-                                <a class="remark text-info" href="/Home/Details/85575343">
+                                <a class="description text-info" href="/Database/ShowView?table=@b.物件名稱&sql=@Model.ConnectionString">
                                     <code>
                                         @b.備註
                                     </code>
@@ -152,7 +152,7 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <a class="description text-info" href="/Database/ShowView?table=@a.資料表&sql=@Model.ConnectionString">
+                                            <a class="description text-info" href="/Database/ShowView?table=@b.物件名稱&sql=@Model.ConnectionString">
                                                 <code>
                                                     @a.欄位說明
                                                 </code>
@@ -188,7 +188,7 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <a class="remark text-info" href="/Database/ShowView?table=@a.資料表&sql=@Model.ConnectionString">
+                                            <a class="remark text-info" href="/Database/ShowView?table=@b.物件名稱&sql=@Model.ConnectionString">
                                                 <code>
                                                     @a.備註
                                                 </code>

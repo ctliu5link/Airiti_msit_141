@@ -21,7 +21,7 @@ namespace SchemaNote_11169__2_.Models.DataAccess
                 cn.Open();
                 SqlCommand command = new SqlCommand(@"SELECT ISC.TABLE_NAME AS [資料表], 
        SC.name AS[A.欄位名稱],
-       SE1.value AS[B.欄位說明],
+       isnull(SE1.value,'null') AS[B.欄位說明],
        ISC.DATA_TYPE + '(' + CONVERT(VARCHAR, ISC.CHARACTER_MAXIMUM_LENGTH) + ')' AS[C.資料型態],
        CASE
            WHEN ISK.CONSTRAINT_NAME IS NULL
@@ -30,7 +30,7 @@ namespace SchemaNote_11169__2_.Models.DataAccess
        END AS[D.主鍵],
        ISC.IS_NULLABLE AS[E.不為NULL],
        ISC.COLUMN_DEFAULT AS[F.預設值],
-       SE.value AS[G.備註]
+       isnull(SE.value,'null') AS[G.備註]
 FROM sys.columns AS SC
      LEFT JOIN sys.objects SO ON SO.object_id = SC.object_id
      LEFT JOIN sys.extended_properties SE ON SE.minor_id = SC.column_id
@@ -54,7 +54,7 @@ ORDER BY SC.column_id; ", cn);
                 {
                     DO_ColumnDetail a = new DO_ColumnDetail();
                     a.不為NULL = $"{dataReader["E.不為NULL"]}";
-                    a.備註 = $"{dataReader["G.備註"]}";
+                    a.備註 = dataReader["G.備註"].ToString();
                     a.欄位名稱 = $"{dataReader["A.欄位名稱"]}";
                     a.欄位說明 = $"{dataReader["B.欄位說明"]}";
                     a.資料型態 = $"{dataReader["C.資料型態"]}";

@@ -12,7 +12,7 @@ namespace SchemaNote_11169__2_.Models.DataAccess
     public class DA_ShowView
     {
         public ConnectionViewModel connectionViewModel(string table,string sql)
-        { 
+        {
         ConnectionViewModel connectionViewModel = new ConnectionViewModel();
         List<DO_ColumnDetail> DoColumn = new List<DO_ColumnDetail>();
         List<DO_TableDetail> DoTable = new List<DO_TableDetail>();
@@ -20,36 +20,34 @@ namespace SchemaNote_11169__2_.Models.DataAccess
         {
        SqlConnection cn = new SqlConnection(sql);
        cn.Open();
-       SqlCommand command = new SqlCommand(@"SELECT ISC.TABLE_NAME AS [資料表], 
-       SC.name AS[A.欄位名稱],
-       SE1.value AS[B.欄位說明],
-       ISC.DATA_TYPE + '(' + CONVERT(VARCHAR, ISC.CHARACTER_MAXIMUM_LENGTH) + ')' AS[C.資料型態],
-       CASE
-           WHEN ISK.CONSTRAINT_NAME IS NULL
-           THEN 0
-           ELSE 1
-       END AS[D.主鍵],
-       ISC.IS_NULLABLE AS[E.不為NULL],
-       ISC.COLUMN_DEFAULT AS[F.預設值],
-       SE.value AS[G.備註]
-FROM sys.columns AS SC
-     LEFT JOIN sys.objects SO ON SO.object_id = SC.object_id
-     LEFT JOIN sys.extended_properties SE ON SE.minor_id = SC.column_id
-                                             AND SE.major_id = SO.object_id
-                                             AND SE.name = 'REMARK'
-     LEFT JOIN sys.extended_properties SE1 ON SE1.minor_id = SC.column_id
-                                              AND SE1.major_id = SO.object_id
-                                              AND SE1.name = 'MS_Description'
-     LEFT JOIN INFORMATION_SCHEMA.COLUMNS AS ISC ON ISC.COLUMN_NAME = SC.name
-                                                    AND ISC.TABLE_NAME = SO.name
-     LEFT JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS ISK ON ISK.TABLE_NAME = SO.name
-                                                             AND SC.name = ISK.COLUMN_NAME
-WHERE OBJECT_NAME(SO.object_id) IN
-(
-    SELECT TABLE_NAME
-    FROM INFORMATION_SCHEMA.TABLES
-)
-ORDER BY SC.column_id; ", cn);
+                string sqltable = "SELECT ISC.TABLE_NAME AS[資料表]," +
+       "SC.name AS[A.欄位名稱]," +
+       "isnull(SE1.value, 'null') AS[B.欄位說明]," +
+       "ISC.DATA_TYPE + '(' + CONVERT(VARCHAR, ISC.CHARACTER_MAXIMUM_LENGTH) + ')' AS[C.資料型態]," +
+       "CASE " +
+           " WHEN ISK.CONSTRAINT_NAME IS NULL " +
+           " THEN 0 " +
+           " ELSE 1 " +
+       " END AS[D.主鍵]," +
+       " ISC.IS_NULLABLE AS[E.不為NULL]," +
+       " ISC.COLUMN_DEFAULT AS[F.預設值]," +
+       " isnull(SE.value, 'null') AS[G.備註] " +
+" FROM sys.columns AS SC " +
+     " LEFT JOIN sys.objects SO ON SO.object_id = SC.object_id " +
+     " LEFT JOIN sys.extended_properties SE ON SE.minor_id = SC.column_id " +
+                                             " AND SE.major_id = SO.object_id " +
+                                             " AND SE.name = 'REMARK' " +
+     " LEFT JOIN sys.extended_properties SE1 ON SE1.minor_id = SC.column_id " +
+                                              " AND SE1.major_id = SO.object_id " +
+                                              " AND SE1.name = 'MS_Description'" +
+     " LEFT JOIN INFORMATION_SCHEMA.COLUMNS AS ISC ON ISC.COLUMN_NAME = SC.name " +
+                                                    " AND ISC.TABLE_NAME = SO.name " +
+     " LEFT JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS ISK ON ISK.TABLE_NAME = SO.name " +
+                                                             " AND SC.name = ISK.COLUMN_NAME " +
+$" WHERE OBJECT_NAME(SO.object_id) = '{table}'" +
+" ORDER BY SC.column_id ";
+
+                SqlCommand command = new SqlCommand(sqltable, cn);
         SqlDataReader dataReader = command.ExecuteReader();
                 while (dataReader.Read())
                 {
@@ -71,14 +69,14 @@ ORDER BY SC.column_id; ", cn);
 @"SELECT CASE SO.type
            WHEN 'U'
            THEN '資料表'
-       END AS [物件類型], 
-       ISNULL(SEp1.value, 'null') AS [備註], 
-       ISNULL(SEp.value, 'null') AS [物件說明], 
-       IST.TABLE_SCHEMA AS [結構描述名稱], 
-       IST.TABLE_NAME AS [物件名稱], 
-       CONVERT(VARCHAR(10), SO.create_date, 120) AS [物件創造日期], 
-       CONVERT(VARCHAR(10), SO.modify_date, 120) AS [物件修改日期], 
-       st.Total_Rows AS [總筆數]
+       END AS[物件類型],
+       ISNULL(SEp1.value, 'null') AS[備註],
+       ISNULL(SEp.value, 'null') AS[物件說明],
+       IST.TABLE_SCHEMA AS[結構描述名稱],
+       IST.TABLE_NAME AS[物件名稱],
+       CONVERT(VARCHAR(10), SO.create_date, 120) AS[物件創造日期],
+       CONVERT(VARCHAR(10), SO.modify_date, 120) AS[物件修改日期],
+       st.Total_Rows AS[總筆數]
 FROM INFORMATION_SCHEMA.TABLES AS IST
      LEFT JOIN
 (
@@ -101,7 +99,7 @@ FROM INFORMATION_SCHEMA.TABLES AS IST
 ) sep1 ON sep1.major_id = so.object_id
      LEFT JOIN
 (
-    SELECT OBJECT_NAME(object_id) tablename, 
+    SELECT OBJECT_NAME(object_id) tablename,
            Total_Rows = SUM(st.row_count)
     FROM sys.dm_db_partition_stats st
     WHERE OBJECT_NAME(object_id) IN
@@ -109,9 +107,10 @@ FROM INFORMATION_SCHEMA.TABLES AS IST
         SELECT TABLE_NAME
         FROM INFORMATION_SCHEMA.TABLES
     )
-          AND (index_id < 2)
+          AND(index_id < 2)
     GROUP BY OBJECT_NAME(object_id)
-) st ON st.tablename = so.name;", cn);
+) st ON st.tablename = so.name "+
+$"WHERE OBJECT_NAME(so.object_id) = '{table}'", cn);
 
 
     SqlDataReader dataReader2 = command2.ExecuteReader();

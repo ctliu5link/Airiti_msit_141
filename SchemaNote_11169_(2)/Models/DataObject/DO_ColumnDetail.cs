@@ -7,7 +7,13 @@ namespace SchemaNote_11169__2_.Models.DataObject
 {
     public class DO_ColumnDetail
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public string 主鍵 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public string 欄位名稱 { get; set; }
         public string 欄位說明 { get; set; }
         public string 資料型態 { get; set; }
