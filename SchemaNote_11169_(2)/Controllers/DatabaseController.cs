@@ -178,6 +178,74 @@ namespace SchemaNote_11169__2_.Controllers
 
             #endregion
 
+            #region [column][備註] 新刪修
+            for (int i = 0; i < do_column.Count; i++)
+            {
+                Input_Column_MS_Description = do_column[i].欄位說明;
+                Input_Column_REMARK = do_column[i].備註;
+                Column_Name = do_column[i].欄位名稱;
+
+                #region [Column][備註]刪除
+                if (string.IsNullOrEmpty(Input_Column_REMARK))
+                {
+                    if ((do_columns[i].備註) != "null")
+                    {
+                        Sql_Column_REMARK =
+                        $"EXEC sp_dropextendedproperty " +
+                        $"@name=N'REMARK'," +//todo
+                        $"@level0type=N'SCHEMA', @level0name=N'{Input_SCHEMA}'," +
+                        $"@level1type = N'TABLE', @level1name=N'{Input_TableName}'," +
+                        $"@level2type=N'COLUMN', @level2name = N'{Column_Name}';";
+                    }
+                    else
+                    {
+                        //不做事
+                    }
+                }
+                #endregion
+                #region[Column][備註]新增修改
+                else
+                {
+                    if ((do_columns[i].備註) == "null")
+                    {
+                        Sql_Column_REMARK =
+                        $"EXEC sys.sp_addextendedproperty " +
+                        $"@name=N'REMARK',@value=N'{Input_Column_REMARK}'," +
+                        $"@level0type=N'SCHEMA', @level0name=N'{Input_SCHEMA}'," +
+                        $"@level1type = N'TABLE', @level1name=N'{Input_TableName}'," +
+                        $"@level2type=N'COLUMN', @level2name = N'{Column_Name}';";
+                    }
+                    else
+                    {
+                        Sql_Column_REMARK =
+                        $"EXEC sp_updateextendedproperty " +
+                        $"@name=N'REMARK',@value=N'{Input_Column_REMARK}'," +
+                        $"@level0type=N'SCHEMA', @level0name=N'{Input_SCHEMA}'," +
+                        $"@level1type = N'TABLE', @level1name=N'{Input_TableName}'," +
+                        $"@level2type=N'COLUMN', @level2name = N'{Column_Name}';";
+                    }
+                }
+                #endregion
+                #region column_REMARK之sql更改資料庫
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection(model.ConnectionString))
+                    {
+                        conn.Open();
+                        SqlCommand command1 = new SqlCommand(Sql_Column_REMARK, conn);
+                        command1.ExecuteNonQuery();
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                #endregion
+            }
+
+            #endregion
+
             #region [table][物件說明] 新刪修
             if (string.IsNullOrEmpty(Input_Table_MS_Description))
             {
